@@ -22,27 +22,11 @@ G1 X32 Y135 ; Move to Position 2
 G1 Z0
 M0 ; Pause print
 G1 Z10 ; Lift Z axis
-G1 X202 Y135 ; Move to Position 3
+G1 X135 Y135 ; Move to Position 3
 G1 Z0
 M0 ; Pause print
 G1 Z10 ; Lift Z axis
-G1 X202 Y35 ; Move to Position 4
-G1 Z0
-M0 ; Pause print
-G1 Z10 ; Lift Z axis
-G1 X32 Y35 ; Move to Position 1
-G1 Z0
-M0 ; Pause print
-G1 Z10 ; Lift Z axis
-G1 X32 Y135 ; Move to Position 2
-G1 Z0
-M0 ; Pause print
-G1 Z10 ; Lift Z axis
-G1 X202 Y135 ; Move to Position 3
-G1 Z0
-M0 ; Pause print
-G1 Z10 ; Lift Z axis
-G1 X202 Y35 ; Move to Position 4
+G1 X135 Y35 ; Move to Position 4
 G1 Z0
 M0 ; Pause print
 G1 Z10 ; Lift Z axis
@@ -54,11 +38,27 @@ G1 X32 Y135 ; Move to Position 2
 G1 Z0
 M0 ; Pause print
 G1 Z10 ; Lift Z axis
-G1 X202 Y135 ; Move to Position 3
+G1 X135 Y135 ; Move to Position 3
 G1 Z0
 M0 ; Pause print
 G1 Z10 ; Lift Z axis
-G1 X202 Y35 ; Move to Position 4
+G1 X135 Y35 ; Move to Position 4
+G1 Z0
+M0 ; Pause print
+G1 Z10 ; Lift Z axis
+G1 X32 Y35 ; Move to Position 1
+G1 Z0
+M0 ; Pause print
+G1 Z10 ; Lift Z axis
+G1 X32 Y135 ; Move to Position 2
+G1 Z0
+M0 ; Pause print
+G1 Z10 ; Lift Z axis
+G1 X135 Y135 ; Move to Position 3
+G1 Z0
+M0 ; Pause print
+G1 Z10 ; Lift Z axis
+G1 X135 Y35 ; Move to Position 4
 G1 Z0
 M0 ; Pause print
 G1 Z50 ; Move Z Axis up 50 mm to allow trimming filament
