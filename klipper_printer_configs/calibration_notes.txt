@@ -3,6 +3,7 @@ https://www.klipper3d.org/Resonance_Compensation.html
 https://www.klipper3d.org/Pressure_Advance.html
 https://github.com/Klipper3d/klipper/issues/2174
 https://github.com/Klipper3d/klipper/blob/master/docs/Config_Reference.md#fan_generic
+https://www.klipper3d.org/Measuring_Resonances.html
 
 # Temp Tower
 https://www.reddit.com/r/klippers/comments/mn8htd/heat_tuning_tower_write_up/
