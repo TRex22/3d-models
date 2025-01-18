@@ -8,5 +8,5 @@ Here is the break down of relevant measurements:
   - The outer diameter is 8.02 mm
   - The inner diameter is 5.02 mm
 
-Comment each component in the outputted SCAD code.
+Comment each component in the outputted SCAD code. Ensure that the model has high smoothness. Tabs have two spaces
 ```
