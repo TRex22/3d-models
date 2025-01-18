@@ -39,13 +39,13 @@ module main_plate() {
     cube([3.04 + 1, 6.40, thickness + 2]);
 
     // Central rounded rectangle cutout (repositioned below standoffs)
-    translate([23, 23.60 - 2.94 - 14.00, -1])
-    hull() {
-      for(x = [0, 22 - 3], y = [0, 14 - 3]) {
-        translate([x + 1.5, y + 1.5, 0])
-        cylinder(r = 1.5, h = thickness + 2);
-      }
-    }
+    // translate([23, 23.60 - 2.94 - 14.00, -1])
+    // hull() {
+    //  for(x = [0, 22 - 3], y = [0, 14 - 3]) {
+    //    translate([x + 1.5, y + 1.5, 0])
+    //    cylinder(r = 1.5, h = thickness + 2);
+    //  }
+    // }
 
     // Left side M3 holes
     translate([17, 24.95, -1]) {
@@ -130,9 +130,18 @@ module forks_and_eyelet() {
       circle(d = 24.04);
     }
     // Center hole through plate
-    translate([24.04/2, 8.5, -1])
+    translate([24.04/2, -4.5, -1])
     cylinder(d = 7.10, h = thickness + 2);
   }
+
+  // Central rounded rectangle cutout (repositioned below standoffs)
+  // translate([23, 23.60 - 2.94 - 14.00, -1])
+  // difference() {
+  //  for(x = [0, 22 - 3], y = [0, 14 - 3]) {
+  //    translate([x + 1.5, y + 1.5, 0])
+  //    cylinder(r = 1.5, h = thickness + 2);
+  //  }
+  // }
 }
 
 // Combine all components
