@@ -38,8 +38,8 @@ module main_plate() {
     translate([plate_width - 2.30, 7.00, -1])
     cube([3.04 + 1, 6.40, thickness + 2]);
 
-    // Central rounded rectangle cutout
-    translate([23, 28.60, -1])
+    // Central rounded rectangle cutout (repositioned below standoffs)
+    translate([23, 23.60 - 2.94 - 14.00, -1])
     hull() {
       for(x = [0, 22 - 3], y = [0, 14 - 3]) {
         translate([x + 1.5, y + 1.5, 0])
@@ -74,12 +74,18 @@ module main_plate() {
     cylinder(d = 5.20, h = thickness + 2);
     translate([plate_width - 9.45, plate_height - 9.30, -1])
     cylinder(d = 5.20, h = thickness + 2);
+
+    // Standoff through holes
+    translate([27, 23.60, -1])
+    cylinder(d = m3_hole, h = thickness + 2);
+    translate([27 + 11.60, 23.60, -1])
+    cylinder(d = m3_hole, h = thickness + 2);
   }
 }
 
 module standoffs() {
-  // Heat-sink standoffs
-  translate([27, 23.60, thickness]) {
+  // Heat-sink standoffs (moved to back of plate)
+  translate([27, 23.60, 0]) {
     difference() {
       cylinder(d = 4.15, h = 5.5);
       cylinder(d = m3_hole, h = 5.5 + 1);
@@ -94,8 +100,8 @@ module standoffs() {
 }
 
 module forks_and_eyelet() {
-  // Left fork
-  translate([0, 0, thickness])
+  // Left fork (connected directly to plate)
+  translate([0, 0, 0])
   rotate([90, 0, 0])
   linear_extrude(height = thickness)
   difference() {
@@ -104,8 +110,8 @@ module forks_and_eyelet() {
     square([1.75, 10.50 + 1]);
   }
 
-  // Right fork
-  translate([plate_width - 11.50, 0, thickness])
+  // Right fork (connected directly to plate)
+  translate([plate_width - 11.50, 0, 0])
   rotate([90, 0, 0])
   linear_extrude(height = thickness)
   difference() {
@@ -114,24 +120,27 @@ module forks_and_eyelet() {
     square([1.75, 10.50 + 1]);
   }
 
-  // Eyelet
+  // Eyelet with through hole
   translate([13.50 + 5.25, -thickness, 0])
-  linear_extrude(height = thickness)
   difference() {
+    linear_extrude(height = thickness)
     union() {
-      translate([0, 0, 0])
       square([24.04, 18.70]);
       translate([24.04/2, 0, 0])
       circle(d = 24.04);
     }
-    translate([24.04/2, 8.5, 0])
-    circle(d = 7.10);
+    // Center hole through plate
+    translate([24.04/2, 8.5, -1])
+    cylinder(d = 7.10, h = thickness + 2);
   }
 }
 
 // Combine all components
-union() {
-  main_plate();
-  standoffs();
-  forks_and_eyelet();
+difference() {
+  union() {
+    main_plate();
+    translate([0, 0, -5.5])
+    standoffs();
+    forks_and_eyelet();
+  }
 }
