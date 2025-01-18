@@ -4,119 +4,134 @@ $fn = 100;
 
 // Main dimensions
 plate_width = 61.25;
-plate_height = 64.00;
-plate_thickness = 2.50;
-base_plate_height = 45.30;
+plate_height = 45.30;
+total_height = 64.00;
+thickness = 2.50;
+
+// M3 thread hole size (slightly smaller for hand threading)
+m3_hole = 2.8;
 
 module main_plate() {
   difference() {
-    // Base plate with rounded top corners
+    // Base plate
+    translate([0, 0, 0])
+    linear_extrude(height = thickness)
     hull() {
-      // Bottom corners
-      translate([0, 0, 0])
-        square([plate_width, base_plate_height]);
-
-      // Top rounded corners
-      translate([8, base_plate_height, 0])
-        circle(r=8);
-      translate([plate_width-8, base_plate_height, 0])
-        circle(r=8);
+      // Main rectangle with rounded top corners
+      translate([8, 0, 0])
+      square([plate_width - 16, plate_height]);
+      translate([8, plate_height - 8, 0])
+      circle(r = 8);
+      translate([plate_width - 8, plate_height - 8, 0])
+      circle(r = 8);
+      square([plate_width, plate_height - 8]);
     }
 
     // Left side notches
-    translate([-0.1, 4.20, 0])
-      square([2.30, 5.20]);
-    translate([-0.1, 23.00, 0])
-      square([2.03, 5.40]);
+    translate([-1, 4.20, -1]) {
+      cube([2.30 + 1, 5.20, thickness + 2]);
+      translate([0, 13.60 + 5.20, 0])
+      cube([2.03 + 1, 5.40, thickness + 2]);
+    }
 
     // Right side notch
-    translate([plate_width-2.04, 7.00, 0])
-      square([3.04, 6.40]);
+    translate([plate_width - 2.30, 7.00, -1])
+    cube([3.04 + 1, 6.40, thickness + 2]);
 
     // Central rounded rectangle cutout
-    translate([23, 28.60, 0])
-      offset(r=2)
-        square([22, 14]);
-  }
-}
-
-module forks() {
-  // Left fork
-  translate([0, -20.38, 0]) {
-    difference() {
-      square([13.50, 20.38]);
-      translate([6.90, 10.50, 0])
-        square([1.75, 10]);
-    }
-  }
-
-  // Right fork
-  translate([plate_width-11.50, -20.38, 0]) {
-    difference() {
-      square([11.50, 20.38]);
-      translate([4.90, 10.50, 0])
-        square([1.75, 10]);
-    }
-  }
-}
-
-module eyelet() {
-  // Eyelet base dimensions
-  eyelet_width = 24.04;
-  eyelet_start = 13.50 + 5.25;
-
-  translate([eyelet_start, -18.7, 0]) {
-    difference() {
-      union() {
-        square([eyelet_width, 18.7]);
-        translate([eyelet_width/2, 0, 0])
-          circle(d=eyelet_width);
+    translate([23, 28.60, -1])
+    hull() {
+      for(x = [0, 22 - 3], y = [0, 14 - 3]) {
+        translate([x + 1.5, y + 1.5, 0])
+        cylinder(r = 1.5, h = thickness + 2);
       }
-      translate([eyelet_width/2, 8.5, 0])
-        circle(d=7.10);
     }
+
+    // Left side M3 holes
+    translate([17, 24.95, -1]) {
+      cylinder(d = m3_hole, h = thickness + 2);
+      translate([0, -11.70, 0])
+      cylinder(d = m3_hole, h = thickness + 2);
+    }
+
+    // Right side M3 holes
+    translate([plate_width - 4.8, 0, -1]) {
+      translate([0, 17.50 + 4.6, 0])
+      cylinder(d = m3_hole, h = thickness + 2);
+      translate([0, 17.50, 0])
+      cylinder(d = m3_hole, h = thickness + 2);
+    }
+
+    // Top small holes
+    translate([23, plate_height - 2.23, -1])
+    cylinder(d = 3.5, h = thickness + 2);
+
+    translate([plate_width - 8.8 - 2.30, plate_height - 1.75 - 3.40, -1])
+    cube([2.30, 3.40, thickness + 2]);
+
+    // V-wheel holes
+    translate([9.45, plate_height - 9.30, -1])
+    cylinder(d = 5.20, h = thickness + 2);
+    translate([plate_width - 9.45, plate_height - 9.30, -1])
+    cylinder(d = 5.20, h = thickness + 2);
   }
-}
-
-module mounting_holes() {
-  // M3 threaded holes (2.5mm for hand threading)
-  // Left side vertical holes
-  translate([17, 24.95, 0]) circle(d=2.5);
-  translate([17, 24.95+11.70, 0]) circle(d=2.5);
-
-  // Right side vertical holes
-  translate([plate_width-4.8, base_plate_height-17.50, 0]) circle(d=2.5);
-  translate([plate_width-4.8, base_plate_height-17.50-4.6, 0]) circle(d=2.5);
-
-  // Top small holes
-  translate([23, 2.23, 0]) circle(d=3.5);
-  translate([plate_width-8.8-2.30, 1.75, 0])
-    square([2.30, 3.40]);
-
-  // V-wheel mounting holes
-  translate([9.45, 9.30, 0]) circle(d=5.20);
-  translate([plate_width-9.45, 9.30, 0]) circle(d=5.20);
 }
 
 module standoffs() {
-  // Heat-sink mounting standoffs
-  module single_standoff() {
+  // Heat-sink standoffs
+  translate([27, 23.60, thickness]) {
     difference() {
-      cylinder(h=5.5, d=4.15);
-      translate([0, 0, -0.1])
-        cylinder(h=5.7, d=2.5);  // M3 thread
+      cylinder(d = 4.15, h = 5.5);
+      cylinder(d = m3_hole, h = 5.5 + 1);
+    }
+    translate([11.60, 0, 0]) {
+      difference() {
+        cylinder(d = 4.15, h = 5.5);
+        cylinder(d = m3_hole, h = 5.5 + 1);
+      }
     }
   }
+}
 
-  translate([27, 23.60, 0]) single_standoff();
-  translate([27+11.60, 23.60, 0]) single_standoff();
+module forks_and_eyelet() {
+  // Left fork
+  translate([0, 0, thickness])
+  rotate([90, 0, 0])
+  linear_extrude(height = thickness)
+  difference() {
+    square([13.50, 20.38]);
+    translate([6.90, 20.38 - 10.50])
+    square([1.75, 10.50 + 1]);
+  }
+
+  // Right fork
+  translate([plate_width - 11.50, 0, thickness])
+  rotate([90, 0, 0])
+  linear_extrude(height = thickness)
+  difference() {
+    square([11.50, 20.38]);
+    translate([4.90, 20.38 - 10.50])
+    square([1.75, 10.50 + 1]);
+  }
+
+  // Eyelet
+  translate([13.50 + 5.25, -thickness, 0])
+  linear_extrude(height = thickness)
+  difference() {
+    union() {
+      translate([0, 0, 0])
+      square([24.04, 18.70]);
+      translate([24.04/2, 0, 0])
+      circle(d = 24.04);
+    }
+    translate([24.04/2, 8.5, 0])
+    circle(d = 7.10);
+  }
 }
 
 // Combine all components
-linear_extrude(height=plate_thickness) {
+union() {
   main_plate();
-  forks();
-  eyelet();
-  mounting_holes();
+  standoffs();
+  forks_and_eyelet();
 }
-standoffs();
