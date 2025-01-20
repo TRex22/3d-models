@@ -39,7 +39,7 @@ module main_plate() {
     cube([3.04 + 1, 6.40, thickness + 2]);
 
     // Left side M3 holes
-    translate([17, 24.95, -1]) {
+    translate([17.00, 24.95, -1]) {
       cylinder(d = m3_hole, h = thickness + 2);
       translate([0, -11.70, 0])
       cylinder(d = m3_hole, h = thickness + 2);
