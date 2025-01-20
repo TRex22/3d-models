@@ -3,8 +3,8 @@
 $fn = 100;
 
 // Main dimensions
-plate_width = 61.25;
-plate_height = 45.30;
+plate_width = 61.00;
+plate_height = 47.30;
 total_height = 64.00;
 thickness = 2.50;
 
@@ -37,15 +37,6 @@ module main_plate() {
     // Right side notch
     translate([plate_width - 2.30, 7.00, -1])
     cube([3.04 + 1, 6.40, thickness + 2]);
-
-    // Central rounded rectangle cutout (repositioned below standoffs)
-    // translate([23, 23.60 - 2.94 - 14.00, -1])
-    // hull() {
-    //  for(x = [0, 22 - 3], y = [0, 14 - 3]) {
-    //    translate([x + 1.5, y + 1.5, 0])
-    //    cylinder(r = 1.5, h = thickness + 2);
-    //  }
-    // }
 
     // Left side M3 holes
     translate([17, 24.95, -1]) {
@@ -80,6 +71,17 @@ module main_plate() {
     cylinder(d = m3_hole, h = thickness + 2);
     translate([27 + 11.60, 23.60, -1])
     cylinder(d = m3_hole, h = thickness + 2);
+  }
+}
+
+module central_cutout() {
+  // Central rounded rectangle cutout (repositioned below standoffs)
+  translate([23, 23.60 - 2.94 - 14.00, -1])
+  hull() {
+    for(x = [0, 22 - 3], y = [0, 14 - 3]) {
+      translate([x + 1.5, y + 1.5, 0])
+      cylinder(r = 1.5, h = thickness + 2);
+    }
   }
 }
 
@@ -133,15 +135,6 @@ module forks_and_eyelet() {
     translate([24.04/2, -4.5, -1])
     cylinder(d = 7.10, h = thickness + 2);
   }
-
-  // Central rounded rectangle cutout (repositioned below standoffs)
-  // translate([23, 23.60 - 2.94 - 14.00, -1])
-  // difference() {
-  //  for(x = [0, 22 - 3], y = [0, 14 - 3]) {
-  //    translate([x + 1.5, y + 1.5, 0])
-  //    cylinder(r = 1.5, h = thickness + 2);
-  //  }
-  // }
 }
 
 // Combine all components
@@ -152,4 +145,5 @@ difference() {
     standoffs();
     forks_and_eyelet();
   }
+  central_cutout();
 }
