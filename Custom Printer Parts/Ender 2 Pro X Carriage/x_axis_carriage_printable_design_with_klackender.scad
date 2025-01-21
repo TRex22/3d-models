@@ -8,13 +8,11 @@ include <x_axis_carriage_printable_design.scad>
 x_probe_mount_translation = - (25 + (plate_width - right_fork_width));
 y_probe_mount_translation = - (68 + thickness);
 z_probe_mount_translation = 79.530 + fork_height;
+probe_mount_rotation = [180, 0, 0];
 
 module klackender_probe_mount() {
-  // rotate([180, 0, 0]);
-  // translate([x_probe_mount_translation, 0, z_probe_mount_translation]);
-
   translate([x_probe_mount_translation, y_probe_mount_translation, z_probe_mount_translation])
-  rotate([180, 0, 0])
+  rotate(probe_mount_rotation)
   import("Probe_Mount.stl");
 }
 
