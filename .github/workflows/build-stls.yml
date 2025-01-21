@@ -1,0 +1,43 @@
+name: Build STL Files
+
+on:
+  push:
+    paths:
+      - '**.scad'
+  pull_request:
+    paths:
+      - '**.scad'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up build script
+      run: |
+        mkdir -p .github/scripts
+        cat > .github/scripts/build_stls.sh << 'EOF'
+        #!/bin/bash
+        mkdir -p build
+        find . -name "*.scad" | while read scad_file; do
+          relative_path=${scad_file#./}
+          stl_file="build/${relative_path%.scad}.stl"
+          mkdir -p "$(dirname "$stl_file")"
+          echo "Converting: $scad_file -> $stl_file"
+          docker run --rm -v "$(pwd):/work" -w /work openscad/openscad openscad -o "$stl_file" "$scad_file"
+        done
+        EOF
+        chmod +x .github/scripts/build_stls.sh
+    
+    - name: Build STL files
+      run: .github/scripts/build_stls.sh
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: stl-files
+        path: build/
+
