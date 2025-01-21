@@ -21,7 +21,7 @@ module main_assembly() {
   // Final assembly
   difference() {
     union() {
-      main_plate();
+      main_plate_with_chamfer();
 
       // standoffs(); // Remove stand-offs
 
