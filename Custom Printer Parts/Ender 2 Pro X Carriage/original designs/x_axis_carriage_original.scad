@@ -8,8 +8,11 @@ plate_height = 47.30;
 total_height = 64.00;
 thickness = 2.50;
 
+hole_offset = 2.0; // 2.0 # This is an offset from the central point to edge measurement
+
 // M3 thread hole size (slightly smaller for hand threading)
 m3_hole = 2.8;
+m3_hole_offset = m3_hole / hole_offset;
 
 module main_plate() {
   difference() {
@@ -39,37 +42,42 @@ module main_plate() {
     cube([3.04 + 1, 6.40, thickness + 2]);
 
     // Left side M3 holes
-    translate([17.00, 24.95, -1]) {
+    translate([17.00 + m3_hole_offset, 24.95 + m3_hole_offset, -1]) {
       cylinder(d = m3_hole, h = thickness + 2);
-      translate([0, -11.70, 0])
+      translate([0, -(11.70 + m3_hole_offset), 0])
       cylinder(d = m3_hole, h = thickness + 2);
     }
 
     // Right side M3 holes
-    translate([plate_width - 4.8, 0, -1]) {
-      translate([0, 17.50 + 4.6, 0])
+    translate([plate_width - (4.8 + m3_hole_offset), 0, -1]) {
+      translate([0, 17.50 + m3_hole_offset + 4.6, 0])
       cylinder(d = m3_hole, h = thickness + 2);
-      translate([0, 17.50, 0])
+      translate([0, 17.50 + m3_hole_offset, 0])
       cylinder(d = m3_hole, h = thickness + 2);
     }
 
     // Top small holes
-    translate([23, plate_height - 2.23, -1])
-    cylinder(d = 3.5, h = thickness + 2);
+    small_hole_size = 3.5;
+    small_hole_offset = small_hole_size / hole_offset;
+    translate([23 + small_hole_offset, plate_height - (2.23 + small_hole_offset), -1])
+    cylinder(d = small_hole_size, h = thickness + 2);
 
     translate([plate_width - 8.8 - 2.30, plate_height - 1.75 - 3.40, -1])
     cube([2.30, 3.40, thickness + 2]);
 
     // V-wheel holes
-    translate([9.45, plate_height - 9.30, -1])
-    cylinder(d = 5.20, h = thickness + 2);
-    translate([plate_width - 9.45, plate_height - 9.30, -1])
-    cylinder(d = 5.20, h = thickness + 2);
+    v_wheel_hole_size = 5.20;
+    v_wheel_hole_offset = v_wheel_hole_size / hole_offset;
+
+    translate([9.45 + v_wheel_hole_offset, plate_height - (9.30 + v_wheel_hole_offset), -1])
+    cylinder(d = v_wheel_hole_size, h = thickness + 2);
+    translate([plate_width - (9.45 + v_wheel_hole_offset), plate_height - (9.30 + v_wheel_hole_offset), -1])
+    cylinder(d = v_wheel_hole_size, h = thickness + 2);
 
     // Standoff through holes
-    translate([27, 23.60, -1])
+    translate([27 + m3_hole_offset, 23.60 + m3_hole_offset, -1])
     cylinder(d = m3_hole, h = thickness + 2);
-    translate([27 + 11.60, 23.60, -1])
+    translate([27 + m3_hole_offset + 11.60, 23.60 + m3_hole_offset, -1])
     cylinder(d = m3_hole, h = thickness + 2);
   }
 }
@@ -87,14 +95,17 @@ module central_cutout() {
 
 module standoffs() {
   // Heat-sink standoffs (moved to back of plate)
-  translate([27, 23.60, 0]) {
+  stand_off_size = 4.15;
+  stand_off_offset = stand_off_size / hole_offset;
+
+  translate([27 + stand_off_offset, 23.60 + stand_off_offset, 0]) {
     difference() {
-      cylinder(d = 4.15, h = 5.5);
+      cylinder(d = stand_off_size, h = 5.5);
       cylinder(d = m3_hole, h = 5.5 + 1);
     }
-    translate([11.60, 0, 0]) {
+    translate([11.60 - stand_off_offset, 0, 0]) {
       difference() {
-        cylinder(d = 4.15, h = 5.5);
+        cylinder(d = stand_off_size, h = 5.5);
         cylinder(d = m3_hole, h = 5.5 + 1);
       }
     }
