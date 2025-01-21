@@ -10,10 +10,11 @@ thickness = 2.50;
 
 // Hole sizes
 m3_hole_diameter = 2.8;
+m3_error = 0.2; // error in calculation for difference between holes
 v_wheel_hole_diameter = 5.20;
 small_hole_diameter = 3.5;
 standoff_diameter = 4.15;
-eyelet_hole_diameter = 7.10;
+eyelet_hole_diameter = 7.30;
 
 // Fork dimensions
 left_fork_width = 13.50;
@@ -27,7 +28,7 @@ right_fork_slot_offset = 4.90;
 // Eyelet dimensions
 eyelet_width = 24.04;
 eyelet_base_height = 18.70;
-eyelet_hole_bottom_offset = -4.5; // 8.5;
+eyelet_hole_bottom_offset = -2.3; // -4.5; // 8.5; // -8.7;
 left_fork_to_eyelet_gap = 5.25;
 right_fork_to_eyelet_gap = 5.6;
 
@@ -47,48 +48,48 @@ module main_plate() {
     }
 
     // Left side notches
-    translate([-1, 4.20, -1]) {
+    translate([-1, 6.50, -1]) {
       cube([2.30 + 1, 5.20, thickness + 2]);
       translate([0, 13.60 + 5.20, 0])
       cube([2.03 + 1, 5.40, thickness + 2]);
     }
 
     // Right side notch
-    translate([plate_width - 2.30, 7.00, -1])
+    translate([plate_width - 2.30, 10.30, -1])
     cube([3.04 + 1, 6.40, thickness + 2]);
 
     // Left side M3 holes
-    translate([17.00, plate_height - 24.95, -1]) {
+    translate([17.00, plate_height - 25.60, -1]) {
       cylinder(d = m3_hole_diameter, h = thickness + 2);
-      translate([0, -11.70, 0])
+      translate([0, -13.80, 0])
       cylinder(d = m3_hole_diameter, h = thickness + 2);
     }
 
     // Right side M3 holes
-    translate([plate_width - 4.8, 17.50, -1]) {
+    translate([plate_width - 4.8, 17.50 + 5.75, -1]) {
       cylinder(d = m3_hole_diameter, h = thickness + 2);
-      translate([0, 4.6, 0])
+      translate([0, 4.6 + (m3_hole_diameter - m3_error), 0])
       cylinder(d = m3_hole_diameter, h = thickness + 2);
     }
 
     // Top small hole
-    translate([23.00, plate_height - 2.23, -1])
+    translate([23.00, plate_height - 3.41, -1])
     cylinder(d = small_hole_diameter, h = thickness + 2);
 
     // Top rectangle hole
-    translate([plate_width - 8.8 - 2.30, plate_height - 1.75 - 3.40, -1])
+    translate([plate_width - 8.8 - 2.30, plate_height - 1.75 - 3.47, -1])
     cube([2.30, 3.40, thickness + 2]);
 
     // V-wheel holes
-    translate([9.45, plate_height - 9.30, -1])
+    translate([9.45 + 2.41, plate_height - (9.30 + 2.22), -1])
     cylinder(d = v_wheel_hole_diameter, h = thickness + 2);
-    translate([plate_width - 9.45, plate_height - 9.30, -1])
+    translate([plate_width - (9.45 + 2.41), plate_height - (9.30 + 2.22), -1])
     cylinder(d = v_wheel_hole_diameter, h = thickness + 2);
 
     // Standoff through holes
-    translate([27.00, plate_height - 23.60, -1])
+    translate([(27.00 + 0.87), plate_height - (23.60 + 0.77), -1])
     cylinder(d = m3_hole_diameter, h = thickness + 2);
-    translate([27.00 + 11.60, plate_height - 23.60, -1])
+    translate([(27.00 + 11.60 + 0.87 + 2.59), plate_height - (23.60 + 0.77), -1])
     cylinder(d = m3_hole_diameter, h = thickness + 2);
   }
 }

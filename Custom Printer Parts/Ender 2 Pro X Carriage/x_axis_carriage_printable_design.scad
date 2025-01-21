@@ -9,9 +9,20 @@ thickness = 4.00; // 4.50;
 chamfer_size = 0.5; // 0.5mm chamfer
 
 module main_plate_with_chamfer() {
-  minkowski() {
+  difference() {
     main_plate();
-    cylinder(r=chamfer_size, h=0.01, $fn=8);
+
+    // Edge chamfers
+    difference() {
+      minkowski() {
+        main_plate();
+        cylinder(h=chamfer_size*2, r1=chamfer_size, r2=0, $fn=24);
+      }
+      minkowski() {
+        main_plate();
+        cylinder(h=chamfer_size*2, r=0.01, $fn=24);
+      }
+    }
   }
 }
 
@@ -20,7 +31,8 @@ module main_assembly() {
   // Final assembly
   difference() {
     union() {
-      main_plate_with_chamfer();
+      main_plate();
+      // main_plate_with_chamfer();
       // standoffs(); // Remove stand-offs
       forks_and_eyelet();
     }
