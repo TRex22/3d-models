@@ -3,8 +3,8 @@
 $fn = 100;
 
 // Main dimensions
-plate_width = 61.00;
-plate_height = 47.30;
+plate_width = 61.00; // 61.25;
+plate_height = 47.30; // 45.30;
 total_height = 64.00;
 thickness = 2.50;
 
@@ -15,26 +15,21 @@ small_hole_diameter = 3.5;
 standoff_diameter = 4.15;
 eyelet_hole_diameter = 7.10;
 
-// Hole position corrections (half diameters for edge-to-center conversion)
-m3_offset = m3_hole_diameter/2;
-v_wheel_offset = v_wheel_hole_diameter/2;
-small_hole_offset = small_hole_diameter/2;
-standoff_offset = standoff_diameter/2;
-eyelet_offset = eyelet_hole_diameter/2;
-
-// Standoff height
-standoff_height = 5.5;
-
 // Fork dimensions
 left_fork_width = 13.50;
 right_fork_width = 11.50;
 fork_height = 20.38;
 fork_slot_width = 1.75;
 fork_slot_depth = 10.50;
+left_fork_slot_offset = 6.90;
+right_fork_slot_offset = 4.90;
 
 // Eyelet dimensions
 eyelet_width = 24.04;
 eyelet_base_height = 18.70;
+eyelet_hole_bottom_offset = -4.5; // 8.5;
+left_fork_to_eyelet_gap = 5.25;
+right_fork_to_eyelet_gap = 5.6;
 
 module main_plate() {
   difference() {
@@ -63,22 +58,21 @@ module main_plate() {
     cube([3.04 + 1, 6.40, thickness + 2]);
 
     // Left side M3 holes
-    translate([17.00 + m3_offset, 24.95 + m3_offset, -1]) {
+    translate([17.00, plate_height - 24.95, -1]) {
       cylinder(d = m3_hole_diameter, h = thickness + 2);
-      translate([0, -(11.70), 0])
+      translate([0, -11.70, 0])
       cylinder(d = m3_hole_diameter, h = thickness + 2);
     }
 
     // Right side M3 holes
-    translate([plate_width - (4.8 + m3_offset), 0, -1]) {
-      translate([0, 17.50 + 4.6 + m3_offset, 0])
+    translate([plate_width - 4.8, 17.50, -1]) {
       cylinder(d = m3_hole_diameter, h = thickness + 2);
-      translate([0, 17.50 + m3_offset, 0])
+      translate([0, 4.6, 0])
       cylinder(d = m3_hole_diameter, h = thickness + 2);
     }
 
     // Top small hole
-    translate([23 + small_hole_offset, plate_height - (2.23 + small_hole_offset), -1])
+    translate([23.00, plate_height - 2.23, -1])
     cylinder(d = small_hole_diameter, h = thickness + 2);
 
     // Top rectangle hole
@@ -86,21 +80,21 @@ module main_plate() {
     cube([2.30, 3.40, thickness + 2]);
 
     // V-wheel holes
-    translate([9.45 + v_wheel_offset, plate_height - (9.30 + v_wheel_offset), -1])
+    translate([9.45, plate_height - 9.30, -1])
     cylinder(d = v_wheel_hole_diameter, h = thickness + 2);
-    translate([plate_width - (9.45 + v_wheel_offset), plate_height - (9.30 + v_wheel_offset), -1])
+    translate([plate_width - 9.45, plate_height - 9.30, -1])
     cylinder(d = v_wheel_hole_diameter, h = thickness + 2);
 
     // Standoff through holes
-    translate([27 + m3_offset, 23.60 + m3_offset, -1])
+    translate([27.00, plate_height - 23.60, -1])
     cylinder(d = m3_hole_diameter, h = thickness + 2);
-    translate([27 + 11.60 + m3_offset, 23.60 + m3_offset, -1])
+    translate([27.00 + 11.60, plate_height - 23.60, -1])
     cylinder(d = m3_hole_diameter, h = thickness + 2);
   }
 }
 
 module central_cutout() {
-  translate([23, 23.60 - 2.94 - 14.00, -1])
+  translate([23, plate_height - 28.60 - 14.00, -1])
   hull() {
     for(x = [0, 22 - 3], y = [0, 14 - 3]) {
       translate([x + 1.5, y + 1.5, 0])
@@ -110,15 +104,15 @@ module central_cutout() {
 }
 
 module standoffs() {
-  translate([27 + standoff_offset, 23.60 + standoff_offset, -standoff_height]) {
+  translate([27.00, plate_height - 23.60, -5.5]) {
     difference() {
-      cylinder(d = standoff_diameter, h = standoff_height);
-      cylinder(d = m3_hole_diameter, h = standoff_height + 1);
+      cylinder(d = standoff_diameter, h = 5.5);
+      cylinder(d = m3_hole_diameter, h = 5.5 + 1);
     }
     translate([11.60, 0, 0]) {
       difference() {
-        cylinder(d = standoff_diameter, h = standoff_height);
-        cylinder(d = m3_hole_diameter, h = standoff_height + 1);
+        cylinder(d = standoff_diameter, h = 5.5);
+        cylinder(d = m3_hole_diameter, h = 5.5 + 1);
       }
     }
   }
@@ -131,7 +125,7 @@ module forks_and_eyelet() {
   linear_extrude(height = thickness)
   difference() {
     square([left_fork_width, fork_height]);
-    translate([6.90, fork_height - fork_slot_depth])
+    translate([left_fork_slot_offset, fork_height - fork_slot_depth])
     square([fork_slot_width, fork_slot_depth + 1]);
   }
 
@@ -141,12 +135,13 @@ module forks_and_eyelet() {
   linear_extrude(height = thickness)
   difference() {
     square([right_fork_width, fork_height]);
-    translate([4.90, fork_height - fork_slot_depth])
+    translate([right_fork_slot_offset, fork_height - fork_slot_depth])
     square([fork_slot_width, fork_slot_depth + 1]);
   }
 
   // Eyelet
-  translate([left_fork_width + 5.25, -thickness, 0])
+  eyelet_start = left_fork_width + left_fork_to_eyelet_gap;
+  translate([eyelet_start, -thickness, 0])
   difference() {
     linear_extrude(height = thickness)
     union() {
@@ -154,7 +149,7 @@ module forks_and_eyelet() {
       translate([eyelet_width/2, 0, 0])
       circle(d = eyelet_width);
     }
-    translate([eyelet_width/2, -4.5, -1])
+    translate([eyelet_width/2, eyelet_hole_bottom_offset, -1])
     cylinder(d = eyelet_hole_diameter, h = thickness + 2);
   }
 }
