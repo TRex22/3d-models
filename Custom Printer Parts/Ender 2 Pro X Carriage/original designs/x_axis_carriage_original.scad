@@ -8,11 +8,33 @@ plate_height = 47.30;
 total_height = 64.00;
 thickness = 2.50;
 
-hole_offset = 2.0; // 2.0 # This is an offset from the central point to edge measurement
+// Hole sizes
+m3_hole_diameter = 2.8;
+v_wheel_hole_diameter = 5.20;
+small_hole_diameter = 3.5;
+standoff_diameter = 4.15;
+eyelet_hole_diameter = 7.10;
 
-// M3 thread hole size (slightly smaller for hand threading)
-m3_hole = 2.8;
-m3_hole_offset = m3_hole / hole_offset;
+// Hole position corrections (half diameters for edge-to-center conversion)
+m3_offset = m3_hole_diameter/2;
+v_wheel_offset = v_wheel_hole_diameter/2;
+small_hole_offset = small_hole_diameter/2;
+standoff_offset = standoff_diameter/2;
+eyelet_offset = eyelet_hole_diameter/2;
+
+// Standoff height
+standoff_height = 5.5;
+
+// Fork dimensions
+left_fork_width = 13.50;
+right_fork_width = 11.50;
+fork_height = 20.38;
+fork_slot_width = 1.75;
+fork_slot_depth = 10.50;
+
+// Eyelet dimensions
+eyelet_width = 24.04;
+eyelet_base_height = 18.70;
 
 module main_plate() {
   difference() {
@@ -20,7 +42,6 @@ module main_plate() {
     translate([0, 0, 0])
     linear_extrude(height = thickness)
     hull() {
-      // Main rectangle with rounded top corners
       translate([8, 0, 0])
       square([plate_width - 16, plate_height]);
       translate([8, plate_height - 8, 0])
@@ -42,48 +63,43 @@ module main_plate() {
     cube([3.04 + 1, 6.40, thickness + 2]);
 
     // Left side M3 holes
-    translate([17.00 + m3_hole_offset, 24.95 + m3_hole_offset, -1]) {
-      cylinder(d = m3_hole, h = thickness + 2);
-      translate([0, -(11.70 + m3_hole_offset), 0])
-      cylinder(d = m3_hole, h = thickness + 2);
+    translate([17.00 + m3_offset, 24.95 + m3_offset, -1]) {
+      cylinder(d = m3_hole_diameter, h = thickness + 2);
+      translate([0, -(11.70), 0])
+      cylinder(d = m3_hole_diameter, h = thickness + 2);
     }
 
     // Right side M3 holes
-    translate([plate_width - (4.8 + m3_hole_offset), 0, -1]) {
-      translate([0, 17.50 + m3_hole_offset + 4.6, 0])
-      cylinder(d = m3_hole, h = thickness + 2);
-      translate([0, 17.50 + m3_hole_offset, 0])
-      cylinder(d = m3_hole, h = thickness + 2);
+    translate([plate_width - (4.8 + m3_offset), 0, -1]) {
+      translate([0, 17.50 + 4.6 + m3_offset, 0])
+      cylinder(d = m3_hole_diameter, h = thickness + 2);
+      translate([0, 17.50 + m3_offset, 0])
+      cylinder(d = m3_hole_diameter, h = thickness + 2);
     }
 
-    // Top small holes
-    small_hole_size = 3.5;
-    small_hole_offset = small_hole_size / hole_offset;
+    // Top small hole
     translate([23 + small_hole_offset, plate_height - (2.23 + small_hole_offset), -1])
-    cylinder(d = small_hole_size, h = thickness + 2);
+    cylinder(d = small_hole_diameter, h = thickness + 2);
 
+    // Top rectangle hole
     translate([plate_width - 8.8 - 2.30, plate_height - 1.75 - 3.40, -1])
     cube([2.30, 3.40, thickness + 2]);
 
     // V-wheel holes
-    v_wheel_hole_size = 5.20;
-    v_wheel_hole_offset = v_wheel_hole_size / hole_offset;
-
-    translate([9.45 + v_wheel_hole_offset, plate_height - (9.30 + v_wheel_hole_offset), -1])
-    cylinder(d = v_wheel_hole_size, h = thickness + 2);
-    translate([plate_width - (9.45 + v_wheel_hole_offset), plate_height - (9.30 + v_wheel_hole_offset), -1])
-    cylinder(d = v_wheel_hole_size, h = thickness + 2);
+    translate([9.45 + v_wheel_offset, plate_height - (9.30 + v_wheel_offset), -1])
+    cylinder(d = v_wheel_hole_diameter, h = thickness + 2);
+    translate([plate_width - (9.45 + v_wheel_offset), plate_height - (9.30 + v_wheel_offset), -1])
+    cylinder(d = v_wheel_hole_diameter, h = thickness + 2);
 
     // Standoff through holes
-    translate([27 + m3_hole_offset, 23.60 + m3_hole_offset, -1])
-    cylinder(d = m3_hole, h = thickness + 2);
-    translate([27 + m3_hole_offset + 11.60, 23.60 + m3_hole_offset, -1])
-    cylinder(d = m3_hole, h = thickness + 2);
+    translate([27 + m3_offset, 23.60 + m3_offset, -1])
+    cylinder(d = m3_hole_diameter, h = thickness + 2);
+    translate([27 + 11.60 + m3_offset, 23.60 + m3_offset, -1])
+    cylinder(d = m3_hole_diameter, h = thickness + 2);
   }
 }
 
 module central_cutout() {
-  // Central rounded rectangle cutout (repositioned below standoffs)
   translate([23, 23.60 - 2.94 - 14.00, -1])
   hull() {
     for(x = [0, 22 - 3], y = [0, 14 - 3]) {
@@ -94,65 +110,59 @@ module central_cutout() {
 }
 
 module standoffs() {
-  // Heat-sink standoffs (moved to back of plate)
-  stand_off_size = 4.15;
-  stand_off_offset = stand_off_size / hole_offset;
-
-  translate([27 + stand_off_offset, 23.60 + stand_off_offset, 0]) {
+  translate([27 + standoff_offset, 23.60 + standoff_offset, -standoff_height]) {
     difference() {
-      cylinder(d = stand_off_size, h = 5.5);
-      cylinder(d = m3_hole, h = 5.5 + 1);
+      cylinder(d = standoff_diameter, h = standoff_height);
+      cylinder(d = m3_hole_diameter, h = standoff_height + 1);
     }
-    translate([11.60 - stand_off_offset, 0, 0]) {
+    translate([11.60, 0, 0]) {
       difference() {
-        cylinder(d = stand_off_size, h = 5.5);
-        cylinder(d = m3_hole, h = 5.5 + 1);
+        cylinder(d = standoff_diameter, h = standoff_height);
+        cylinder(d = m3_hole_diameter, h = standoff_height + 1);
       }
     }
   }
 }
 
 module forks_and_eyelet() {
-  // Left fork (connected directly to plate)
+  // Left fork
   translate([0, 0, 0])
   rotate([90, 0, 0])
   linear_extrude(height = thickness)
   difference() {
-    square([13.50, 20.38]);
-    translate([6.90, 20.38 - 10.50])
-    square([1.75, 10.50 + 1]);
+    square([left_fork_width, fork_height]);
+    translate([6.90, fork_height - fork_slot_depth])
+    square([fork_slot_width, fork_slot_depth + 1]);
   }
 
-  // Right fork (connected directly to plate)
-  translate([plate_width - 11.50, 0, 0])
+  // Right fork
+  translate([plate_width - right_fork_width, 0, 0])
   rotate([90, 0, 0])
   linear_extrude(height = thickness)
   difference() {
-    square([11.50, 20.38]);
-    translate([4.90, 20.38 - 10.50])
-    square([1.75, 10.50 + 1]);
+    square([right_fork_width, fork_height]);
+    translate([4.90, fork_height - fork_slot_depth])
+    square([fork_slot_width, fork_slot_depth + 1]);
   }
 
-  // Eyelet with through hole
-  translate([13.50 + 5.25, -thickness, 0])
+  // Eyelet
+  translate([left_fork_width + 5.25, -thickness, 0])
   difference() {
     linear_extrude(height = thickness)
     union() {
-      square([24.04, 18.70]);
-      translate([24.04/2, 0, 0])
-      circle(d = 24.04);
+      square([eyelet_width, eyelet_base_height]);
+      translate([eyelet_width/2, 0, 0])
+      circle(d = eyelet_width);
     }
-    // Center hole through plate
-    translate([24.04/2, -4.5, -1])
-    cylinder(d = 7.10, h = thickness + 2);
+    translate([eyelet_width/2, -4.5, -1])
+    cylinder(d = eyelet_hole_diameter, h = thickness + 2);
   }
 }
 
-// Combine all components
+// Final assembly
 difference() {
   union() {
     main_plate();
-    translate([0, 0, -5.5])
     standoffs();
     forks_and_eyelet();
   }
