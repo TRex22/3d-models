@@ -154,12 +154,17 @@ module forks_and_eyelet() {
   }
 }
 
-// Final assembly
-difference() {
-  union() {
-    main_plate();
-    standoffs();
-    forks_and_eyelet();
+// Main assembly
+module main_assembly() {
+  // Final assembly
+  difference() {
+    union() {
+      main_plate();
+      standoffs();
+      forks_and_eyelet();
+    }
+    central_cutout();
   }
-  central_cutout();
 }
+
+main_assembly();
