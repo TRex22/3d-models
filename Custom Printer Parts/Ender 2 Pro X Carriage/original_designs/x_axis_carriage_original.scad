@@ -28,7 +28,7 @@ right_fork_slot_offset = 4.90;
 // Eyelet dimensions
 eyelet_width = 24.04;
 eyelet_base_height = 18.70;
-eyelet_hole_bottom_offset = -2.3; // -4.5; // 8.5; // -8.7;
+eyelet_hole_bottom_offset = -1.8; //-2.3; // -4.5; // 8.5; // -8.7;
 left_fork_to_eyelet_gap = 5.25;
 right_fork_to_eyelet_gap = 5.6;
 
