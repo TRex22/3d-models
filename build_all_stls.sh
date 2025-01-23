@@ -3,6 +3,8 @@
 # Create build directory
 mkdir -p build_stls
 
+# git clone https://github.com/SebiTimeWaster/Chamfers-for-OpenSCAD.git
+
 # Find all SCAD files recursively
 find . -name "*.scad" | while read scad_file; do
   # Create relative path in build directory
