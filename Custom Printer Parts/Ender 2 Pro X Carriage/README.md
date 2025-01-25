@@ -9,3 +9,5 @@ The stand-offs are removed and screws should be used from behind with spacers an
 ## Useful Links
 - https://raviriley.github.io/STL-to-OpenSCAD-Converter/
 - https://openscad.cloud/openscad/
+- https://github.com/nmasse-itix/OpenSCAD-Pattern-Filling
+- https://github.com/SebiTimeWaster/Chamfers-for-OpenSCAD/blob/master/Chamfer.scad
