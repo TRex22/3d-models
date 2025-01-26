@@ -41,6 +41,8 @@ right_v_wheel_offset = v_wheel_offset;
 right_v_wheel_distance_from_left = base_plate_head_width - left_v_wheel_distance_from_left;
 right_v_wheel_distance_from_top_bottom_edge = v_wheel_distance_from_top_bottom_edge;
 
+
+
 // Motor hole
 motor_hole_diameter = 23.10;
 motor_hole_offset = (motor_hole_diameter / 2.0);
