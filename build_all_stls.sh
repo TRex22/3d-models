@@ -23,6 +23,7 @@ if [ -z "$changed_scad_files" ]; then
     echo ""
   done
 else
+  # Only build edited files
   git diff --name-only --diff-filter=ACMR -- "*.scad" | while read scad_file; do
     # Create relative path in build directory
     relative_path=${scad_file#./}
