@@ -5,12 +5,11 @@ $fn = 100;
 // Main dimensions
 plate_width = 8.00;
 plate_height = 12.00;
+thickness = 4.00;
 
 hole_width = 5.60;
 hole_height = 10.00;
 hole_thickness = 16.00;
-
-thickness = 4.00;
 
 // Calculations
 hole_x_translation = plate_width / 2.0;
