@@ -99,22 +99,28 @@ module main_mounting_plate() {
   // Base plate
   translate([0, 0, 0])
   linear_extrude(height = thickness)
-  union() {
-    // Top part with angled corners
-    polygon(points = [
-      [0, base_plate_height - 50],                    // Bottom left of top section
-      [(94 - 40)/2, base_plate_height],               // Top left point
-      [94 - (94 - 40)/2, base_plate_height],          // Top right point
-      [94, base_plate_height - 50],                   // Bottom right of top section
-      [94, base_plate_stem_height],                   // Bottom right before stem
-      [(94 + 20)/2, base_plate_stem_height],          // Right side stem start
-      [(94 + 20)/2, 0],                              // Bottom right of stem
-      [(94 - 20)/2, 0],                              // Bottom left of stem
-      [(94 - 20)/2, base_plate_stem_height],          // Left side stem start
-      [0, base_plate_stem_height]                     // Bottom left before stem
-    ]);
+  minkowski() {
+    difference() {
+      union() {
+        // Top part with angled corners
+        polygon(points = [
+          [8, base_plate_height - 50 + 8],                    // Bottom left of top section
+          [(94 - 40)/2 + 8, base_plate_height - 8],          // Top left point
+          [94 - (94 - 40)/2 - 8, base_plate_height - 8],     // Top right point
+          [94 - 8, base_plate_height - 50 + 8],              // Bottom right of top section
+          [94 - 8, base_plate_stem_height + 8],              // Bottom right before stem
+          [(94 + 20)/2 - 8, base_plate_stem_height + 8],     // Right side stem start
+          [(94 + 20)/2 - 8, 8],                              // Bottom right of stem
+          [(94 - 20)/2 + 8, 8],                              // Bottom left of stem
+          [(94 - 20)/2 + 8, base_plate_stem_height + 8],     // Left side stem start
+          [8, base_plate_stem_height + 8]                     // Bottom left before stem
+        ]);
+      }
+    }
+    circle(r = 8, $fn = 100);
   }
 }
+
 
 module create_holes() {
   // Top V-Wheels
