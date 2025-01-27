@@ -16,7 +16,7 @@ neck_transition_radius = 10.00; // Radius for the outward curve at neck transiti
 
 base_plate_head_height = 50.00;
 base_plate_head_width = base_plate_width;
-base_plate_head_top_height = 40.00;
+base_plate_head_top_height = 48.45;
 base_plate_head_bottom_height = 17.00;
 
 base_plate_stem_width = 20.00;
@@ -47,7 +47,7 @@ right_v_wheel_offset = v_wheel_offset;
 right_v_wheel_distance_from_left = base_plate_head_width - left_v_wheel_distance_from_left;
 
 // Motor hole - centered
-motor_hole_diameter = 23.10;
+motor_hole_diameter = 23.10 - 1.10; // Reduce clearance for a tight fit
 motor_hole_offset = (motor_hole_diameter / 2.0);
 motor_hole_distance_from_left = base_plate_width / 2.0;  // Centers the hole horizontally // base_plate_width - (37.00 + motor_hole_offset); // 27.6
 motor_hole_distance_from_top = base_plate_height - (10.7 + motor_hole_offset);

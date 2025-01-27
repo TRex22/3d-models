@@ -23,7 +23,8 @@ if [ -z "$changed_scad_files" ]; then
     echo ""
   done
 else
-  echo $changed_scad_files | while read scad_file; do
+  # git diff --name-only --diff-filter=ACMR -- "*.scad" | while read scad_file; do
+  git status --porcelain --untracked-files=all | sed 's/^.. //' | tr -d '"' | grep ".scad" | while read scad_file; do
     # Create relative path in build directory
     relative_path=${scad_file#./}
     stl_file="build_stls/${relative_path%.scad}.stl"
