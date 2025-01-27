@@ -10,7 +10,9 @@ $fn = quality_value;
 thickness = 2.52;
 base_plate_height = 132.88;
 base_plate_width = 94.00;
+
 base_plate_radius = 8.00; // 45 degrees??
+neck_transition_radius = 10.00; // Radius for the outward curve at neck transition
 
 base_plate_head_height = 50.00;
 base_plate_head_width = base_plate_width;
@@ -117,15 +119,16 @@ module main_mounting_plate() {
           [base_plate_head_width - base_plate_radius, base_plate_height - plate_head_curve_length],                                  // Start of angle on right
           [base_plate_head_width - base_plate_radius, base_plate_height - plate_head_top_radius],                                    // Bottom right of top section
           [base_plate_head_width - base_plate_radius, base_plate_stem_height + base_plate_radius],                                   // Bottom right before stem
-          [(base_plate_head_width + base_plate_stem_width) / 2.00 - base_plate_radius, base_plate_stem_height + base_plate_radius],  // Right side stem start
+          [(base_plate_head_width + base_plate_stem_width) / 2.00, base_plate_stem_height + base_plate_radius],                      // Right side stem start
+          [(base_plate_head_width + base_plate_stem_width) / 2.00 - base_plate_radius, base_plate_stem_height],                      // Right corner of neck
           [(base_plate_head_width + base_plate_stem_width) / 2.00 - base_plate_radius, base_plate_radius],                           // Bottom right of stem
           [(base_plate_head_width - base_plate_stem_width) / 2.00 + base_plate_radius, base_plate_radius],                           // Bottom left of stem
-          [(base_plate_head_width - base_plate_stem_width) / 2.00 + base_plate_radius, base_plate_stem_height + base_plate_radius],  // Left side stem start
+          [(base_plate_head_width - base_plate_stem_width) / 2.00 + base_plate_radius, base_plate_stem_height],                      // Left corner of neck
+          [(base_plate_head_width - base_plate_stem_width) / 2.00, base_plate_stem_height + base_plate_radius],                      // Left side stem start
           [base_plate_radius, base_plate_stem_height + base_plate_radius]                                                            // Bottom left before stem
         ]);
       }
     }
-
     circle(r = base_plate_radius, $fn = quality_value);
   }
 }
