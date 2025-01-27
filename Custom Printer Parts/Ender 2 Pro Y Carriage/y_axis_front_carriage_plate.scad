@@ -100,13 +100,19 @@ module main_mounting_plate() {
   translate([0, 0, 0])
   linear_extrude(height = thickness)
   union() {
-    // Top rectangular part
-    translate([0, base_plate_stem_height, 0])
-    square([base_plate_width, base_plate_height - base_plate_stem_height]);
-
-    // Bottom stem part
-    translate([(base_plate_width - base_plate_stem_width)/2, 0, 0])
-    square([base_plate_stem_width, base_plate_stem_height]);
+    // Top part with angled corners
+    polygon(points = [
+      [0, base_plate_height - 50],                    // Bottom left of top section
+      [(94 - 40)/2, base_plate_height],               // Top left point
+      [94 - (94 - 40)/2, base_plate_height],          // Top right point
+      [94, base_plate_height - 50],                   // Bottom right of top section
+      [94, base_plate_stem_height],                   // Bottom right before stem
+      [(94 + 20)/2, base_plate_stem_height],          // Right side stem start
+      [(94 + 20)/2, 0],                              // Bottom right of stem
+      [(94 - 20)/2, 0],                              // Bottom left of stem
+      [(94 - 20)/2, base_plate_stem_height],          // Left side stem start
+      [0, base_plate_stem_height]                     // Bottom left before stem
+    ]);
   }
 }
 
