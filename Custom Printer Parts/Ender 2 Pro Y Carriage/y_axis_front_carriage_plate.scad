@@ -33,7 +33,7 @@ v_wheel_distance_from_top_bottom_edge = base_plate_head_height - (9.50 + v_wheel
 
 left_v_wheel_diameter = v_wheel_diameter;
 left_v_wheel_offset = v_wheel_offset;
-left_v_wheel_distance_from_left = 8.90 + left_v_wheel_offset;
+left_v_wheel_distance_from_left = base_plate_width / 2.0; //- (8.90 + left_v_wheel_offset); // should be in the centre
 left_v_wheel_distance_from_top_bottom_edge = v_wheel_distance_from_top_bottom_edge;
 
 right_v_wheel_diameter = v_wheel_diameter;
@@ -44,8 +44,8 @@ right_v_wheel_distance_from_top_bottom_edge = v_wheel_distance_from_top_bottom_e
 // Motor hole
 motor_hole_diameter = 23.10;
 motor_hole_offset = (motor_hole_diameter / 2.0);
-motor_hole_distance_from_top = 10.7 + motor_hole_offset;
-motor_hole_distance_from_left = 27.6 + motor_hole_offset;
+motor_hole_distance_from_left = base_plate_width - (37.00 + motor_hole_offset); // 27.6
+motor_hole_distance_from_top = base_plate_height - (10.7 + motor_hole_offset);
 
 // Motor mount holes
 motor_mount_hole_diameter = 3.59;
@@ -89,17 +89,24 @@ mounting_hole_3_distance_from_left = 7.95 + mounting_hole_3_offset;
 
 // Functions
 module create_hull_hole(hole_size, x, y) {
-  translate([x, y, 0]) {
+  translate([y, x, 0]) {  // Swapped x and y coordinates here
     cylinder(h = hole_z_height, d = hole_size, center = true);
   }
+  translate([0, 0, 0]);
 }
 
 module main_mounting_plate() {
   // Base plate
   translate([0, 0, 0])
   linear_extrude(height = thickness)
-  hull() {
-    square([base_plate_width, base_plate_height]);
+  union() {
+    // Top rectangular part
+    translate([0, base_plate_stem_height, 0])
+    square([base_plate_width, base_plate_height - base_plate_stem_height]);
+
+    // Bottom stem part
+    translate([(base_plate_width - base_plate_stem_width)/2, 0, 0])
+    square([base_plate_stem_width, base_plate_stem_height]);
   }
 }
 
