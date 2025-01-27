@@ -105,14 +105,16 @@ module main_mounting_plate() {
         // Top part with angled corners
         polygon(points = [
           [8, base_plate_height - 50 + 8],                    // Bottom left of top section
-          [(94 - 40)/2 + 8, base_plate_height - 8],          // Top left point
-          [94 - (94 - 40)/2 - 8, base_plate_height - 8],     // Top right point
-          [94 - 8, base_plate_height - 50 + 8],              // Bottom right of top section
-          [94 - 8, base_plate_stem_height + 8],              // Bottom right before stem
-          [(94 + 20)/2 - 8, base_plate_stem_height + 8],     // Right side stem start
-          [(94 + 20)/2 - 8, 8],                              // Bottom right of stem
-          [(94 - 20)/2 + 8, 8],                              // Bottom left of stem
-          [(94 - 20)/2 + 8, base_plate_stem_height + 8],     // Left side stem start
+          [8, base_plate_height - (50 - 17)],                        // Start of angle on left
+          [(94 - 40)/2 + 8, base_plate_height - 8],           // Top left point
+          [94 - (94 - 40)/2 - 8, base_plate_height - 8],      // Top right point
+          [94 - 8, base_plate_height - (50 - 17)],                   // Start of angle on right
+          [94 - 8, base_plate_height - 50 + 8],               // Bottom right of top section
+          [94 - 8, base_plate_stem_height + 8],               // Bottom right before stem
+          [(94 + 20)/2 - 8, base_plate_stem_height + 8],      // Right side stem start
+          [(94 + 20)/2 - 8, 8],                               // Bottom right of stem
+          [(94 - 20)/2 + 8, 8],                               // Bottom left of stem
+          [(94 - 20)/2 + 8, base_plate_stem_height + 8],      // Left side stem start
           [8, base_plate_stem_height + 8]                     // Bottom left before stem
         ]);
       }
