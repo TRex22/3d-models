@@ -2,18 +2,18 @@
 // All measurements are from the closest edge of each hole
 
 // High quality settings
-$fn = 100;
+quality_value = 100;
+$fn = quality_value;
 
 // Variables
 // Base Dimensions
 thickness = 2.52;
 base_plate_height = 132.88;
 base_plate_width = 94.00;
-
-base_plate_curve_degree = 45.00;
+base_plate_radius = 8.00; // 45 degrees??
 
 base_plate_head_height = 50.00;
-base_plate_head_width = 94.00;
+base_plate_head_width = base_plate_width;
 base_plate_head_top_height = 40.00;
 base_plate_head_bottom_height = 17.00;
 
@@ -96,6 +96,12 @@ module create_hull_hole(hole_size, x, y) {
 }
 
 module main_mounting_plate() {
+  // Calculations
+  plate_head_top_radius = (base_plate_head_height + base_plate_radius);
+  plate_head_curve_length = (base_plate_head_height - base_plate_head_bottom_height); // should be ±40.00mm
+  plate_head_top_midpoint = (base_plate_head_width - base_plate_head_top_height) / 2.00;
+  plate_bottom_radius_offset = (base_plate_height - base_plate_radius);
+
   // Base plate
   translate([0, 0, 0])
   linear_extrude(height = thickness)
@@ -104,25 +110,25 @@ module main_mounting_plate() {
       union() {
         // Top part with angled corners
         polygon(points = [
-          [8, base_plate_height - 50 + 8],                    // Bottom left of top section
-          [8, base_plate_height - (50 - 17)],                        // Start of angle on left
-          [(94 - 40)/2 + 8, base_plate_height - 8],           // Top left point
-          [94 - (94 - 40)/2 - 8, base_plate_height - 8],      // Top right point
-          [94 - 8, base_plate_height - (50 - 17)],                   // Start of angle on right
-          [94 - 8, base_plate_height - 50 + 8],               // Bottom right of top section
-          [94 - 8, base_plate_stem_height + 8],               // Bottom right before stem
-          [(94 + 20)/2 - 8, base_plate_stem_height + 8],      // Right side stem start
-          [(94 + 20)/2 - 8, 8],                               // Bottom right of stem
-          [(94 - 20)/2 + 8, 8],                               // Bottom left of stem
-          [(94 - 20)/2 + 8, base_plate_stem_height + 8],      // Left side stem start
-          [8, base_plate_stem_height + 8]                     // Bottom left before stem
+          [base_plate_radius, base_plate_height - plate_head_top_radius],                                                            // Bottom left of top section
+          [base_plate_radius, base_plate_height - plate_head_curve_length],                                                          // Start of angle on left
+          [plate_head_top_midpoint + base_plate_radius, plate_bottom_radius_offset],                                                 // Top left point
+          [base_plate_head_width - plate_head_top_midpoint - base_plate_radius, plate_bottom_radius_offset],                         // Top right point
+          [base_plate_head_width - base_plate_radius, base_plate_height - plate_head_curve_length],                                  // Start of angle on right
+          [base_plate_head_width - base_plate_radius, base_plate_height - plate_head_top_radius],                                    // Bottom right of top section
+          [base_plate_head_width - base_plate_radius, base_plate_stem_height + base_plate_radius],                                   // Bottom right before stem
+          [(base_plate_head_width + base_plate_stem_width) / 2.00 - base_plate_radius, base_plate_stem_height + base_plate_radius],  // Right side stem start
+          [(base_plate_head_width + base_plate_stem_width) / 2.00 - base_plate_radius, base_plate_radius],                           // Bottom right of stem
+          [(base_plate_head_width - base_plate_stem_width) / 2.00 + base_plate_radius, base_plate_radius],                           // Bottom left of stem
+          [(base_plate_head_width - base_plate_stem_width) / 2.00 + base_plate_radius, base_plate_stem_height + base_plate_radius],  // Left side stem start
+          [base_plate_radius, base_plate_stem_height + base_plate_radius]                                                            // Bottom left before stem
         ]);
       }
     }
-    circle(r = 8, $fn = 100);
+
+    circle(r = base_plate_radius, $fn = quality_value);
   }
 }
-
 
 module create_holes() {
   // Top V-Wheels
