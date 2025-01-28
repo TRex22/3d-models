@@ -10,9 +10,9 @@ include <x_axis_carriage_printable_design.scad>
 // z_probe_mount_translation = 79.530 + fork_height + 1;
 probe_mount_rotation = [180, 0, 0];
 
-x_probe_mount_translation = 40.0;
-y_probe_mount_translation = -20;
-z_probe_mount_translation = 120;
+x_probe_mount_translation = 38.0;
+y_probe_mount_translation = -30.0 - 0.50;
+z_probe_mount_translation = 12 + 0.94; // 1.44
 
 module klackender_probe_mount() {
   translate([x_probe_mount_translation, y_probe_mount_translation, z_probe_mount_translation])
