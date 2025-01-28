@@ -47,7 +47,7 @@ right_v_wheel_offset = v_wheel_offset;
 right_v_wheel_distance_from_left = base_plate_head_width - left_v_wheel_distance_from_left;
 
 // Motor hole - centered
-motor_hole_diameter = 23.10 - 1.10; // Reduce clearance for a tight fit
+motor_hole_diameter = 23.10 - 1.00; // Reduce clearance for a tight fit
 motor_hole_offset = (motor_hole_diameter / 2.0);
 motor_hole_distance_from_left = base_plate_width / 2.0;  // Centers the hole horizontally // base_plate_width - (37.00 + motor_hole_offset); // 27.6
 motor_hole_distance_from_top = base_plate_height - (10.7 + motor_hole_offset);
