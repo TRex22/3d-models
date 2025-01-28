@@ -12,6 +12,7 @@ thickness = 2.50;
 m3_hole_diameter = 2.8;
 m3_error = 0.2; // error in calculation for difference between holes
 v_wheel_hole_diameter = 5.20;
+v_wheel_offset = v_wheel_hole_diameter / 2.0;
 small_hole_diameter = 3.5;
 standoff_diameter = 4.15;
 eyelet_hole_diameter = 7.30;
@@ -81,9 +82,9 @@ module main_plate() {
     cube([2.30, 3.40, thickness + 2]);
 
     // V-wheel holes
-    translate([9.45 + 2.41, plate_height - (9.30 + 2.22), -1])
+    translate([9.45 + 2.41, plate_height - (9.30 + v_wheel_offset), -1]) // + 2.22
     cylinder(d = v_wheel_hole_diameter, h = thickness + 2);
-    translate([plate_width - (9.45 + 2.41), plate_height - (9.30 + 2.22), -1])
+    translate([plate_width - (9.45), plate_height - (9.30 + v_wheel_offset), -1]) // 2.41 - v_wheel_offset and y = + 2.22
     cylinder(d = v_wheel_hole_diameter, h = thickness + 2);
 
     // Standoff through holes

@@ -6,7 +6,7 @@ include <original_designs/x_axis_carriage_original.scad>
 
 // Variable Overrides
 thickness = 4.00; // 4.50;
-chamfer_size = 0.5; // 0.5mm chamfer
+chamfer_size = 0.8; // 0.5mm chamfer
 
 module main_plate_with_chamfer() {
   difference() {

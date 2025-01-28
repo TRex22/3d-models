@@ -5,15 +5,20 @@
 include <x_axis_carriage_printable_design.scad>
 
 // Variables
-x_probe_mount_translation = - (25 + (plate_width - right_fork_width));
-y_probe_mount_translation = - (68 + thickness);
-z_probe_mount_translation = 79.530 + fork_height;
+// x_probe_mount_translation = - (25 + (plate_width - right_fork_width));
+// y_probe_mount_translation = - ((68 - 2) + thickness);
+// z_probe_mount_translation = 79.530 + fork_height + 1;
 probe_mount_rotation = [180, 0, 0];
+
+x_probe_mount_translation = 40.0;
+y_probe_mount_translation = -20;
+z_probe_mount_translation = 120;
 
 module klackender_probe_mount() {
   translate([x_probe_mount_translation, y_probe_mount_translation, z_probe_mount_translation])
   rotate(probe_mount_rotation)
-  import("Probe_Mount.stl");
+  import("Klackender_probe_holder_solid.stl");
+  // import("Probe_Mount.stl");
 }
 
 // Main assembly
@@ -22,12 +27,7 @@ module main_assembly() {
   difference() {
     union() {
       main_plate();
-      // main_plate_with_chamfer();
-
-      // standoffs(); // Remove stand-offs
-
       klackender_probe_mount();
-
       forks_and_eyelet();
     }
     central_cutout();
