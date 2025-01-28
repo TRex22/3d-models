@@ -9,14 +9,14 @@ thickness = 5.48; // 2.00; // must replace the stand-offs
 plate_height = 12.00;
 plate_width = 21.00;
 m3_hole_diameter = 2.8;
-m3_offset = m3_hole_diameter / 2.0;
+m3_offset = m3_hole_diameter;
 m3_hole_height = 100;
 standoff_diameter = 4.15;
 
 countersink_diameter = 5.65;
 countersink_height = 2.10;
 
-hole_distance = 11.60;
+hole_distance = 11.60 + m3_offset;
 
 module main_mounting_plate() {
   // Base plate
