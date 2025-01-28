@@ -11,8 +11,8 @@ include <x_axis_carriage_printable_design.scad>
 probe_mount_rotation = [180, 0, 0];
 
 x_probe_mount_translation = 38.0;
-y_probe_mount_translation = -30.0 - 0.50;
-z_probe_mount_translation = 12 + 0.94; // 1.44
+y_probe_mount_translation = -30.0 - 0.50 - 2.0;
+z_probe_mount_translation = 12 + 1.0; // + 0.94 // 1.44
 
 module klackender_probe_mount() {
   translate([x_probe_mount_translation, y_probe_mount_translation, z_probe_mount_translation])
