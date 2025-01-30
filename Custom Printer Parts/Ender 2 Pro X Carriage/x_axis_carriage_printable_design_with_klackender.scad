@@ -8,6 +8,10 @@ include <x_axis_carriage_printable_design.scad>
 // x_probe_mount_translation = - (25 + (plate_width - right_fork_width));
 // y_probe_mount_translation = - ((68 - 2) + thickness);
 // z_probe_mount_translation = 79.530 + fork_height + 1;
+
+// Probe Mount will go over the fork blocking
+// When guiding the belts will need to shift the motor back by about 2mm,
+// can use washers
 probe_mount_rotation = [180, 0, 0];
 
 x_probe_mount_translation = 38.0;
@@ -29,6 +33,7 @@ module main_assembly() {
       main_plate();
       klackender_probe_mount();
       forks_and_eyelet();
+      forks_blocking();
     }
     central_cutout();
   }

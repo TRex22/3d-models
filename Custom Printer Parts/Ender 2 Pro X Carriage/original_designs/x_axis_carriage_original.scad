@@ -17,6 +17,12 @@ small_hole_diameter = 3.5;
 standoff_diameter = 4.15;
 eyelet_hole_diameter = 7.30;
 
+// Stand-off locations
+original_stand_off_offset = 23.60;
+stand_off_height_location = plate_height - original_stand_off_offset;
+stand_off_width_location = 27.00;
+stand_off_width_distance = 11.60;
+
 // Fork dimensions
 left_fork_width = 13.50;
 right_fork_width = 11.50;
@@ -88,9 +94,9 @@ module main_plate() {
     cylinder(d = v_wheel_hole_diameter, h = thickness + 2);
 
     // Standoff through holes
-    translate([(27.00 + 0.87), plate_height - (23.60 + 0.77), -1])
+    translate([(stand_off_width_location + 0.87), plate_height - (stand_off_height_location + 0.77), -1])
     cylinder(d = m3_hole_diameter, h = thickness + 2);
-    translate([(27.00 + 11.60 + 0.87 + 2.59), plate_height - (23.60 + 0.77), -1])
+    translate([(stand_off_width_location + stand_off_width_distance + 0.87 + 2.59), plate_height - (stand_off_height_location + 0.77), -1])
     cylinder(d = m3_hole_diameter, h = thickness + 2);
   }
 }
@@ -106,12 +112,12 @@ module central_cutout() {
 }
 
 module standoffs() {
-  translate([27.00, plate_height - 23.60, -5.5]) {
+  translate([stand_off_width_location, stand_off_height_location, -5.5]) {
     difference() {
       cylinder(d = standoff_diameter, h = 5.5);
       cylinder(d = m3_hole_diameter, h = 5.5 + 1);
     }
-    translate([11.60, 0, 0]) {
+    translate([stand_off_width_distance, 0, 0]) {
       difference() {
         cylinder(d = standoff_diameter, h = 5.5);
         cylinder(d = m3_hole_diameter, h = 5.5 + 1);

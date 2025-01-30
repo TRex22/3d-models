@@ -25,7 +25,7 @@ magent_thickness = 3.00;
 magnet_hole_diameter = 5.20;
 magnet_hole_outer_diamter = 7.00;
 
-magnet_pusher_diamter = 1.20;
+magnet_pusher_diamter = 2.40;
 magnet_pusher_height = 200.00;
 
 module klackender_probe_mount() {
