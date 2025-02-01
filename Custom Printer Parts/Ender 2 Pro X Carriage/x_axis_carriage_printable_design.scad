@@ -59,11 +59,11 @@ module main_plate_with_chamfer() {
     difference() {
       minkowski() {
         main_plate();
-        cylinder(h=chamfer_size*2, r1=chamfer_size, r2=0, $fn=24);
+        cylinder(h=chamfer_size*2, r1=chamfer_size, r2=0, $fn=model_quality);
       }
       minkowski() {
         main_plate();
-        cylinder(h=chamfer_size*2, r=0.01, $fn=24);
+        cylinder(h=chamfer_size*2, r=0.01, $fn=model_quality);
       }
     }
   }

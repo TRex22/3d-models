@@ -1,6 +1,7 @@
 // Ender 2 Pro X Axis Carriage Plate Model
 // High quality settings
-$fn = 100;
+model_quality = 100;
+$fn = model_quality;
 
 // Main dimensions
 plate_width = 61.00; // 61.25;
