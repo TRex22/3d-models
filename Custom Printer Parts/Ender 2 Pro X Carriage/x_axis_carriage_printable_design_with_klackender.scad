@@ -25,16 +25,23 @@ module klackender_probe_mount() {
   // import("Probe_Mount.stl");
 }
 
+
 // Main assembly
 module main_assembly() {
   // Final assembly
   difference() {
     union() {
       main_plate();
+      // main_plate_with_chamfer();
+      // standoffs(); // Remove stand-offs
       klackender_probe_mount();
       forks_and_eyelet();
       forks_blocking();
     }
-    central_cutout();
+    union() {
+      central_cutout();
+      clearance_of_bottom_extrusion();
+      ziptie_hole();
+    }
   }
 }

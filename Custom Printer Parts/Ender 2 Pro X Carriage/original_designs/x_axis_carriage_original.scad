@@ -56,14 +56,14 @@ module main_plate() {
 
     // Left side notches
     translate([-1, 6.50, -1]) {
-      cube([2.30 + 1, 5.20, thickness + 2]);
+      cube([2.30 + 1, 5.20, thickness + 10]);
       translate([0, 13.60 + 5.20, 0])
-      cube([2.03 + 1, 5.40, thickness + 2]);
+      cube([2.03 + 1, 5.40, thickness + 10]);
     }
 
     // Right side notch
     translate([plate_width - 2.30, 10.30, -1])
-    cube([3.04 + 1, 6.40, thickness + 2]);
+    cube([3.04 + 1, 6.40, thickness + 10]);
 
     // Left side M3 holes
     translate([17.00, plate_height - 25.60, -1]) {
