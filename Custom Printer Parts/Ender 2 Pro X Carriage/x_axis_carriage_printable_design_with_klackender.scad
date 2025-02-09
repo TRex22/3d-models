@@ -32,9 +32,9 @@ magnet_hole_x_translation = 47.50;
 magnet_hole_y_translation = 6.50;
 magnet_hole_z_transation = 14.00;
 
-magnet_hole_diameter = 5.05;
+magnet_hole_diameter = 5.15;
 magnet_hole_outer_diameter = 8.00;
-magnet_hole_height = 3.08;
+magnet_hole_height = 3.20;
 
 magnet_hole_translation = 5.00 + 6.00;
 
@@ -68,16 +68,22 @@ module klackender_magent_holes() {
   rotate([90, 0, 0])
   translate([magnet_hole_x_translation, magnet_hole_y_translation, magnet_hole_z_transation])
   difference() {
-    cylinder(h=magnet_hole_height, d=magnet_hole_outer_diameter, $fn=model_quality);
-    cylinder(h=magnet_hole_height, d=magnet_hole_diameter, $fn=model_quality);
+    linear_extrude(height = magnet_hole_height)
+    circle(d = magnet_hole_outer_diameter);
+
+    linear_extrude(height = magnet_hole_height)
+    circle(d = magnet_hole_diameter);
   }
 
   // left
   rotate([90, 0, 0])
   translate([magnet_hole_x_translation + magnet_hole_translation, magnet_hole_y_translation, magnet_hole_z_transation])
   difference() {
-    cylinder(h=magnet_hole_height, d=magnet_hole_outer_diameter, $fn=model_quality);
-    cylinder(h=magnet_hole_height, d=magnet_hole_diameter, $fn=model_quality);
+    linear_extrude(height = magnet_hole_height)
+    circle(d = magnet_hole_outer_diameter);
+
+    linear_extrude(height = magnet_hole_height)
+    circle(d = magnet_hole_diameter);
   }
 }
 
@@ -98,8 +104,8 @@ module main_assembly() {
     union() {
       central_cutout();
       clearance_of_bottom_extrusion();
-      klackender_probe_mount_back_removal()
       ziptie_hole();
+      klackender_probe_mount_back_removal();
     }
   }
 }

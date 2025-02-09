@@ -32,8 +32,8 @@ bottom_extrusion_y = 2.0;
 bottom_extrusion_z = 4.0;
 
 // Ziptie hole
-ziptie_hole_width = 2.50;
-ziptie_hole_height = 2.50;
+ziptie_hole_width = 3.50;
+ziptie_hole_height = 3.50;
 
 module forks_blocking() {
   // Right block
@@ -96,7 +96,7 @@ module ziptie_hole() {
   // translate([plate_width - 8.8 - 2.30, plate_height - 3.47, -1])
   // cube([2.30, 3.40, thickness + 2]);
 
-  translate([plate_width - 8.8 - 2.30 + 7.0, plate_height - 3.47 - 3.30 - 3.0, -1])
+  translate([plate_width - 8.8 - 2.30 + 5.0, plate_height - 3.47 - 3.30 - 3.0, -1])
   linear_extrude(height = thickness + 10.0)
   hull() {
     square([ziptie_hole_width, ziptie_hole_height]);
