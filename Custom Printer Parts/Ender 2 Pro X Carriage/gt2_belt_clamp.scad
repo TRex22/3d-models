@@ -1,12 +1,15 @@
+model_quality = 100;
+$fn = model_quality;
+
 // GT2 Belt Clamp Parameters
-clamp_width = 9;    // Width of the clamp
+clamp_width = 9;    // Width of the clamp // TODO: Change
 clamp_length = 40;  // Length of the clamp
-clamp_height = 3;   // Height/thickness of the clamp
+clamp_height = 3;   // Height/thickness of the clamp // TODO: May need to be thicker
 
 // GT2 Belt tooth parameters
-tooth_spacing = 1.1;  // Space between teeth
-tooth_width = 0.85;   // Width of each tooth
-tooth_depth = 0.9;    // Depth of the teeth
+tooth_spacing = 1.10; // 1.40;  // Space between teeth
+tooth_width = tooth_spacing; // 0.85;   // Width of each tooth
+tooth_depth = 0.9; // 0.65   // Depth of the teeth
 num_teeth = floor(clamp_length / tooth_spacing);  // Calculate number of teeth
 
 // Screw hole parameters
