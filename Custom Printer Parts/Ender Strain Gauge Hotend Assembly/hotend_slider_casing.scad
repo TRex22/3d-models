@@ -13,17 +13,11 @@ module Casing() {
     translate([casing_wall_thickness / 2.00, casing_wall_thickness / 2.00, -1])
       cube([slider_width, slider_height + slider_movement, slider_depth + 1.00]);
 
-    // Countersunk holes for brass nails
-    translate([-1, total_height-spring_back_space-casing_wall_thickness / 2.00, slider_depth / 2.00 + casing_wall_thickness / 2.00]) {
+    // Single centered countersunk hole for brass nail
+    translate([-1, total_height / 2.00, (slider_depth + casing_wall_thickness) / 2.00]) {
       rotate([0, 90, 0]) {
-        translate([0, -1.0, 0]) {
-          cylinder(d=brass_nail_diameter, h=slider_width + casing_wall_thickness + 2.00);
-          cylinder(d=brass_nail_head_diameter, h=brass_nail_head_depth);
-        }
-        translate([0, -(total_height - (casing_wall_thickness * 2.00) + 1.00), 0]) {
-          cylinder(d=brass_nail_diameter, h=slider_width + casing_wall_thickness + 2.00);
-          cylinder(d=brass_nail_head_diameter, h=brass_nail_head_depth);
-        }
+        cylinder(d=brass_nail_diameter, h=slider_width + casing_wall_thickness + 2.00);
+        cylinder(d=brass_nail_head_diameter, h=brass_nail_head_depth);
       }
     }
 
