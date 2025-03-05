@@ -16,7 +16,7 @@ module Casing() {
     // Countersunk holes for brass nails
     translate([-1, total_height-spring_back_space-casing_wall_thickness / 2.00, slider_depth / 2.00 + casing_wall_thickness / 2.00]) {
       rotate([0, 90, 0]) {
-        translate([0, -0.0, 0]) {
+        translate([0, -1.0, 0]) {
           cylinder(d=brass_nail_diameter, h=slider_width + casing_wall_thickness + 2.00);
           cylinder(d=brass_nail_head_diameter, h=brass_nail_head_depth);
         }
