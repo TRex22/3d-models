@@ -2,7 +2,7 @@ include <../../shared_helper.scad>
 
 // Slider mechanism specific variables
 slider_height = 20.00;
-slider_width = 23.00; // 30.00
+slider_width = 20.00; // 23.00 30.00
 slider_depth = 10.00;
 slider_movement = 2.00; // How far the slider can move
 slider_guide_hole_diameter = brass_nail_diameter + hole_loose_tolerance; // For brass nails
@@ -14,3 +14,5 @@ casing_wall_thickness = 4.00;
 casing_bottom_thickness = 2.00;
 
 m3_head_depth = 0.2; // 2.5??, 3.0
+
+small_magent_position = 3.00;
