@@ -66,24 +66,24 @@ module Casing() {
     // Outside magnet hole
     translate([total_casing_width - (casing_wall_thickness + small_magent_position), 0.0, ((total_casing_depth) / 2.00) + 1.5]) {
       rotate([0, 90, 90]) {
-        cylinder(d=small_magnet_diameter + hole_tight_tolerance, h=(small_magnet_height));
+        cylinder(d=small_magnet_diameter + hole_loose_tolerance, h=small_magnet_height);
       }
     }
 
     // D2F Switch
-    switch_base = 0.2;
+    switch_base = 0.2 + 0.7;
     translate([casing_wall_thickness / 2.00, 0.0, switch_base]) {
       cube([d2f_depth, d2f_width + 1.05 + 0.75, d2f_length + casing_top_edge_buffer]); // 1.05
     }
 
     // Switch Mount Holes
-    translate([0.0, 1.75, ((total_casing_depth) / 2.00) + 1.5 + 0.2]) {
+    translate([0.0, 1.75, ((total_casing_depth) / 2.00) + 1.5 + 0.2 - 0.8]) {
       rotate([90, 0, 90]) {
         translate([0.0, d2f_hole_position_from_centre, 0.0]) {
           cylinder(d=m2_hole_diameter + hole_tight_tolerance, h=22);
         }
 
-        translate([0.0, -d2f_hole_position_from_centre, 0.0]) {
+        translate([0.0, -(d2f_hole_position_from_centre + m2_hole_offset), 0.0]) {
           cylinder(d=m2_hole_diameter + hole_tight_tolerance, h=22);
         }
       }
