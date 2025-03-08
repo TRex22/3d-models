@@ -17,7 +17,7 @@ m3_head_diameter = 6.2;
 m3_head_depth = 3.0; // 2.5??, 3.0
 
 // Tolerances
-hole_tight_tolerance = 0.02;
+hole_tight_tolerance = 0.05;
 hole_loose_tolerance = 0.20;
 
 // Springs

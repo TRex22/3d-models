@@ -13,8 +13,8 @@ module Casing() {
 
     translate([0.0, casing_top_buffer, 0.0]) {
       // Slider Puck
-      translate([casing_wall_thickness / 2.00, casing_wall_thickness - slider_movement, casing_wall_thickness]) {
-        cube([slider_width + hole_tight_tolerance, slider_height + slider_movement, slider_depth]);
+      translate([(casing_wall_thickness / 2.00), casing_wall_thickness - slider_movement, casing_wall_thickness]) {
+        cube([slider_width + hole_loose_tolerance, slider_height + slider_movement, slider_depth]);
       }
 
       // Mounting holes with countersinking - horizontal, through-holes, properly positioned
@@ -25,7 +25,7 @@ module Casing() {
 
         // Countersink
         translate([0.0, 0.0, 0.0]) {
-          cylinder(d=m3_head_diameter + hole_loose_tolerance, h=4 + m3_head_depth + 3, center=true);
+          cylinder(d=m3_head_diameter + hole_loose_tolerance, h=4 + m3_head_depth + 6, center=true);
         }
 
         translate([stand_off_width_distance, 0, 0]) {
@@ -34,14 +34,14 @@ module Casing() {
 
         // Countersink
         translate([stand_off_width_distance, 0, 0]) {
-          cylinder(d=m3_head_diameter + hole_loose_tolerance, h=4 + m3_head_depth + 3, center=true);
+          cylinder(d=m3_head_diameter + hole_loose_tolerance, h=4 + m3_head_depth + 6, center=true);
         }
       }
 
       // Spring hole
       translate([total_casing_width / 2, casing_wall_thickness - 2.5, ((total_casing_depth) / 2.00) + 1.5]) {
         rotate([0, 90, 90]) {
-          cylinder(d=spring_diameter + 0.55, h=1.25);
+          cylinder(d=spring_diameter + 0.55, h=1.25 + 1.00);
         }
       }
     }
@@ -49,7 +49,7 @@ module Casing() {
     // Nail holes
     translate([total_casing_width / 2, 0.0, ((total_casing_depth) / 2.00) + 1.5]) {
       rotate([0, 90, 90]) {
-        cylinder(d=brass_nail_diameter - hole_tight_tolerance, h=100 + 2.00);
+        cylinder(d=brass_nail_diameter - hole_loose_tolerance, h=100.00);
         cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
       }
     }
@@ -71,19 +71,20 @@ module Casing() {
     }
 
     // D2F Switch
-    translate([casing_wall_thickness / 2.00, 0.0, 0.0]) {
-      cube([d2f_depth, d2f_width, d2f_length + casing_top_edge_buffer]);
+    switch_base = 0.2;
+    translate([casing_wall_thickness / 2.00, 0.0, switch_base]) {
+      cube([d2f_depth, d2f_width + 1.05 + 0.75, d2f_length + casing_top_edge_buffer]); // 1.05
     }
 
     // Switch Mount Holes
-    translate([0.0, 1.5, ((total_casing_depth) / 2.00) + 1.5]) {
+    translate([0.0, 1.75, ((total_casing_depth) / 2.00) + 1.5 + 0.2]) {
       rotate([90, 0, 90]) {
         translate([0.0, d2f_hole_position_from_centre, 0.0]) {
-          cylinder(d=m2_hole_diameter + hole_tight_tolerance, h=15);
+          cylinder(d=m2_hole_diameter + hole_tight_tolerance, h=22);
         }
 
         translate([0.0, -d2f_hole_position_from_centre, 0.0]) {
-          cylinder(d=m2_hole_diameter + hole_tight_tolerance, h=15);
+          cylinder(d=m2_hole_diameter + hole_tight_tolerance, h=22);
         }
       }
     }
