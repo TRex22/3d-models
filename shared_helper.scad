@@ -41,7 +41,7 @@ stand_off_width_distance = 11.60 + (stand_off_hole_diameter / 2.0);
 // Magnets
 // Small Magnet (Neo)
 small_magnet_height = 2.00; // ±2.00 1.97
-small_magnet_diameter = 2.98; // ±3.00
+small_magnet_diameter = 3.00; // ±3.00 // 2.98
 
 // Medium Magnet (Neo)
 medium_magnet_height = 2.96; // ±3.00
@@ -59,6 +59,9 @@ d2f_depth = 6.20; // ±7.00 (5 + 2)
 d2f_plunger_length = 2.64;
 d2f_plunger_width = 0.97; // ±1.00
 d2f_plunger_depth = 0.39; // ±0.50
+d2f_mount_hole_position = 2.10;
+d2f_hole_position_from_centre = 2.85;
+d2f_mount_hole_shift = 4.40 + m2_hole_offset + m2_hole_offset;
 
 // 10t85 Switch
 10t85_length = 20.04; // ±19.90
