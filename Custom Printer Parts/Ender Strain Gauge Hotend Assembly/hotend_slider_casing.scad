@@ -39,7 +39,7 @@ module Casing() {
       }
 
       // Spring hole
-      translate([total_casing_width / 2, casing_wall_thickness - 2.5, ((total_casing_depth) / 2.00) + 1.5]) {
+      translate([total_casing_width / 2, casing_wall_thickness - 2.5, ((total_casing_depth) / 2.00) + 1.5 + 1.5]) {
         rotate([0, 90, 90]) {
           cylinder(d=spring_diameter + 0.55, h=1.25 + 1.00);
         }
@@ -47,7 +47,7 @@ module Casing() {
     }
 
     // Nail holes
-    translate([total_casing_width / 2, 0.0, ((total_casing_depth) / 2.00) + 1.5]) {
+    translate([total_casing_width / 2, 0.0, ((total_casing_depth) / 2.00) + 1.5 + 1.5]) {
       rotate([0, 90, 90]) {
         cylinder(d=brass_nail_diameter - hole_loose_tolerance, h=100.00);
         cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
@@ -64,7 +64,7 @@ module Casing() {
     // }
 
     // Outside magnet hole
-    translate([total_casing_width - (casing_wall_thickness + small_magent_position), 0.0, ((total_casing_depth) / 2.00) + 1.5]) {
+    translate([total_casing_width - (casing_wall_thickness + small_magent_position) + 1.8, 0.0, ((total_casing_depth) / 2.00) + 1.5 + 1.5]) {
       rotate([0, 90, 90]) {
         cylinder(d=small_magnet_diameter + hole_loose_tolerance, h=small_magnet_height);
       }
@@ -77,14 +77,14 @@ module Casing() {
     }
 
     // Switch Mount Holes
-    translate([0.0, 1.75, ((total_casing_depth) / 2.00) + 1.5 + 0.2 - 0.8]) {
+    translate([0.0, 1.75, ((total_casing_depth) / 2.00) + 1.5 + 0.2 - 0.8 + 1.5]) {
       rotate([90, 0, 90]) {
         translate([0.0, d2f_hole_position_from_centre, 0.0]) {
-          cylinder(d=m2_hole_diameter + hole_tight_tolerance, h=22);
+          cylinder(d=m2_hole_diameter + hole_tight_tolerance + 0.1, h=22);
         }
 
         translate([0.0, -(d2f_hole_position_from_centre + m2_hole_offset), 0.0]) {
-          cylinder(d=m2_hole_diameter + hole_tight_tolerance, h=22);
+          cylinder(d=m2_hole_diameter + hole_tight_tolerance + 0.1, h=22);
         }
       }
     }

@@ -21,22 +21,26 @@ module Slider() {
     }
 
     // Single centered spring hole
-    translate([spring_back_space, half_height, half_depth])
+    translate([spring_back_space, half_height, half_depth]) {
       rotate([0, 90, 0])
       cylinder(d=spring_diameter + 0.55, h=slider_width - shortner);
+    }
 
-    translate([0, half_height, half_depth])
+    translate([0, half_height, half_depth]) {
       rotate([0, 90, 0])
       cylinder(d=slider_guide_hole_diameter + hole_loose_tolerance, h=slider_width - shortner + 1.00);
+    }
 
     // Magnet Holes
-    translate([magnet_position, small_magent_position, half_depth])
+    translate([magnet_position, small_magent_position, half_depth]) {
       rotate([0, 90, 0])
       cylinder(d=small_magnet_diameter + hole_loose_tolerance, h=magnet_position);
+    }
 
-    translate([magnet_position, ((slider_height - 1.00) - small_magent_position), half_depth])
+    translate([magnet_position, ((slider_height - 1.00) - small_magent_position), half_depth]) {
       rotate([0, 90, 0])
       cylinder(d=small_magnet_diameter + hole_loose_tolerance, h=magnet_position);
+    }
   }
 }
 
