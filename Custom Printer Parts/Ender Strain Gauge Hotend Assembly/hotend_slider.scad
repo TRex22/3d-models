@@ -2,9 +2,9 @@ include <hotend_slider_helpers.scad>
 
 module Slider() {
   half_depth = slider_depth / 2.00;
-  half_height = (slider_height - 1.00) / 2.00;
+  half_height = (slider_height - 0.80) / 2.00;
 
-  shortner = 5.00 + 1.15 + 0.3;
+  shortner = (5.00 + 1.15 + 0.3) - 3.5;
   magnet_position = slider_width - (shortner + small_magnet_height);
 
   difference() {
@@ -13,7 +13,7 @@ module Slider() {
 
     // Hotend mounting holes (M3)
     rotate([0, 0, -90]) {
-      translate([-3.00, half_height - 2.5, -1.00]) {
+      translate([-2.50, half_height - 1.2, -1.00]) {
         cylinder(d=m3_hole_diameter + hole_tight_tolerance, h=slider_depth + 2.00);
         translate([-stand_off_width_distance, 0, 0])
           cylinder(d=m3_hole_diameter + hole_tight_tolerance, h=slider_depth + 2.00);

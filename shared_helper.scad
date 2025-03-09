@@ -36,7 +36,7 @@ v_wheel_offset = (v_wheel_hole_diameter / 2.0) + 2.0;
 
 // Hot-End Holes
 stand_off_hole_diameter = m3_hole_diameter;
-stand_off_width_distance = 11.60 + (stand_off_hole_diameter / 2.0);
+stand_off_width_distance = 11.60 + stand_off_hole_diameter;
 
 // Magnets
 // Small Magnet (Neo)

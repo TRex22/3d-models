@@ -18,7 +18,7 @@ module Casing() {
       }
 
       // Mounting holes with countersinking - horizontal, through-holes, properly positioned
-      translate([casing_wall_thickness + 1.50, total_casing_height / 2.0, total_casing_depth / 2.0]) {
+      translate([casing_wall_thickness + 0.80, total_casing_height / 2.0, total_casing_depth / 2.0]) {
         translate([0.0, 0.0, 0.0]) {
           cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
         }
@@ -39,7 +39,7 @@ module Casing() {
       }
 
       // Spring hole
-      translate([total_casing_width / 2, casing_wall_thickness - 2.5, ((total_casing_depth) / 2.00) + 1.5 + 1.5]) {
+      translate([total_casing_width / 2, casing_wall_thickness - 2.5, ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2]) {
         rotate([0, 90, 90]) {
           cylinder(d=spring_diameter + 0.55, h=1.25 + 1.00);
         }
@@ -47,7 +47,7 @@ module Casing() {
     }
 
     // Nail holes
-    translate([total_casing_width / 2, 0.0, ((total_casing_depth) / 2.00) + 1.5 + 1.5]) {
+    translate([total_casing_width / 2, 0.0, ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2]) {
       rotate([0, 90, 90]) {
         cylinder(d=brass_nail_diameter - hole_loose_tolerance, h=100.00);
         cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
@@ -64,7 +64,7 @@ module Casing() {
     // }
 
     // Outside magnet hole
-    translate([total_casing_width - (casing_wall_thickness + small_magent_position) + 1.8, 0.0, ((total_casing_depth) / 2.00) + 1.5 + 1.5]) {
+    translate([total_casing_width - (casing_wall_thickness + small_magent_position) + 1.8, 0.0, ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2]) {
       rotate([0, 90, 90]) {
         cylinder(d=small_magnet_diameter + hole_loose_tolerance, h=small_magnet_height);
       }
