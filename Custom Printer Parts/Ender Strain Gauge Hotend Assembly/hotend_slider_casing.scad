@@ -48,15 +48,15 @@ module Casing() {
     }
 
     // Second guide hole. Offset from mounting holes
-    translate([total_casing_width - (casing_wall_thickness + small_magent_position) - 0.6, 0.0, nail_position_z]) {
+    translate([total_casing_width - (casing_wall_thickness + small_magent_position) - 0.6 + 0.2, 0.0, nail_position_z]) {
       rotate([0, 90, 90]) {
         cylinder(d=brass_nail_diameter - hole_loose_tolerance, h=100.00);
         cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
       }
     }
 
-    // D2F Switch
-    switch_base = 0.2 + 0.7;
+    // D2F Switch Space
+    switch_base = 0.2 + 0.7 + 1.50;
     translate([casing_wall_thickness / 2.00, 0.0, switch_base]) {
       cube([d2f_depth, d2f_width + 1.05 + 0.75 - 0.95, d2f_length + casing_top_edge_buffer]); // 1.05
     }
