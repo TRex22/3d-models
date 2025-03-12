@@ -28,18 +28,13 @@ module Slider() {
 
     translate([0, half_height, half_depth]) {
       rotate([0, 90, 0])
-      cylinder(d=slider_guide_hole_diameter + hole_loose_tolerance, h=slider_width - shortner + 1.00);
+      cylinder(d=slider_guide_hole_diameter, h=slider_width - shortner + 1.00);
     }
 
-    // Magnet Holes
-    translate([magnet_position, small_magent_position, half_depth]) {
+    // Second guide hole. Offset from mounting holes
+    translate([0.0, slider_height - 5.80, half_depth]) {
       rotate([0, 90, 0])
-      cylinder(d=small_magnet_diameter + hole_loose_tolerance, h=magnet_position);
-    }
-
-    translate([magnet_position, ((slider_height - 1.00) - small_magent_position), half_depth]) {
-      rotate([0, 90, 0])
-      cylinder(d=small_magnet_diameter + hole_loose_tolerance, h=magnet_position);
+      cylinder(d=slider_guide_hole_diameter, h=100);
     }
   }
 }

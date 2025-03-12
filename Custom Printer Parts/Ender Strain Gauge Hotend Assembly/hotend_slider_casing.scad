@@ -8,6 +8,9 @@ module Casing() {
   total_casing_width = slider_width + casing_wall_thickness;
   total_casing_depth = casing_top_edge_buffer + slider_depth + casing_bottom_thickness;
 
+  // Top/Down of nail holes
+  nail_position_z = ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2 - 0.4;
+
   difference() {
     cube([total_casing_width, total_casing_height, total_casing_depth]);
 
@@ -39,7 +42,7 @@ module Casing() {
       }
 
       // Spring hole
-      translate([total_casing_width / 2, casing_wall_thickness - 2.5, ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2]) {
+      translate([total_casing_width / 2, casing_wall_thickness - 2.5, nail_position_z]) {
         rotate([0, 90, 90]) {
           cylinder(d=spring_diameter + 0.55, h=1.25 + 1.00);
         }
@@ -47,33 +50,25 @@ module Casing() {
     }
 
     // Nail holes
-    translate([total_casing_width / 2, 0.0, ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2]) {
+    translate([total_casing_width / 2, 0.0, nail_position_z]) {
       rotate([0, 90, 90]) {
         cylinder(d=brass_nail_diameter - hole_loose_tolerance, h=100.00);
         cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
       }
     }
 
-    // Magnet hole
-
-    // Inside
-    // translate([total_casing_width - (casing_wall_thickness + small_magent_position), casing_wall_thickness - (1.5 + small_magnet_height), ((total_casing_depth) / 2.00) + 1.0]) {
-    //   rotate([0, 90, 90]) {
-    //     cylinder(d=small_magnet_diameter + hole_tight_tolerance, h=(small_magnet_height));
-    //   }
-    // }
-
-    // Outside magnet hole
-    translate([total_casing_width - (casing_wall_thickness + small_magent_position) + 1.8, 0.0, ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2]) {
+    // Second guide hole. Offset from mounting holes
+    translate([total_casing_width - (casing_wall_thickness + small_magent_position) - 0.8, 0.0, nail_position_z]) {
       rotate([0, 90, 90]) {
-        cylinder(d=small_magnet_diameter + hole_loose_tolerance, h=small_magnet_height);
+        cylinder(d=brass_nail_diameter - hole_loose_tolerance, h=100.00);
+        cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
       }
     }
 
     // D2F Switch
     switch_base = 0.2 + 0.7;
     translate([casing_wall_thickness / 2.00, 0.0, switch_base]) {
-      cube([d2f_depth, d2f_width + 1.05 + 0.75, d2f_length + casing_top_edge_buffer]); // 1.05
+      cube([d2f_depth, d2f_width + 1.05 + 0.75 - 0.95, d2f_length + casing_top_edge_buffer]); // 1.05
     }
 
     // Switch Mount Holes
