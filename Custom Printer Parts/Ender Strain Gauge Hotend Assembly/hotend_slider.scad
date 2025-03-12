@@ -2,14 +2,15 @@ include <hotend_slider_helpers.scad>
 
 module Slider() {
   half_depth = slider_depth / 2.00;
-  half_height = (slider_height - 0.80) / 2.00;
+  half_height = (slider_height - 0.80) / 2.00; // 1.02
+  slider_tolerance = 0.90; // - 1.02
 
   shortner = (5.00 + 1.15 + 0.3) - 3.5;
   magnet_position = slider_width - (shortner + small_magnet_height);
 
   difference() {
     // Main body
-    cube([slider_width - shortner, (slider_height - 1.00), slider_depth]);
+    cube([slider_width - shortner, (slider_height - slider_tolerance), slider_depth]);
 
     // Hotend mounting holes (M3)
     rotate([0, 0, -90]) {

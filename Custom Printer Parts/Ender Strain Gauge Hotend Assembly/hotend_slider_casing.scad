@@ -9,7 +9,7 @@ module Casing() {
   total_casing_depth = casing_top_edge_buffer + slider_depth + casing_bottom_thickness;
 
   // Top/Down of nail holes
-  nail_position_z = ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2 - 0.4;
+  nail_position_z = ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2 - 0.4 - 0.1;
 
   difference() {
     cube([total_casing_width, total_casing_height, total_casing_depth]);
@@ -21,23 +21,13 @@ module Casing() {
       }
 
       // Mounting holes with countersinking - horizontal, through-holes, properly positioned
-      translate([casing_wall_thickness + 0.80, total_casing_height / 2.0, total_casing_depth / 2.0]) {
-        translate([0.0, 0.0, 0.0]) {
-          cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
-        }
-
-        // Countersink
-        translate([0.0, 0.0, 0.0]) {
-          cylinder(d=m3_head_diameter + hole_loose_tolerance, h=4 + m3_head_depth + 6, center=true);
-        }
+      translate([casing_wall_thickness + 0.80, total_casing_height / 2.0, (total_casing_depth / 2.0) - (2.8 + 2.3)]) {
+        cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
+        cylinder(d=m3_head_diameter + hole_loose_tolerance, h=4 + m3_head_depth + 6 + 1.8);
 
         translate([stand_off_width_distance, 0, 0]) {
           cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
-        }
-
-        // Countersink
-        translate([stand_off_width_distance, 0, 0]) {
-          cylinder(d=m3_head_diameter + hole_loose_tolerance, h=4 + m3_head_depth + 6, center=true);
+          cylinder(d=m3_head_diameter + hole_loose_tolerance, h=4 + m3_head_depth + 6 + 1.8);
         }
       }
 
@@ -58,7 +48,7 @@ module Casing() {
     }
 
     // Second guide hole. Offset from mounting holes
-    translate([total_casing_width - (casing_wall_thickness + small_magent_position) - 0.8, 0.0, nail_position_z]) {
+    translate([total_casing_width - (casing_wall_thickness + small_magent_position) - 0.6, 0.0, nail_position_z]) {
       rotate([0, 90, 90]) {
         cylinder(d=brass_nail_diameter - hole_loose_tolerance, h=100.00);
         cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
