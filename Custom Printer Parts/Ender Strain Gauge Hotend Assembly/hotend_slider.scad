@@ -14,10 +14,11 @@ module Slider() {
 
     // Hotend mounting holes (M3)
     rotate([0, 0, -90]) {
-      translate([-2.40, half_height - 1.2, - 1.00]) {
+      translate([-2.60, half_height - 1.2, - 1.00]) {
         cylinder(d=m3_hole_diameter + hole_tight_tolerance, h=slider_depth + 2.00);
-        translate([-stand_off_width_distance, 0, 0])
+        translate([-stand_off_width_distance, 0, 0]) {
           cylinder(d=m3_hole_diameter + hole_tight_tolerance, h=slider_depth + 2.00);
+        }
       }
     }
 
