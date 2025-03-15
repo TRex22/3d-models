@@ -28,7 +28,7 @@ spring_length = 35.00;
 brass_nail_diameter = 2.4; // 2.00; // 1.95 at the beginning it tapers
 brass_nail_length = 29.54;
 brass_nail_head_diameter = 3.20; // 3.00; // oval 2.84 - 3.1 mm
-brass_nail_head_depth = 1.00; // 1.80; // 2.00;
+brass_nail_head_depth = 1.80; //1.00; // 1.80; // 2.00;
 
 // General Variables
 v_wheel_hole_diameter = 5.20;
