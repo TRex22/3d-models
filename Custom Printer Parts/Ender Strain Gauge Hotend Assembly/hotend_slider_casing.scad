@@ -47,6 +47,12 @@ module Casing() {
     translate([total_casing_width / 2, 0.0, nail_position_z]) {
       rotate([0, 90, 90]) {
         cylinder(d=brass_nail_diameter - hole_loose_tolerance, h=100.00);
+        // cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
+      }
+    }
+
+    translate([total_casing_width / 2, total_casing_height + 1.0 - brass_nail_head_depth, nail_position_z]) {
+      rotate([0, 90, 90]) {
         cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
       }
     }
@@ -55,6 +61,12 @@ module Casing() {
     translate([total_casing_width - (casing_wall_thickness + small_magent_position) - 0.6 + 0.2, 0.0, nail_position_z]) {
       rotate([0, 90, 90]) {
         cylinder(d=brass_nail_diameter - hole_loose_tolerance, h=100.00);
+        // cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
+      }
+    }
+
+    translate([total_casing_width - (casing_wall_thickness + small_magent_position) - 0.6 + 0.2, total_casing_height + 1.0 - brass_nail_head_depth, nail_position_z]) {
+      rotate([0, 90, 90]) {
         cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
       }
     }
