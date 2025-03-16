@@ -15,7 +15,7 @@ module Slider() {
   shortner = (5.00 + 1.15 + 0.3) - 3.5;
   magnet_position = slider_width - (shortner + small_magnet_height);
 
-  rotate([0, 180, 0]) { // Make sure right way up
+  rotate([0, 0, 0]) { // Make sure right way up - Currently base is the real base since the slider is not symmetrical on z axis
     difference() {
       // Main body
       cube([slider_width - shortner, slider_height_with_offsets, slider_depth_with_offsets]);
@@ -48,11 +48,11 @@ module Slider() {
         cylinder(d=slider_guide_hole_diameter, h=100);
       }
 
-      // Bottom guide hole
-      translate([0.0, 5.0, half_depth]) {
-        rotate([0, 90, 0])
-        cylinder(d=slider_guide_hole_diameter, h=100);
-      }
+      // Bottom guide hole - Not in-use
+      // translate([0.0, 5.0, half_depth]) {
+      //   rotate([0, 90, 0])
+      //   cylinder(d=slider_guide_hole_diameter, h=100);
+      // }
     }
   }
 }

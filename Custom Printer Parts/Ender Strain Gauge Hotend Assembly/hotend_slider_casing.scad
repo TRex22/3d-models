@@ -10,7 +10,10 @@ module Casing() {
   total_casing_depth = casing_top_edge_buffer + slider_depth + casing_bottom_thickness;
 
   // Top/Down of nail holes
-  nail_position_z = ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2 - 0.4 - 0.1 - 0.05;
+  nail_position_z = ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2 - 0.4 - 0.1; // - 0.05 will make the slider bind
+
+  extra_tolerance_for_switch_holes = 0.12;
+  switch_hole_hight = 22.00;
 
   difference() {
     cube([total_casing_width, total_casing_height, total_casing_depth]);
@@ -57,7 +60,7 @@ module Casing() {
     }
 
     // D2F Switch Space
-    switch_base = 0.2 + 0.7 + 1.50;
+    switch_base = 0.2 + 0.7 + 1.50 + 0.55;
     translate([casing_wall_thickness / 2.00, 0.0, switch_base]) {
       cube([d2f_depth, d2f_width + 1.05 + 0.75 - 0.95, d2f_length + casing_top_edge_buffer]); // 1.05
     }
@@ -66,11 +69,11 @@ module Casing() {
     translate([0.0, 1.75, ((total_casing_depth) / 2.00) + 1.5 + 0.2 - 0.8 + 1.5]) {
       rotate([90, 0, 90]) {
         translate([0.0, d2f_hole_position_from_centre, 0.0]) {
-          cylinder(d=m2_hole_diameter + hole_tight_tolerance + 0.1, h=22);
+          cylinder(d=m2_hole_diameter + hole_tight_tolerance + extra_tolerance_for_switch_holes, h=switch_hole_hight);
         }
 
         translate([0.0, -(d2f_hole_position_from_centre + m2_hole_offset), 0.0]) {
-          cylinder(d=m2_hole_diameter + hole_tight_tolerance + 0.1, h=22);
+          cylinder(d=m2_hole_diameter + hole_tight_tolerance + extra_tolerance_for_switch_holes, h=switch_hole_hight);
         }
       }
     }
