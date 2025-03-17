@@ -5,13 +5,13 @@ module Slider() {
 
   half_height = (slider_height - 0.80) / 2.00; // 1.02
 
-  slider_tolerance = 0.40 + 0.2 - 0.05; // - 1.02
+  slider_tolerance = 0.40 + 0.2 - 0.03; // - 1.02
   slider_height_with_offsets = slider_height - slider_tolerance; // side dimensions
 
   slider_depth_with_offsets = slider_depth + top_extension - 0.32 - 0.2 - 3.60;
   half_depth = slider_depth_with_offsets / 2.00;
 
-  slider_guide_hole_diameter = brass_nail_diameter + hole_loose_tolerance; // For brass nails
+  slider_guide_hole_diameter = brass_nail_diameter + hole_loose_tolerance + hole_tight_tolerance; // For brass nails
 
   shortner = (5.00 + 1.15 + 0.3) - 3.5;
   magnet_position = slider_width - (shortner + small_magnet_height);
@@ -50,7 +50,7 @@ module Slider() {
       // }
 
       // Bottom guide hole - Not in-use
-      translate([0.0, 5.0 - (0.2), half_depth]) {
+      translate([0.0, 5.0 + (0.2), half_depth]) {
         rotate([0, 90, 0])
         cylinder(d=slider_guide_hole_diameter, h=100);
       }
