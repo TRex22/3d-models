@@ -25,11 +25,14 @@ magnet_height_difference = 28.65;
 magnet_width_difference = 38.65;
 
 // arms
-arm_length = 18.90; // 15.00 + ±4
+arm_length = 18.90; // 15.00 + ±4 - 4.00
 arm_width = 8.90;
 arm_magnet_hole_diameter = 5.00;
 arm_corner_radius = 2.50;
 arm_magnet_distance_from_edge = 4.00;
+
+round_diameter = 9.00;
+shift_from_rounding = round_diameter / 2.0;
 
 DEG_TO_RAD = 0.01745329252; // PI / 180;
 
@@ -44,11 +47,30 @@ module MountingHoles() {
   }
 }
 
+module BackCleranceCutout() {
+  translate([-20.00, (base_height / 2.0) + (mount_hole_diameter / 2.0) + 2.0, 0]) {
+    cube([100.00, 100.00, top_carve_out]);
+  }
+}
+
 module Arm(x, y, rotation) {
   translate([x, y, 0]) {
     rotate([0, 0, rotation]) {
       difference() {
-        cube([arm_width, arm_length, base_thickness]);
+        union() {
+          // Rounding
+          edge(round_diameter)
+          cube([arm_width, arm_length, base_thickness]);
+
+          // Arms
+          translate([0.0, 3.5, 0.0]) {
+            cube([arm_width, arm_length - shift_from_rounding, base_thickness]);
+          }
+
+          translate([arm_width / 2.00, arm_magnet_distance_from_edge, 0]) {
+            cylinder(d=round_diameter, h=base_thickness);
+          }
+        }
 
         translate([arm_width / 2.00, arm_magnet_distance_from_edge, 0]) { // arm_magnet_distance_from_edge
           cylinder(d=m2_hole_diameter, h=mount_hole_height);
@@ -63,41 +85,22 @@ module Arm(x, y, rotation) {
 }
 
 module Arms() {
-  for (i = [0, 1, 2, 3]) {
-    angle = i * 90; // 0, 90, 180, 270 degrees
-    x_offset = base_width / 2.00 - arm_width / 2.00;
-    y_offset = base_height / 2.00 - arm_length / 2.00;
-
-    x = 0.0;
-    y = 0.0;
-
-    if (i % 2 == 0) {
-      // Left side arms
-      x = x_offset * cos(angle * DEG_TO_RAD) /- y_offset * sin(angle * DEG_TO_RAD);
-      y = x_offset * sin(angle * DEG_TO_RAD) /+ y_offset * cos(angle * DEG_TO_RAD);
-    } else {
-      // Right side arms
-      x = -x_offset * cos(angle * DEG_TO_RAD) /+ y_offset * sin(angle * DEG_TO_RAD);
-      y = -x_offset * sin(angle * DEG_TO_RAD) /- y_offset * cos(angle * DEG_TO_RAD);
-    }
-
-    Arm(x, y, angle);
-  }
+  Arm(base_width + 6, -(base_height / 2.0) - 4, 45); // bottom right
+  Arm(-12, -6, -45); // bottom left
+  Arm(base_width + 12, -(base_height / 2.0) + 32, 135); // top right
+  Arm(-6, -(base_height / 2.0) + 38, 225); // top left
 }
 
 module Base() {
   difference() {
-    cube([base_width, base_height, base_thickness]);
+    union() {
+      cube([base_width, base_height, base_thickness]);
+      Arms();
+    }
+
     MountingHoles();
+    BackCleranceCutout();
   }
 }
 
-union() {
-  Base();
-  Arms();
-
-  // Arm(base_width + 2, 2 - arm_length, 45); // bottom right
-  // Arm(1, 10, 45); // top left
-  // Arm(base_width + arm_width + 4, 24, -225); // top right
-  // Arm(base_width + arm_width - 4, -13, 45);
-}
+Base();
