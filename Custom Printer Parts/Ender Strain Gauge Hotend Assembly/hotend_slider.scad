@@ -11,7 +11,7 @@ module Slider() {
   slider_depth_with_offsets = slider_depth + top_extension - 0.32 - 0.2 - 3.60;
   half_depth = slider_depth_with_offsets / 2.00;
 
-  slider_guide_hole_diameter = brass_nail_diameter + hole_loose_tolerance + hole_tight_tolerance; // For brass nails
+  slider_guide_hole_diameter = brass_nail_diameter + hole_loose_tolerance + hole_tight_tolerance + hole_tight_tolerance; // For brass nails
 
   shortner = (5.00 + 1.15 + 0.3) - 3.5;
   magnet_position = slider_width - (shortner + small_magnet_height);
