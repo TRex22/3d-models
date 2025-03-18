@@ -5,7 +5,7 @@ quality_value = 100;
 $fn = quality_value;
 
 // Screw Holes
-m2_hole_diameter = 1.85;
+m2_hole_diameter = 1.95; // 1.85;
 m2_hole_offset = m2_hole_diameter / 2.0;
 m2_hole_height = 100.00;
 // M2_Counter_Sink_Depth

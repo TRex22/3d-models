@@ -19,7 +19,7 @@ outer_width = 48.65;
 mount_hole_diameter = 6.00;
 mount_hole_diameter_offset = mount_hole_diameter / 2.0;
 mount_hole_height = 100.00;
-mount_hole_edge_distance = 4.50;
+mount_hole_edge_distance = 4.50 - 1.00;
 
 // 4 Magnets
 magnet_height_difference = 28.65;
@@ -77,7 +77,7 @@ module Arm(x, y, rotation) {
           cylinder(d=m2_hole_diameter + hole_loose_tolerance, h=mount_hole_height);
 
           translate([0, 0, base_thickness - medium_magnet_height]) {
-            cylinder(d=medium_magnet_diameter + hole_loose_tolerance, h=medium_magnet_height);
+            cylinder(d=medium_magnet_diameter + hole_loose_tolerance + hole_loose_tolerance, h=medium_magnet_height);
           }
         }
       }
