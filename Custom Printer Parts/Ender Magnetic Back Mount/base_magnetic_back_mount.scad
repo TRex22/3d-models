@@ -16,14 +16,14 @@ base_width = 24.25 + 3.00;
 outer_height = 38.35;
 outer_width = 48.65;
 
-mount_hole_diameter = 6.00;
+mount_hole_diameter = 6.00 - hole_tight_tolerance;
 mount_hole_diameter_offset = mount_hole_diameter / 2.0;
 mount_hole_height = 100.00;
-mount_hole_edge_distance = 4.50 - 1.00;
+mount_hole_edge_distance = 4.50 + 2.00;
 
 // 4 Magnets
-magnet_height_difference = 28.65;
-magnet_width_difference = 38.65;
+// magnet_height_difference = 28.65;
+// magnet_width_difference = 38.65;
 
 // arms
 arm_length = 18.90; // 15.00 + ±4 - 4.00
@@ -36,6 +36,8 @@ round_diameter = 9.00;
 shift_from_rounding = round_diameter / 2.0;
 
 DEG_TO_RAD = 0.01745329252; // PI / 180;
+
+extra_tolerance_for_m2 = 0.14;
 
 // Can be modified for different mounting options
 module MountingHoles() {
@@ -59,22 +61,19 @@ module Arm(x, y, rotation) {
     rotate([0, 0, rotation]) {
       difference() {
         union() {
-          // Rounding
-          edge(round_diameter)
-          cube([arm_width, arm_length, base_thickness]);
-
           // Arms
           translate([0.0, 3.5, 0.0]) {
             cube([arm_width, arm_length - shift_from_rounding, base_thickness]);
           }
 
+          // Round mount points
           translate([arm_width / 2.00, arm_magnet_distance_from_edge, 0]) {
             cylinder(d=round_diameter, h=base_thickness);
           }
         }
 
         translate([arm_width / 2.00, arm_magnet_distance_from_edge, 0]) { // arm_magnet_distance_from_edge
-          cylinder(d=m2_hole_diameter + hole_loose_tolerance, h=mount_hole_height);
+          cylinder(d=m2_hole_diameter + hole_loose_tolerance + extra_tolerance_for_m2 - hole_tight_tolerance, h=mount_hole_height);
 
           translate([0, 0, base_thickness - medium_magnet_height]) {
             cylinder(d=medium_magnet_diameter + hole_loose_tolerance + hole_loose_tolerance, h=medium_magnet_height);

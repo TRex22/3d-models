@@ -49,10 +49,10 @@ module Slider() {
       //   cylinder(d=slider_guide_hole_diameter, h=100);
       // }
 
-      // Bottom guide hole - Not in-use
+      // Bottom guide hole
       translate([0.0, 5.0 + (0.2), half_depth]) {
         rotate([0, 90, 0])
-        cylinder(d=slider_guide_hole_diameter, h=100);
+        cylinder(d=slider_guide_hole_diameter + hole_loose_tolerance, h=100);
       }
     }
   }

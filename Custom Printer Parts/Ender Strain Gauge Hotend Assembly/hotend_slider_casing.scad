@@ -10,7 +10,7 @@ module Casing() {
   total_casing_depth = casing_top_edge_buffer + slider_depth + casing_bottom_thickness;
 
   // Top/Down of nail holes
-  nail_position_z = ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2 - 0.4; // - 0.05 will make the slider bind
+  nail_position_z = ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2 - 0.4 + 0.1; // - 0.05 will make the slider bind
 
   extra_tolerance_for_switch_holes = 0.12;
   switch_hole_hight = 22.00;
