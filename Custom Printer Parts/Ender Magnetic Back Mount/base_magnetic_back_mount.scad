@@ -11,12 +11,13 @@ medium_magnet_height_with_offset = medium_magnet_height - hole_tight_tolerance;
 medium_magnet_diameter_with_offset = medium_magnet_diameter - hole_tight_tolerance;
 
 base_height = 17.35;
-base_width = 24.25;
+base_width = 24.25 + 3.00;
 
 outer_height = 38.35;
 outer_width = 48.65;
 
 mount_hole_diameter = 6.00;
+mount_hole_diameter_offset = mount_hole_diameter / 2.0;
 mount_hole_height = 100.00;
 mount_hole_edge_distance = 4.50;
 
@@ -42,7 +43,7 @@ module MountingHoles() {
     cylinder(d=mount_hole_diameter, h=mount_hole_height);
   }
 
-  translate([base_width - mount_hole_edge_distance, base_height / 2.0, 0]) {
+  translate([base_width - mount_hole_edge_distance, base_height / 2.0, 0]) { // mount_hole_diameter_offset
     cylinder(d=mount_hole_diameter, h=mount_hole_height);
   }
 }
@@ -73,10 +74,10 @@ module Arm(x, y, rotation) {
         }
 
         translate([arm_width / 2.00, arm_magnet_distance_from_edge, 0]) { // arm_magnet_distance_from_edge
-          cylinder(d=m2_hole_diameter, h=mount_hole_height);
+          cylinder(d=m2_hole_diameter + hole_loose_tolerance, h=mount_hole_height);
 
           translate([0, 0, base_thickness - medium_magnet_height]) {
-            cylinder(d=medium_magnet_diameter, h=medium_magnet_height);
+            cylinder(d=medium_magnet_diameter + hole_loose_tolerance, h=medium_magnet_height);
           }
         }
       }
