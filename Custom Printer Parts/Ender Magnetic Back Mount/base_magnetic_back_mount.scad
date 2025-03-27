@@ -16,10 +16,11 @@ base_width = 24.25 + 3.00;
 outer_height = 38.35;
 outer_width = 48.65;
 
-mount_hole_diameter = 6.00 - hole_tight_tolerance;
+mount_hole_diameter = 6.00 - (hole_tight_tolerance + hole_tight_tolerance);
 mount_hole_diameter_offset = mount_hole_diameter / 2.0;
 mount_hole_height = 100.00;
 mount_hole_edge_distance = 4.50 + 2.00;
+mount_hole_vertical_distance = (base_height / 2.0) - 1.0;
 
 // 4 Magnets
 // magnet_height_difference = 28.65;
@@ -41,11 +42,11 @@ extra_tolerance_for_m2 = 0.14;
 
 // Can be modified for different mounting options
 module MountingHoles() {
-  translate([mount_hole_edge_distance, base_height / 2.0, 0]) {
+  translate([mount_hole_edge_distance, mount_hole_vertical_distance, 0]) {
     cylinder(d=mount_hole_diameter, h=mount_hole_height);
   }
 
-  translate([base_width - mount_hole_edge_distance, base_height / 2.0, 0]) { // mount_hole_diameter_offset
+  translate([base_width - mount_hole_edge_distance, mount_hole_vertical_distance, 0]) { // mount_hole_diameter_offset
     cylinder(d=mount_hole_diameter, h=mount_hole_height);
   }
 }

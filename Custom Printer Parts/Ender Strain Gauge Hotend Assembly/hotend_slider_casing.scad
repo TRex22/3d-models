@@ -10,7 +10,7 @@ module Casing() {
   total_casing_depth = casing_top_edge_buffer + slider_depth + casing_bottom_thickness;
 
   // Top/Down of nail holes
-  nail_position_z = ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2 - 0.4 + 0.1; // - 0.05 will make the slider bind
+  nail_position_z = ((total_casing_depth) / 2.00) + 1.5 + 1.5 - 0.2 - 0.4 + 0.1 + 0.2; // - 0.05 will make the slider bind
 
   extra_tolerance_for_switch_holes = 0.12;
   switch_hole_hight = 22.00;
@@ -36,40 +36,40 @@ module Casing() {
       }
 
       // Spring hole
-      translate([total_casing_width / 2, casing_wall_thickness - 3.0, nail_position_z]) {
-        rotate([0, 90, 90]) {
-          cylinder(d=spring_diameter + 0.55, h=1.25 + 2.00);
-        }
-      }
+      // translate([total_casing_width / 2, casing_wall_thickness - 3.0, nail_position_z]) {
+      //   rotate([0, 90, 90]) {
+      //     cylinder(d=spring_diameter + 0.55, h=1.25 + 2.00);
+      //   }
+      // }
     }
 
     // Nail holes
     translate([total_casing_width / 2, 0.0, nail_position_z]) {
       rotate([0, 90, 90]) {
-        cylinder(d=brass_nail_diameter - hole_loose_tolerance, h=100.00);
-        cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
+        cylinder(d=m4_hole_diameter + 1.00, h=100.00);
+        // cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
       }
     }
 
-    translate([total_casing_width / 2, total_casing_height + 1.0 - brass_nail_head_depth, nail_position_z]) {
-      rotate([0, 90, 90]) {
-        cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
-      }
-    }
+    // translate([total_casing_width / 2, total_casing_height + 1.0 - brass_nail_head_depth, nail_position_z]) {
+    //   rotate([0, 90, 90]) {
+    //     cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
+    //   }
+    // }
 
     // Second guide hole. Offset from mounting holes
-    translate([total_casing_width - (casing_wall_thickness + small_magent_position) - 0.6 + 0.2, 0.0, nail_position_z]) {
-      rotate([0, 90, 90]) {
-        cylinder(d=brass_nail_diameter - hole_loose_tolerance, h=100.00);
-        cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
-      }
-    }
+    // translate([total_casing_width - (casing_wall_thickness + small_magent_position) - 0.6 + 0.2, 0.0, nail_position_z]) {
+    //   rotate([0, 90, 90]) {
+    //     cylinder(d=brass_nail_diameter - hole_loose_tolerance, h=100.00);
+    //     cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
+    //   }
+    // }
 
-    translate([total_casing_width - (casing_wall_thickness + small_magent_position) - 0.6 + 0.2, total_casing_height + 1.0 - brass_nail_head_depth, nail_position_z]) {
-      rotate([0, 90, 90]) {
-        cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
-      }
-    }
+    // translate([total_casing_width - (casing_wall_thickness + small_magent_position) - 0.6 + 0.2, total_casing_height + 1.0 - brass_nail_head_depth, nail_position_z]) {
+    //   rotate([0, 90, 90]) {
+    //     cylinder(d=brass_nail_head_diameter + hole_loose_tolerance, h=brass_nail_head_depth);
+    //   }
+    // }
 
     // D2F Switch Space
     switch_base = 0.2 + 0.7 + 1.50 + 0.55;

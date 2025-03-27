@@ -16,6 +16,12 @@ m3_hole_height = 100.00;
 m3_head_diameter = 6.2;
 m3_head_depth = 3.0; // 2.5??, 3.0
 
+m4_hole_diameter = 3.85; // 3.90
+m4_hole_offset = m4_hole_diameter / 2.0;
+m4_hole_height = 100.00;
+m4_head_diameter = 7.55;
+m4_head_depth = 3.0; // 2.5??, 3.0
+
 // Tolerances
 hole_tight_tolerance = 0.05;
 hole_loose_tolerance = 0.20;

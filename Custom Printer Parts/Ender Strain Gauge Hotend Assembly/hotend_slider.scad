@@ -5,7 +5,7 @@ module Slider() {
 
   half_height = (slider_height - 0.80) / 2.00; // 1.02
 
-  slider_tolerance = 0.40 + 0.2 - 0.03; // - 1.02
+  slider_tolerance = 0.40 + 0.2 - 0.03 + 0.1; // - 1.02
   slider_height_with_offsets = slider_height - slider_tolerance; // side dimensions
 
   slider_depth_with_offsets = slider_depth + top_extension - 0.32 - 0.2 - 3.60;
@@ -32,15 +32,16 @@ module Slider() {
       }
 
       // Single centered spring hole
-      translate([spring_back_space, half_height, half_depth]) {
-        rotate([0, 90, 0])
-        cylinder(d=spring_diameter + 0.55, h=slider_width - shortner);
-      }
+      // translate([spring_back_space, half_height, half_depth]) {
+      //   rotate([0, 90, 0])
+      //   cylinder(d=spring_diameter + 0.55, h=slider_width - shortner);
+      // }
 
       // Guide hole
       translate([0, half_height, half_depth]) {
         rotate([0, 90, 0])
-        cylinder(d=slider_guide_hole_diameter, h=slider_width - shortner + 1.00);
+        // cylinder(d=slider_guide_hole_diameter, h=slider_width - shortner + 1.00);
+        cylinder(d=m4_hole_diameter + hole_tight_tolerance, h=100.00);
       }
 
       // Second guide hole. Offset from mounting holes
@@ -50,10 +51,10 @@ module Slider() {
       // }
 
       // Bottom guide hole
-      translate([0.0, 5.0 + (0.2), half_depth]) {
-        rotate([0, 90, 0])
-        cylinder(d=slider_guide_hole_diameter + hole_loose_tolerance, h=100);
-      }
+      // translate([0.0, 5.0 + (0.2), half_depth]) {
+      //   rotate([0, 90, 0])
+      //   cylinder(d=slider_guide_hole_diameter + hole_loose_tolerance, h=100);
+      // }
     }
   }
 }
