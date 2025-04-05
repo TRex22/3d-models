@@ -77,7 +77,7 @@ module Arm(x, y, rotation) {
           cylinder(d=m2_hole_diameter + hole_loose_tolerance + extra_tolerance_for_m2 - hole_tight_tolerance, h=mount_hole_height);
 
           translate([0, 0, base_thickness - medium_magnet_height]) {
-            cylinder(d=medium_magnet_diameter + hole_loose_tolerance + hole_loose_tolerance, h=medium_magnet_height);
+            cylinder(d=medium_magnet_diameter + hole_loose_tolerance, h=medium_magnet_height);
           }
         }
       }

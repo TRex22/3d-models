@@ -6,6 +6,9 @@ $fn = quality_value;
 
 // Screw Holes
 m2_hole_diameter = 1.85; // 1.95;
+m2_loose_diameter = 2.00;
+m2_counter_sink_diameter = 3.80;
+m2_counter_sink_length = 2.00;
 m2_hole_offset = m2_hole_diameter / 2.0;
 m2_hole_height = 100.00;
 // M2_Counter_Sink_Depth
@@ -61,7 +64,8 @@ large_magnet_diameter = 9.79; // ±10.00
 // D2F Switch
 d2f_length = 12.88; // ±12.70
 d2f_width = 5.84; // ±5.70
-d2f_depth = 6.20; // ±7.00 (5 + 2)
+d2f_depth = 6.20; // ±7.00 (5 + 2) ... ±6.50
+d2f_pins = 9.00 - 6.50;
 d2f_plunger_length = 2.64;
 d2f_plunger_width = 0.97; // ±1.00
 d2f_plunger_depth = 0.39; // ±0.50
