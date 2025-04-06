@@ -6,7 +6,7 @@ $fn = quality_value;
 
 // Screw Holes
 m2_hole_diameter = 1.85; // 1.95;
-m2_loose_diameter = 2.00;
+m2_loose_diameter = 2.50;
 m2_counter_sink_diameter = 3.80;
 m2_counter_sink_length = 2.00;
 m2_hole_offset = m2_hole_diameter / 2.0;
