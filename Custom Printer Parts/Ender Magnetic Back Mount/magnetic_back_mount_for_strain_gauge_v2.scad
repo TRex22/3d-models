@@ -3,7 +3,7 @@
 
 include <base_magnetic_back_mount.scad>
 
-mount_expansion = base_thickness + 4.00;
+mount_expansion = base_thickness + 8.00;
 
 module Arm(x, y, rotation) {
   translate([x, y, 0]) {

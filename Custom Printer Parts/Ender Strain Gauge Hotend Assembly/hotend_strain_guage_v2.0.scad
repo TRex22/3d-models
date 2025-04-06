@@ -19,7 +19,8 @@ cut_width = 1.00;
 rounded_cut_hole_diameter = m2_hole_diameter;
 
 // TODO: Wire holder
-// TODO: Move mounting to middle
+// TODO: New Holder Plate with new height
+// TODO: Left side compliance spring
 
 module rounded_spacer() {
   cube([cut_distance, cut_width, 30]);
