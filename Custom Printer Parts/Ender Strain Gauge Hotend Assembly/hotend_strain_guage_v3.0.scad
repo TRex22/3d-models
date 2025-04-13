@@ -14,23 +14,23 @@ switch_hole_hight = 22.00;
 switch_arm_hole_height = 8.00;
 switch_wall_shift = 1.75 + 0.25 + 1.00;
 
-cut_distance = 22.00;
+cut_distance = 24.00;
 cut_width = 1.00;
 rounded_cut_hole_diameter = m2_hole_diameter;
 
-// See Version 3
 // TODO: Wire holder
 // TODO: New Holder Plate with new height
 // TODO: Left side compliance spring
 
 module rounded_spacer() {
-  cube([cut_distance, cut_width, 30]);
-
-  translate([cut_distance, cut_width / 2.0, 2.0]) {
+  translate([2.0, 0.0, 0.0]) {
+    cube([cut_distance, cut_width, 30]);
     cylinder(d=rounded_cut_hole_diameter, h=100.00, center=true);
-  }
 
-  side_m2_screw_hole();
+    translate([cut_distance, 0.0, 2.0]) { // cut_width / 2.0
+      cylinder(d=rounded_cut_hole_diameter, h=100.00, center=true);
+    }
+  }
 }
 
 module switch_cut_out() {
@@ -56,28 +56,6 @@ module switch_cut_out() {
   // Cut in connector
   translate([casing_wall_thickness + casing_side_extension + 6.00, 10.0, switch_base + 2.00]) {
     cube([2, 10, d2f_depth]);
-  }
-}
-
-module side_m2_screw_hole() {
-  translate([switch_wall_shift, 14.0, (total_casing_depth / 2.0)]) {
-    rotate([90, 0, 0]) {
-      cylinder(d=m2_hole_diameter + hole_tight_tolerance + extra_tolerance_for_switch_holes, h=switch_hole_hight);
-    }
-  }
-
-  // Make hole larger
-  translate([switch_wall_shift, 0.0, (total_casing_depth / 2.0)]) {
-    rotate([90, 0, 0]) {
-      cylinder(d=m2_loose_diameter, h=switch_arm_hole_height); // Make Loose
-    }
-  }
-
-  // Countersink hole
-  translate([switch_wall_shift, m2_counter_sink_length - switch_arm_hole_height, (total_casing_depth / 2.0)]) {
-    rotate([90, 0, 0]) {
-      cylinder(d=m2_counter_sink_diameter, h=m2_counter_sink_length);
-    }
   }
 }
 
