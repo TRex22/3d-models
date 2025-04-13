@@ -10,7 +10,7 @@ total_casing_width = slider_width + casing_wall_thickness + casing_side_extensio
 total_casing_depth = casing_bottom_thickness + 2.00 + 4.00;
 
 extra_tolerance_for_switch_holes = 0.12;
-switch_hole_hight = 22.00;
+switch_hole_hight = 24.50;
 switch_arm_hole_height = 8.00;
 switch_wall_shift = 1.75 + 0.25 + 1.00;
 
@@ -18,9 +18,10 @@ cut_distance = 24.00;
 cut_width = 1.00;
 rounded_cut_hole_diameter = m2_hole_diameter;
 
+mount_offset = 2.00 + 3.50;
+
 // TODO: Wire holder
 // TODO: New Holder Plate with new height
-// TODO: Left side compliance spring
 
 module rounded_spacer() {
   translate([0.5, 0.0, 0.0]) {
@@ -82,7 +83,7 @@ module StrainGuage() {
       switch_cut_out();
 
       // Bottom mounting holes
-      translate([casing_side_extension - 2.00, - (total_casing_height) + casing_top_buffer + 2.5 - 0.50, 0.0]) {
+      translate([casing_side_extension - mount_offset, - (total_casing_height) + casing_top_buffer + 2.5 - 0.50, 0.0]) {
         // Mounting holes with countersinking - horizontal, through-holes, properly positioned
         translate([casing_wall_thickness + 0.80, total_casing_height / 2.0, (total_casing_depth / 2.0)]) {
           cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
