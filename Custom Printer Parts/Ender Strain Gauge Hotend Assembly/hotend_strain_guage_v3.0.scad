@@ -14,7 +14,7 @@ switch_hole_hight = 22.00;
 switch_arm_hole_height = 8.00;
 switch_wall_shift = 1.75 + 0.25 + 1.00;
 
-cut_distance = 25.00;
+cut_distance = 24.00;
 cut_width = 1.00;
 rounded_cut_hole_diameter = m2_hole_diameter;
 
@@ -23,10 +23,10 @@ rounded_cut_hole_diameter = m2_hole_diameter;
 // TODO: Left side compliance spring
 
 module rounded_spacer() {
-  translate([1.5, 0.0, 0.0]) {
+  translate([0.5, 0.0, 0.0]) {
     cube([cut_distance, cut_width, 30]);
 
-    translate([0.0, cut_width, 2.0]) {
+    translate([0.0, cut_width / 2.0, 2.0]) {
       cylinder(d=rounded_cut_hole_diameter, h=100.00, center=true);
     }
 
