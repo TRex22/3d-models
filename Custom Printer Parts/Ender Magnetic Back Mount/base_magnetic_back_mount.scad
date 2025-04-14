@@ -16,7 +16,7 @@ base_width = 24.25 + 3.00;
 outer_height = 38.35;
 outer_width = 48.65;
 
-mount_hole_diameter = 6.00 - (hole_tight_tolerance + hole_tight_tolerance);
+mount_hole_diameter = 6.00 - (hole_tight_tolerance + hole_tight_tolerance); // 3mm for smaller diameter
 mount_hole_diameter_offset = mount_hole_diameter / 2.0;
 mount_hole_height = 100.00;
 mount_hole_edge_distance = 4.50 + 2.00;

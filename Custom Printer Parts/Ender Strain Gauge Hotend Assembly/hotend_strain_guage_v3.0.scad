@@ -7,7 +7,7 @@ casing_side_extension = 2.00 + 2.00;
 
 total_casing_height = slider_height + 4.00 + 4.00;
 total_casing_width = slider_width + casing_wall_thickness + casing_side_extension;
-total_casing_depth = casing_bottom_thickness + 2.00 + 4.00;
+total_casing_depth = casing_bottom_thickness + 2.00 + 4.00 + 2.10; // 2.10 for switch screw head clearance
 
 extra_tolerance_for_switch_holes = 0.12;
 switch_hole_hight = 24.50;
@@ -22,6 +22,7 @@ mount_offset = 2.00 + 3.50;
 
 // TODO: Wire holder
 // TODO: New Holder Plate with new height
+// TODO: Mirrored version
 
 module rounded_spacer() {
   translate([0.5, 0.0, 0.0]) {
@@ -41,7 +42,7 @@ module switch_cut_out() {
   // D2F Switch Space
   switch_base = 0.2 + 0.7 + 1.50 + 0.55 - 1.0;
   translate([(casing_wall_thickness / 2.00) + casing_side_extension, d2f_pins - 1.50, switch_base]) {
-    cube([d2f_length, (d2f_width + 2.00) + d2f_pins, d2f_depth]); // 1.05
+    cube([d2f_length, (d2f_width + 2.00) + d2f_pins, d2f_depth + 2.10]); // 1.05
   }
 
   // Switch Mount Holes
