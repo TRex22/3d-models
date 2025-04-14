@@ -13,8 +13,8 @@ medium_magnet_diameter_with_offset = medium_magnet_diameter - hole_tight_toleran
 base_height = 17.35;
 base_width = 24.25 + 3.00;
 
-outer_height = 38.35;
-outer_width = 48.65;
+// outer_height = 38.35;
+// outer_width = 48.65;
 
 mount_hole_diameter = 6.00 - (hole_tight_tolerance + hole_tight_tolerance); // 3mm for smaller diameter
 mount_hole_diameter_offset = mount_hole_diameter / 2.0;
