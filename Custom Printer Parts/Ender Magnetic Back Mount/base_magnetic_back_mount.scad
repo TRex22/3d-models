@@ -5,10 +5,12 @@ include <../../shared_helper.scad>
 
 base_thickness = 6.00;
 // top_thickness = 5.00;
+
 top_carve_out = 1.00;
+bottom_carve_out = 0.00;
 
 medium_magnet_height_with_offset = medium_magnet_height - hole_tight_tolerance;
-medium_magnet_diameter_with_offset = medium_magnet_diameter - hole_tight_tolerance;
+medium_magnet_diameter_with_offset = medium_magnet_diameter + hole_loose_tolerance + hole_tight_tolerance;
 
 base_height = 17.35;
 base_width = 24.25 + 3.00;
@@ -38,7 +40,7 @@ shift_from_rounding = round_diameter / 2.0;
 
 DEG_TO_RAD = 0.01745329252; // PI / 180;
 
-extra_tolerance_for_m2 = 0.14;
+extra_tolerance_for_m2 = 0.14 + 0.06;
 
 // Can be modified for different mounting options
 module MountingHoles() {
@@ -54,6 +56,10 @@ module MountingHoles() {
 module BackCleranceCutout() {
   translate([-20.00, (base_height / 2.0) + (mount_hole_diameter / 2.0) + 2.0, 0]) {
     cube([100.00, 100.00, top_carve_out]);
+  }
+
+  translate([-20.00, -100.00 + 2.00 + 6.00, 0]) {
+    cube([100.00, 100.00, bottom_carve_out]);
   }
 }
 
@@ -77,7 +83,7 @@ module Arm(x, y, rotation) {
           cylinder(d=m2_hole_diameter + hole_loose_tolerance + extra_tolerance_for_m2 - hole_tight_tolerance, h=mount_hole_height);
 
           translate([0, 0, base_thickness - medium_magnet_height]) {
-            cylinder(d=medium_magnet_diameter + hole_loose_tolerance, h=medium_magnet_height);
+            cylinder(d=medium_magnet_diameter_with_offset, h=medium_magnet_height);
           }
         }
       }

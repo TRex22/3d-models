@@ -21,7 +21,6 @@ rounded_cut_hole_diameter = m2_hole_diameter;
 mount_offset = 2.00 + 3.50;
 
 // TODO: Wire holder
-// TODO: New Holder Plate with new height
 // TODO: Mirrored version
 
 module rounded_spacer() {
