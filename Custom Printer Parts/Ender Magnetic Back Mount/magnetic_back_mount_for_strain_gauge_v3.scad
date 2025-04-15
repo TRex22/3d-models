@@ -5,7 +5,7 @@ include <base_magnetic_back_mount.scad>
 
 base_thickness = 8.00;
 
-mount_expansion = base_thickness + 7.9 + 2.10;
+mount_expansion = base_thickness + 7.9 + 2.10 - 2.00;
 mount_hole_diameter = 5.00 - hole_tight_tolerance; // 3mm for smaller diameter
 
 top_carve_out = 0.00;

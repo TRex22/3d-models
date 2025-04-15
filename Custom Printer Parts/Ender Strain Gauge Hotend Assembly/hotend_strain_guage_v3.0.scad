@@ -1,5 +1,7 @@
 include <hotend_slider_helpers.scad>
 
+revision = 3.6;
+
 casing_top_buffer = 1.50 + 3.50 + 3.00;
 casing_top_extension = 1.60;
 casing_top_edge_buffer = 1.65 + casing_top_extension;
@@ -15,10 +17,10 @@ switch_arm_hole_height = 8.00;
 switch_wall_shift = 1.75 + 0.25 + 1.00;
 
 cut_distance = 24.00;
-cut_width = 1.00;
-rounded_cut_hole_diameter = m2_hole_diameter;
+cut_width = 0.60; // 1.00;
+rounded_cut_hole_diameter = m2_hole_diameter - 0.2;
 
-mount_offset = 2.00 + 3.50;
+mount_offset = 2.00 + 3.50 + 0.50;
 
 // TODO: Wire holder
 // TODO: Mirrored version
@@ -40,12 +42,12 @@ module rounded_spacer() {
 module switch_cut_out() {
   // D2F Switch Space
   switch_base = 0.2 + 0.7 + 1.50 + 0.55 - 1.0;
-  translate([(casing_wall_thickness / 2.00) + casing_side_extension, d2f_pins - 1.50, switch_base]) {
+  translate([(casing_wall_thickness / 2.00) + casing_side_extension, d2f_pins - 1.50 - cut_width, switch_base]) {
     cube([d2f_length, (d2f_width + 2.00) + d2f_pins, d2f_depth + 2.10]); // 1.05
   }
 
   // Switch Mount Holes
-  translate([(casing_wall_thickness / 2.00) + (d2f_length / 2.0) - (m2_hole_offset / 2.0) + casing_side_extension, (d2f_width / 2.00) + 2.00 + m2_hole_offset, 0.0]) {
+  translate([(casing_wall_thickness / 2.00) + (d2f_length / 2.0) - (m2_hole_offset / 2.0) + casing_side_extension, (d2f_width / 2.00) + 2.00 + m2_hole_offset - (d2f_pin_pre_travel / 2.0), 0.0]) {
     rotate([0, 0, 90]) {
       translate([0.0, d2f_hole_position_from_centre, 0.0]) {
         cylinder(d=m2_hole_diameter + hole_tight_tolerance + (extra_tolerance_for_switch_holes * 3), h=switch_hole_hight);

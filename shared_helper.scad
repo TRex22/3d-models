@@ -71,6 +71,7 @@ d2f_plunger_width = 0.97; // ±1.00
 d2f_plunger_depth = 0.39; // ±0.50
 d2f_mount_hole_position = 2.10;
 d2f_hole_position_from_centre = 2.85;
+d2f_pin_pre_travel = 0.50;
 d2f_mount_hole_shift = 4.40 + m2_hole_offset + m2_hole_offset;
 
 // 10t85 Switch
