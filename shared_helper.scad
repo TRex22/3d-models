@@ -82,6 +82,18 @@ d2f_mount_hole_shift = 4.40 + m2_hole_offset + m2_hole_offset;
 10t85_plunger_width = 1.96;
 10t85_plunger_depth = 1.30;
 
+// Creality Endstop Board, 2208 V2.0
+// creality_endstop_hole_diameter = m3_hole_diameter + hole_loose_tolerance; // Hole is M3 sized but meant for a loose M2
+creality_endstop_hole_diameter = m2_hole_diameter + hole_tight_tolerance;
+creality_endstop_hole_offset = 15.00;
+creality_endstop_board_height = 20.30;
+creality_endstop_plug_height_extension = 2.00;
+creality_endstop_board_width = 20.20;
+creality_endstop_board_thickness = 1.30;
+creality_endstop_board_pins_thickness = 3.20 - creality_endstop_board_thickness;
+creality_endstop_board_switch_thickness = 8.50 - creality_endstop_board_thickness;
+creality_endstop_board_back_space = 2.00; // Taken from the rail mount bracket
+
 // Small Tactile Switch
 small_tactile_switch_length = 6.21;
 small_tactile_switch_width = 6.17;
