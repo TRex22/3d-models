@@ -11,6 +11,9 @@ m2_counter_sink_diameter = 3.80;
 m2_counter_sink_length = 2.00;
 m2_hole_offset = m2_hole_diameter / 2.0;
 m2_hole_height = 100.00;
+m2_nut_outer_width = 3.90;
+m2_nut_outer_height = 4.40;
+m2_nut_outer_depth = 1.50;
 // M2_Counter_Sink_Depth
 
 m3_hole_diameter = 2.9; // 2.8
@@ -96,6 +99,10 @@ creality_endstop_board_thickness = 1.30;
 creality_endstop_board_pins_thickness = 3.20 - creality_endstop_board_thickness;
 creality_endstop_board_switch_thickness = 8.50 - creality_endstop_board_thickness;
 creality_endstop_board_back_space = 2.00; // Taken from the rail mount bracket
+creality_endstop_board_back_height = 14.90;
+creality_endstop_board_back_width = 16.80;
+creality_endstop_back_thickness = 3.30;
+creality_endstop_back_hole_wall_spacing = 1.50; //3.00;
 
 // Small Tactile Switch
 small_tactile_switch_length = 6.21;
@@ -142,7 +149,37 @@ module CrealityHotEndMountingHoles(total_casing_depth) {
   }
 }
 
+module CrealityEndstopMountHoles(height, include_back_nut_cutout) {
+  cylinder(d=creality_endstop_hole_diameter, h=height, center=true);
 
+  translate([creality_endstop_hole_offset, 0, 0]) {
+    cylinder(d=creality_endstop_hole_diameter, h=height, center=true);
+  }
+
+  if (include_back_nut_cutout) {
+    back_depth = m2_nut_outer_depth;
+
+    translate([-2.0, -2.0, 0]) {
+      cube([m2_nut_outer_width, m2_nut_outer_height, back_depth]);
+
+      translate([creality_endstop_hole_offset, 0, 0]) {
+        cube([m2_nut_outer_width, m2_nut_outer_height, back_depth]);
+      }
+    }
+  }
+}
+
+module CrealityEndstopBackSpace(base_cutout_extension) {
+  // Smaller gap between screw holes
+  translate([creality_endstop_hole_diameter + creality_endstop_back_hole_wall_spacing, 0.0, 0.0]) {
+    cube([creality_endstop_board_back_width - 2 * (creality_endstop_hole_diameter + creality_endstop_back_hole_wall_spacing), base_cutout_extension, creality_endstop_back_thickness + 1.0]);
+  }
+
+  // Top gap part
+  translate([0.0, base_cutout_extension, 0]) {
+    cube([creality_endstop_board_back_width, (creality_endstop_board_back_height + base_cutout_extension), creality_endstop_back_thickness + 1.0]);
+  }
+}
 
 // D2F Switch Mounting
 module D2F_Switch_Space() { // Should be used as a negative / difference space
