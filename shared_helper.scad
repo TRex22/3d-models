@@ -73,6 +73,9 @@ d2f_mount_hole_position = 2.10;
 d2f_hole_position_from_centre = 2.85;
 d2f_pin_pre_travel = 0.50;
 d2f_mount_hole_shift = 4.40 + m2_hole_offset + m2_hole_offset;
+d2f_switch_base = 0.2 + 0.7 + 1.50 + 0.55 - 1.0;
+d2f_switch_hole_hight = 22.00;
+d2f_extra_tolerance_for_switch_holes = 0.12;
 
 // 10t85 Switch
 10t85_length = 20.04; // ±19.90
@@ -118,3 +121,48 @@ button_topper_bottom_depth = 4.38;
 // Belts
 // GT2
 
+// Modules
+// Creality Mounting Holes
+module CrealityCounterSunkHotEndMountingHoles(total_casing_depth, casing_top_extension) {
+  // Mounting holes with countersinking - horizontal, through-holes, properly positioned
+  cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
+  cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
+
+  translate([stand_off_width_distance, 0, 0]) {
+    cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
+    cylinder(d=m3_head_diameter + hole_loose_tolerance, h=4 + m3_head_depth + 6 + 1.8 + casing_top_extension);
+  }
+}
+
+module CrealityHotEndMountingHoles(total_casing_depth) {
+  cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
+
+  translate([stand_off_width_distance, 0, 0]) {
+    cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
+  }
+}
+
+
+
+// D2F Switch Mounting
+module D2F_Switch_Space() { // Should be used as a negative / difference space
+  // D2F Switch Space
+  // switch_base = 0.2 + 0.7 + 1.50 + 0.55;
+  // switch_base = 0.2 + 0.7 + 1.50 + 0.55 - 1.0;
+  switch_base = d2f_switch_base;
+
+  // cube([d2f_depth, d2f_width + 1.05 + 0.75 - 0.95, d2f_length + casing_top_edge_buffer]); // 1.05
+  cube([d2f_length, (d2f_width + 2.00) + d2f_pins, d2f_depth]);
+}
+
+module D2F_Switch_Mount_Holes() {
+  rotate([0, 0, 90]) {
+    translate([0.0, d2f_hole_position_from_centre, 0.0]) {
+      cylinder(d=m2_hole_diameter + hole_tight_tolerance + (d2f_extra_tolerance_for_switch_holes * 3), h=d2f_switch_hole_hight);
+    }
+
+    translate([0.0, -(d2f_hole_position_from_centre + m2_hole_offset), 0.0]) {
+      cylinder(d=m2_hole_diameter + hole_tight_tolerance + (d2f_extra_tolerance_for_switch_holes * 3), h=d2f_switch_hole_hight);
+    }
+  }
+}

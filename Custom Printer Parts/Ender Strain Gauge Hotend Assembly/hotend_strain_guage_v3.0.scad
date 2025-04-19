@@ -41,22 +41,13 @@ module rounded_spacer() {
 
 module switch_cut_out() {
   // D2F Switch Space
-  switch_base = 0.2 + 0.7 + 1.50 + 0.55 - 1.0;
   translate([(casing_wall_thickness / 2.00) + casing_side_extension, d2f_pins - 1.50 - cut_width, switch_base]) {
-    cube([d2f_length, (d2f_width + 2.00) + d2f_pins, d2f_depth + 2.10]); // 1.05
+    D2F_Switch_Space();
   }
 
   // Switch Mount Holes
   translate([(casing_wall_thickness / 2.00) + (d2f_length / 2.0) - (m2_hole_offset / 2.0) + casing_side_extension, (d2f_width / 2.00) + 2.00 + m2_hole_offset - (d2f_pin_pre_travel / 2.0), 0.0]) {
-    rotate([0, 0, 90]) {
-      translate([0.0, d2f_hole_position_from_centre, 0.0]) {
-        cylinder(d=m2_hole_diameter + hole_tight_tolerance + (extra_tolerance_for_switch_holes * 3), h=switch_hole_hight);
-      }
-
-      translate([0.0, -(d2f_hole_position_from_centre + m2_hole_offset), 0.0]) {
-        cylinder(d=m2_hole_diameter + hole_tight_tolerance + (extra_tolerance_for_switch_holes * 3), h=switch_hole_hight);
-      }
-    }
+    D2F_Switch_Mount_Holes();
   }
 
   // Cut in connector
@@ -72,13 +63,7 @@ module StrainGuage() {
     translate([0.0, casing_top_buffer, 0.0]) {
       // Mounting holes with countersinking - horizontal, through-holes, properly positioned
       translate([casing_wall_thickness + 0.80 + casing_side_extension - 2.00, total_casing_height / 2.0 + d2f_pins - 1.00, (total_casing_depth / 2.0)]) {
-        cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
-        cylinder(d=m3_head_diameter + hole_loose_tolerance, h=4 + m3_head_depth + 6 + 1.8 + casing_top_extension);
-
-        translate([stand_off_width_distance, 0, 0]) {
-          cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
-          cylinder(d=m3_head_diameter + hole_loose_tolerance, h=4 + m3_head_depth + 6 + 1.8 + casing_top_extension);
-        }
+        CrealityCounterSunkHotEndMountingHoles(total_casing_depth, casing_top_extension);
       }
 
       rounded_spacer();
@@ -88,11 +73,7 @@ module StrainGuage() {
       translate([casing_side_extension - mount_offset, - (total_casing_height) + casing_top_buffer + 2.5 - 0.50, 0.0]) {
         // Mounting holes with countersinking - horizontal, through-holes, properly positioned
         translate([casing_wall_thickness + 0.80, total_casing_height / 2.0, (total_casing_depth / 2.0)]) {
-          cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
-
-          translate([stand_off_width_distance, 0, 0]) {
-            cylinder(d=m3_hole_diameter, h=total_casing_depth + 2.00, center=true);
-          }
+          CrealityHotEndMountingHoles(total_casing_depth);
         }
       }
     }

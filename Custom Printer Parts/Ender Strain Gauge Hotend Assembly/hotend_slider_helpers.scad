@@ -15,3 +15,5 @@ casing_bottom_thickness = 2.00;
 m3_head_depth = 0.2; // 2.5??, 3.0
 
 small_magent_position = 3.00;
+
+switch_base = d2f_switch_base;
