@@ -4,19 +4,28 @@
 
 include <../../shared_helper.scad>
 
-revision = 1.0;
+revision = 1.1;
 
 switch_buffer = 4.00;
 switch_height = 29.00;
 
 mount_width = switch_buffer + creality_endstop_board_width;
-mount_height = switch_height + creality_endstop_board_height + creality_endstop_plug_height_extension;
+mount_height = switch_height + creality_endstop_board_height + creality_endstop_plug_height_extension - 6.50;
 mount_thickness = 9.00;
 
 foot_mount_width = 8.00;
-foot_mount_height = 10.00;
+foot_mount_height = 6.00;
 foot_mount_width_distance = 15.00;
 foot_mount_edge_distance = 4.50;
+
+wire_cutout_size = 2.80;
+
+// TODO:
+// wider and deeper m2 nuts
+// Less deep countersink
+// Longer slots
+// Shorter - 8mm
+// switch down 3mm
 
 module CreateCountersunkM3Holes() {
   rotate([-90, 0, 0]) {
@@ -45,6 +54,12 @@ module CreateBackMountBlock() {
       cube([mount_width, foot_mount_height, foot_mount_width]);
       CreateCountersunkM3Holes();
     }
+  }
+}
+
+module CreateWireCutout() {
+  translate([(mount_width / 2.0) - 1.5, 0.0, -20.0]) {
+    cube([wire_cutout_size, wire_cutout_size, 100.00]);
   }
 }
 
@@ -93,4 +108,6 @@ difference() {
     base_cutout_extension = (creality_endstop_hole_diameter - 1.0) * 6.0 + 1.0;
     CrealityEndstopBackSpace(base_cutout_extension);
   }
+
+  CreateWireCutout();
 }

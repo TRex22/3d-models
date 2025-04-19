@@ -13,7 +13,7 @@ m2_hole_offset = m2_hole_diameter / 2.0;
 m2_hole_height = 100.00;
 m2_nut_outer_width = 3.90;
 m2_nut_outer_height = 4.40;
-m2_nut_outer_depth = 1.50;
+m2_nut_outer_depth = 1.80;
 // M2_Counter_Sink_Depth
 
 m3_hole_diameter = 2.9; // 2.8
@@ -91,7 +91,7 @@ d2f_extra_tolerance_for_switch_holes = 0.12;
 
 // Creality Endstop Board, 2208 V2.0
 // creality_endstop_hole_diameter = m3_hole_diameter + hole_loose_tolerance; // Hole is M3 sized but meant for a loose M2
-creality_endstop_hole_diameter = m2_hole_diameter + hole_tight_tolerance;
+creality_endstop_hole_diameter = m2_hole_diameter - hole_tight_tolerance;
 creality_endstop_hole_offset = 15.00;
 creality_endstop_board_height = 20.30;
 creality_endstop_plug_height_extension = 2.00;
