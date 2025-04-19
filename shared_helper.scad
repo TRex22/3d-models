@@ -31,6 +31,7 @@ m4_head_depth = 3.0; // 2.5??, 3.0
 // Tolerances
 hole_tight_tolerance = 0.05;
 hole_loose_tolerance = 0.20;
+hole_very_loose_tolerance = 0.40;
 
 // Springs
 spring_diameter = 5.45;

@@ -1,13 +1,52 @@
 // Custom design hotend z-height sensor using the original
 // Creality Endstop PCB and pinout
+// Version 1.0
 
 include <../../shared_helper.scad>
 
+revision = 1.0;
+
 switch_buffer = 4.00;
 switch_height = 29.00;
+
 mount_width = switch_buffer + creality_endstop_board_width;
 mount_height = switch_height + creality_endstop_board_height + creality_endstop_plug_height_extension;
 mount_thickness = 9.00;
+
+foot_mount_width = 8.00;
+foot_mount_height = 10.00;
+foot_mount_width_distance = 15.00;
+foot_mount_edge_distance = 4.50;
+
+module CreateCountersunkM3Holes() {
+  rotate([-90, 0, 0]) {
+    translate([foot_mount_edge_distance, - (foot_mount_width / 2.0), 0]) {
+      cylinder(d=m3_hole_diameter + hole_very_loose_tolerance, h=100.00);
+
+      translate([foot_mount_width_distance, 0, 0]) {
+        cylinder(d=m3_hole_diameter + hole_very_loose_tolerance, h=100.00);
+      }
+
+      // Countersink
+      translate([0, 0, foot_mount_height - m3_head_depth]) {
+        cylinder(d=m3_head_diameter + hole_very_loose_tolerance, h=m3_head_depth);
+
+        translate([foot_mount_width_distance, 0, 0]) {
+          cylinder(d=m3_head_diameter + hole_very_loose_tolerance, h=m3_head_depth);
+        }
+      }
+    }
+  }
+}
+
+module CreateBackMountBlock() {
+  translate([0.0, 0.0, 1.0 - mount_thickness]) {
+    difference() {
+      cube([mount_width, foot_mount_height, foot_mount_width]);
+      CreateCountersunkM3Holes();
+    }
+  }
+}
 
 // creality_endstop_board_back_space
 module CreateSingeMountHolePair(new_switch_height) {
@@ -40,7 +79,10 @@ module CreateAdjustableMountingHoles(base_switch_height) {
 }
 
 difference() {
-  cube([mount_width, mount_height, mount_thickness]);
+  union() {
+    cube([mount_width, mount_height, mount_thickness]);
+    CreateBackMountBlock();
+  }
 
   CreateAdjustableMountingHoles(switch_height);
   CreateAdjustableMountingHoles(switch_height + (creality_endstop_hole_diameter - 1.0));
