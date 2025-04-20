@@ -7,7 +7,7 @@ include <../../shared_helper.scad>
 revision = 1.3;
 
 switch_buffer = 4.00;
-switch_height = 29.00 - 8.00;
+switch_height = 29.00 - 8.00 - 6.00;
 
 mount_width = switch_buffer + creality_endstop_board_width;
 mount_height = switch_height + creality_endstop_board_height + creality_endstop_plug_height_extension - 6.50;
