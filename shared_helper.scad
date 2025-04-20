@@ -22,6 +22,11 @@ m3_hole_height = 100.00;
 m3_head_diameter = 6.2;
 m3_head_depth = 3.0; // 2.5??, 3.0
 
+// M3 nut dimensions (standard values)
+m3_nut_outer_width = 5.5;    // Width across flats
+m3_nut_outer_height = 6.35;  // Width across corners (approximated)
+m3_nut_outer_depth = 2.5;    // Thickness of the nut
+
 m4_hole_diameter = 3.85; // 3.90
 m4_hole_offset = m4_hole_diameter / 2.0;
 m4_hole_height = 100.00;
@@ -130,6 +135,15 @@ button_topper_bottom_depth = 4.38;
 // GT2
 
 // Modules
+module CreateM3NutHolders(mount_hole_distance) {
+  // Hexagonal shape for the nut
+  cylinder(d=m3_nut_outer_height, h=m3_nut_outer_depth, $fn=6);
+
+  translate([0, mount_hole_distance, 0]) {
+    cylinder(d=m3_nut_outer_height, h=m3_nut_outer_depth, $fn=6);
+  }
+}
+
 // Creality Mounting Holes
 module CrealityCounterSunkHotEndMountingHoles(total_casing_depth, casing_top_extension) {
   // Mounting holes with countersinking - horizontal, through-holes, properly positioned
