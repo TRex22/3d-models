@@ -131,6 +131,23 @@ button_topper_bottom_diameter = 12.96;
 button_topper_depth = 5.64;
 button_topper_bottom_depth = 4.38;
 
+// Bearings
+lm8uu_inner_diameter = 8.00;
+lm8uu_outer_diameter = 15.00;
+lm8uu_length = 24.00;
+
+lm8luu_inner_diameter = 8.00;
+lm8luu_outer_diameter = 15.00;
+lm8luu_length = 45.00;
+
+lm12uu_inner_diameter = 12.00;
+lm12uu_outer_diameter = 21.00;
+lm12uu_length = 30.00;
+
+lm12luu_inner_diameter = 12.00;
+lm12luu_outer_diameter = 21.00;
+lm12luu_length = 57.00;
+
 // Belts
 // GT2
 
