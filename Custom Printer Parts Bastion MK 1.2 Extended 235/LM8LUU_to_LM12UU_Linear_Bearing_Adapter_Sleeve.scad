@@ -5,8 +5,8 @@
 include <../shared_helper.scad>;
 
 // Linear bearing dimensions
-lm8luu_outer_diameter = 15.0;  // Standard outer diameter of LM8LUU bearing
-lm12uu_outer_diameter = 21.0;  // Standard outer diameter of LM12UU bearing
+lm8luu_outer_diameter = 15.00 + hole_loose_tolerance; //15.05;  // Standard outer diameter of LM8LUU bearing
+lm12uu_outer_diameter = 21.0 - hole_loose_tolerance;  // Standard outer diameter of LM12UU bearing
 lm8luu_length = 45.0;          // Standard length of LM8LUU bearing
 lm12uu_length = 30.0;          // Standard length of LM12UU bearing
 

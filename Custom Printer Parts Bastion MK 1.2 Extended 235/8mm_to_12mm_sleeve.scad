@@ -5,8 +5,8 @@
 include <../shared_helper.scad>;
 
 // Rod dimensions
-inner_rod_diameter = 8.0;
-outer_sleeve_diameter = 12.0;
+inner_rod_diameter = 8.0 + hole_loose_tolerance;
+outer_sleeve_diameter = 12.0 - hole_loose_tolerance;
 sleeve_length = 25.5; //30.0;  // Adjust as needed
 
 // Tolerances
