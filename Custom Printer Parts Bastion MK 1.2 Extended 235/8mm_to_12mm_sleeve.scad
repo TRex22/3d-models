@@ -17,14 +17,16 @@ outer_tolerance = hole_loose_tolerance;  // Slightly looser fit for the 12mm mou
 gap_width = 1.0;  // Width of the gap to allow squeezing
 
 // Create the sleeve
-difference() {
-  // Outer cylinder
-  cylinder(d=outer_sleeve_diameter - outer_tolerance, h=sleeve_length, center=true);
+rotate([0, 180, 0]) {
+  difference() {
+    // Outer cylinder
+    cylinder(d=outer_sleeve_diameter - outer_tolerance, h=sleeve_length, center=true);
 
-  // Inner hole for 8mm rod
-  cylinder(d=inner_rod_diameter + inner_tolerance, h=sleeve_length + 1, center=true);
+    // Inner hole for 8mm rod
+    cylinder(d=inner_rod_diameter + inner_tolerance, h=sleeve_length + 1, center=true);
 
-  // Gap to allow squeezing for installation
-  translate([0, 0, -sleeve_length/2 - 0.5])
-  cube([gap_width, outer_sleeve_diameter + 1, sleeve_length + 1], center=true);
+    // Gap to allow squeezing for installation
+    translate([0, 0, -sleeve_length/2 - 0.5])
+    cube([gap_width, outer_sleeve_diameter + 1, sleeve_length + 1], center=true);
+  }
 }
