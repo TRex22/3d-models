@@ -5,13 +5,13 @@
 include <../shared_helper.scad>;
 
 // Rod dimensions
-inner_rod_diameter = 8.0 + hole_loose_tolerance;
-outer_sleeve_diameter = 12.0 - hole_loose_tolerance;
+inner_rod_diameter = 8.0;
+outer_sleeve_diameter = 12.0;
 sleeve_length = 25.5; //30.0;  // Adjust as needed
 
 // Tolerances
-inner_tolerance = hole_tight_tolerance;  // Tight fit for the 8mm rod
-outer_tolerance = hole_loose_tolerance;  // Slightly looser fit for the 12mm mounting holes
+inner_tolerance = hole_loose_tolerance * 2.00;  // Tight fit for the 8mm rod
+outer_tolerance = hole_loose_tolerance * 2.00;  // Slightly looser fit for the 12mm mounting holes
 
 // Gap parameters for installation
 gap_width = 1.0;  // Width of the gap to allow squeezing
