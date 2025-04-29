@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
-    
+    - uses: actions/checkout@v4
+
     - name: Set up build script
       run: |
         mkdir -p .github/scripts
@@ -31,13 +31,12 @@ jobs:
         done
         EOF
         chmod +x .github/scripts/build_stls.sh
-    
+
     - name: Build STL files
       run: .github/scripts/build_stls.sh
-    
+
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: stl-files
         path: build/
-
