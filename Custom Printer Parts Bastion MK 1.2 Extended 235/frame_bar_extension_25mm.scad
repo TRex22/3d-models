@@ -1,63 +1,97 @@
 // Frame Bar Extension
 // This extension piece connects two frame bars with a configurable middle section
-
 include <../shared_helper.scad>;
 
+revision = 1.1;
+
+// TODO: Add in heat knurled insert
+// TODO: Add in M4 Alternative
+// TODO: Add in NUT Alternatives for M4 and M3
+// TODO: Create female -> female, male -> male, male -> female
+
+// Adjustable values
+extension_length = 25.0;                  // Length of the extension middle section (adjustable)
+hole_diameter = m3_hole_diameter;         // Using M3 holes from shared_helper
+
 // Frame bar connector dimensions
-connector_width = 20.0;       // Width of the frame bar connector
-connector_height = 30.0;      // Height of the frame bar connector
-female_depth = 25.0;          // Depth of the female connector
-male_depth = 25.0;            // Depth of the male connector
-extension_length = 25.0;      // Length of the extension middle section (adjustable)
+connector_width = 20.0;                   // Width of the frame bar connector
+connector_height = 30.0;                  // Height of the frame bar connector
+mount_depth = 25.0;                       // Depth of the connector interfaces
 
 // Hole specifications
-hole_diameter = m3_hole_diameter;  // Using M3 holes from shared_helper
-hole_top_margin = 3.7;        // Distance from top edge to first hole center
-hole_spacing = 13.4;          // Distance between hole centers
-hole_front_margin = 10.2;     // Distance from front edge to hole centers
+hole_top_margin = 3.7 + (2.3);            // Distance from top edge to first hole center
+hole_spacing = 13.4;                      // Distance between hole centers
+hole_front_margin = 10.2 - (2.3) + 4.675; // Distance from front edge to hole centers
 
 // Tolerance for better fit
-fit_tolerance = 0.2;          // Tolerance for male connector to fit into female
+fit_tolerance = 0.2;                      // Tolerance for male connector to fit into female
 
 // Derived values
-total_length = female_depth + extension_length + male_depth;
+mounting_width_void = connector_width / 3.0;
 
-module frame_bar_extension() {
-  difference() {
-    union() {
-      // Female connector (left side)
-      translate([0, 0, 0])
-        cube([female_depth, connector_width, connector_height]);
-
-      // Extension middle section
-      translate([female_depth, 0, 0])
-        cube([extension_length, connector_width, connector_height]);
-
-      // Male connector (right side)
-      translate([female_depth + extension_length, 0, 0])
-        cube([male_depth, connector_width - fit_tolerance*2, connector_height - fit_tolerance*2]);
+module mounting_holes() {
+  translate([0, hole_front_margin, hole_top_margin]) {
+    rotate([0, 90, 0]) {
+      cylinder(d=hole_diameter, h=100.00);
     }
-
-    // Holes in female connector
-    translate([0, 0, 0])
-      frame_bar_holes(female_depth);
-
-    // Holes in male connector
-    translate([female_depth + extension_length, 0, 0])
-      frame_bar_holes(male_depth);
+  }
+  translate([0, hole_front_margin, connector_height - hole_top_margin]) {
+    rotate([0, 90, 0]) {
+      cylinder(d=hole_diameter, h=100.00);
+    }
   }
 }
 
-module frame_bar_holes(section_length) {
-  // Top hole
-  translate([-1, connector_width/2, connector_height - hole_top_margin])
-    rotate([0, 90, 0])
-      cylinder(d=hole_diameter, h=section_length+2);
+module female_mount() {
+  difference() {
+    cube([connector_width, mount_depth, connector_height]);
+    // Mounting space
+    translate([mounting_width_void, 0, 0]) {
+      cube([mounting_width_void, mount_depth, connector_height]);
+    }
+    // Holes
+    mounting_holes();
+  }
+}
 
-  // Bottom hole
-  translate([-1, connector_width/2, hole_top_margin + hole_spacing])
-    rotate([0, 90, 0])
-      cylinder(d=hole_diameter, h=section_length+2);
+module male_mount() {
+  difference() {
+    // Apply tolerance to the male connector width and height
+    translate([fit_tolerance/2, 0, fit_tolerance/2]) {
+      cube([connector_width - fit_tolerance, mount_depth + fit_tolerance, connector_height - fit_tolerance]);
+    }
+
+    // Mounting spaces - adjusted for the new position
+    translate([fit_tolerance/2, 0, fit_tolerance/2]) {
+      cube([mounting_width_void - fit_tolerance/2, mount_depth + fit_tolerance, connector_height - fit_tolerance]);
+    }
+
+    translate([connector_width - mounting_width_void, 0, fit_tolerance/2]) {
+      cube([mounting_width_void - fit_tolerance/2, mount_depth + fit_tolerance, connector_height - fit_tolerance]);
+    }
+
+    // Holes - keep original positions to maintain alignment
+    mounting_holes();
+  }
+}
+
+module extension() {
+  cube([connector_width, extension_length, connector_height]);
+}
+
+module frame_bar_extension() {
+  union() {
+    // female_mount();
+    male_mount();
+
+    translate([0, mount_depth + fit_tolerance, 0]) {
+      extension();
+    }
+
+    translate([0, mount_depth + fit_tolerance + extension_length, 0]) {
+      male_mount();
+    }
+  }
 }
 
 // Render the extension piece
