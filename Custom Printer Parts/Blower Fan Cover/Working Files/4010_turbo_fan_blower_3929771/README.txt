@@ -1,1 +1,0 @@
-4010 turbo fan blower by professors_ on Thingiverse: https://www.thingiverse.com/thing:3929771
