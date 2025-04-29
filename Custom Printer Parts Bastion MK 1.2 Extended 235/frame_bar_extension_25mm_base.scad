@@ -78,21 +78,3 @@ module male_mount() {
 module extension() {
   cube([connector_width, extension_length, connector_height]);
 }
-
-module frame_bar_extension() {
-  union() {
-    // female_mount();
-    male_mount();
-
-    translate([0, mount_depth + fit_tolerance, 0]) {
-      extension();
-    }
-
-    translate([0, mount_depth + fit_tolerance + extension_length, 0]) {
-      male_mount();
-    }
-  }
-}
-
-// Render the extension piece
-frame_bar_extension();

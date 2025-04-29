@@ -5,7 +5,7 @@
 
 include <../shared_helper.scad>;
 
-revision = 1.3;
+revision = 1.4;
 
 // Rod dimensions
 inner_rod_diameter = 8.0;
@@ -26,7 +26,13 @@ rotate([0, 180, 0]) {
     cylinder(d=outer_sleeve_diameter - outer_tolerance, h=sleeve_length, center=true);
 
     // Inner hole for 8mm rod
-    cylinder(d=inner_rod_diameter + inner_tolerance, h=sleeve_length + 1, center=true);
+    rotate([0, 0, 180]) {
+      translate([0, 0, -sleeve_length + 12.5])
+      cylinder(d=inner_rod_diameter + inner_tolerance, h=sleeve_length);
+    }
+
+    // Small hole to push rod out
+    cylinder(d=m3_hole_diameter, h=sleeve_length + 1.0, center=true);
 
     // Gap to allow squeezing for installation
     translate([0, 0, -sleeve_length/2 - 0.5])
