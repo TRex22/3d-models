@@ -1,4 +1,5 @@
 // LM8LUU to LM12UU Linear Bearing Adapter Sleeve
+
 // This sleeve converts an LM8LUU linear bearing to fit in a 12mm bearing mount
 // Uses shared_helper.scad for tolerances and quality settings
 
