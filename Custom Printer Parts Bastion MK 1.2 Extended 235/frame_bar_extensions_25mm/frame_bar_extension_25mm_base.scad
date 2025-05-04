@@ -1,17 +1,22 @@
 // Frame Bar Extension
 // This extension piece connects two frame bars with a configurable middle section
-include <../shared_helper.scad>;
+include <../../shared_helper.scad>;
 
-revision = 1.1;
+revision = 1.2;
 
-// TODO: Add in heat knurled insert
 // TODO: Add in M4 Alternative
 // TODO: Add in NUT Alternatives for M4 and M3
-// TODO: Create female -> female, male -> male, male -> female
 
 // Adjustable values
 extension_length = 25.0;                  // Length of the extension middle section (adjustable)
+
 hole_diameter = m3_hole_diameter;         // Using M3 holes from shared_helper
+
+countersunk_hole_diameter = m3_head_diameter;
+countersunk_hole_depth = m3_head_depth + 0.5;
+
+knurled_insert_diameter = m3_type1_knurled_insert_diameter;
+knurled_insert_depth = m3_type1_knurled_insert_depth;
 
 // Frame bar connector dimensions
 connector_width = 20.0;                   // Width of the frame bar connector
@@ -35,9 +40,38 @@ module mounting_holes() {
       cylinder(d=hole_diameter, h=100.00);
     }
   }
+
   translate([0, hole_front_margin, connector_height - hole_top_margin]) {
     rotate([0, 90, 0]) {
       cylinder(d=hole_diameter, h=100.00);
+    }
+  }
+}
+
+module countersunk_holes() {
+  translate([0, hole_front_margin, hole_top_margin]) {
+    rotate([0, 90, 0]) {
+      cylinder(d=countersunk_hole_diameter, h=countersunk_hole_depth);
+    }
+  }
+
+  translate([0, hole_front_margin, connector_height - hole_top_margin]) {
+    rotate([0, 90, 0]) {
+      cylinder(d=countersunk_hole_diameter, h=countersunk_hole_depth);
+    }
+  }
+}
+
+module heat_insert_holes() {
+  translate([(connector_width - knurled_insert_depth), hole_front_margin, hole_top_margin]) {
+    rotate([0, 90, 0]) {
+      cylinder(d=knurled_insert_diameter, h=knurled_insert_depth);
+    }
+  }
+
+  translate([(connector_width - knurled_insert_depth), hole_front_margin, connector_height - hole_top_margin]) {
+    rotate([0, 90, 0]) {
+      cylinder(d=knurled_insert_diameter, h=knurled_insert_depth);
     }
   }
 }
@@ -49,8 +83,10 @@ module female_mount() {
     translate([mounting_width_void, 0, 0]) {
       cube([mounting_width_void, mount_depth, connector_height]);
     }
-    // Holes
+
     mounting_holes();
+    countersunk_holes();
+    heat_insert_holes();
   }
 }
 

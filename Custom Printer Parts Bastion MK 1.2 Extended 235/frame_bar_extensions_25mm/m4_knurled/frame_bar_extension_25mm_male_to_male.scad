@@ -1,13 +1,14 @@
 // Frame Bar Extension
 // This extension piece connects two frame bars with a configurable middle section
-include <frame_bar_extension_25mm_base.scad>;
+include <../frame_bar_extension_25mm_base.scad>;
 
-revision = 1.1;
+revision = 1.2;
 
-// TODO: Add in heat knurled insert
-// TODO: Add in M4 Alternative
-// TODO: Add in NUT Alternatives for M4 and M3
-// TODO: Create female -> female, male -> male, male -> female
+countersunk_hole_diameter = m4_head_diameter;
+countersunk_hole_depth = m4_head_depth + 0.5;
+
+knurled_insert_diameter = m4_type1_knurled_insert_diameter;
+knurled_insert_depth = m4_type1_knurled_insert_depth;
 
 module frame_bar_extension() {
   union() {
