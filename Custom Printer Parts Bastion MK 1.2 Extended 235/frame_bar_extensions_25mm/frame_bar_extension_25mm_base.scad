@@ -128,10 +128,12 @@ module extension_with_psu_mounting_holes() {
     // 150
     // 2 mm
 
+    // PSU holes use M4 threads
+
     translate([0, 3.5, connector_height / 2.0]) {
       rotate([0, 90, 0]) {
-        cylinder(d=hole_diameter, h=100.00);
-        cylinder(d=countersunk_hole_diameter, h=countersunk_hole_depth);
+        cylinder(d=m4_loose_hole_diameter, h=100.00);
+        cylinder(d=m4_head_diameter, h=m4_head_depth + 0.5);
       }
     }
   }

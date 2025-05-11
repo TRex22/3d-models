@@ -2,7 +2,7 @@
 // This extension piece connects two frame bars with a configurable middle section
 include <../frame_bar_extension_25mm_base.scad>;
 
-revision = 1.2;
+revision = 1.3;
 
 module frame_bar_extension() {
   union() {

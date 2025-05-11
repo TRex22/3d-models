@@ -19,7 +19,7 @@ m2_nut_outer_depth = 2.00;
 m3_hole_diameter = 2.9; // 2.8
 m3_hole_offset = m3_hole_diameter / 2.0;
 m3_hole_height = 100.00;
-m3_head_diameter = 6.2;
+m3_head_diameter = 6.20;
 m3_head_depth = 3.0; // 2.5??, 3.0
 
 // M3 nut dimensions (standard values)
@@ -28,6 +28,7 @@ m3_nut_outer_height = 6.35;  // Width across corners (approximated)
 m3_nut_outer_depth = 2.5 + 0.3;    // Thickness of the nut
 
 m4_hole_diameter = 3.85; // 3.90
+m4_loose_hole_diameter = 4.00;
 m4_hole_offset = m4_hole_diameter / 2.0;
 m4_hole_height = 100.00;
 m4_head_diameter = 7.55;
