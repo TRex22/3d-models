@@ -114,3 +114,25 @@ module male_mount() {
 module extension() {
   cube([connector_width, extension_length, connector_height]);
 }
+
+module extension_with_psu_mounting_holes() {
+  difference() {
+    extension();
+
+    // Shorter PSU Hole
+    // 158
+    // 12 hole shift
+
+    // Longer PSU Holes
+    // + 10mm
+    // 150
+    // 2 mm
+
+    translate([0, 3.5, connector_height / 2.0]) {
+      rotate([0, 90, 0]) {
+        cylinder(d=hole_diameter, h=100.00);
+        cylinder(d=countersunk_hole_diameter, h=countersunk_hole_depth);
+      }
+    }
+  }
+}

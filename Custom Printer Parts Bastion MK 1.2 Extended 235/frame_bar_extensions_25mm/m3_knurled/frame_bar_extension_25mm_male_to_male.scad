@@ -6,7 +6,6 @@ revision = 1.2;
 
 module frame_bar_extension() {
   union() {
-    // female_mount();
     male_mount();
 
     translate([0, mount_depth + fit_tolerance, 0]) {
