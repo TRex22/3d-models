@@ -1,7 +1,7 @@
-// Foot Design
+// Foot Design for Bastion Printer
 
 include <../shared_helper.scad>;
-revision = 1.1;
+revision = 1.2;
 
 foot_outer_diameter = 38.50;
 foot_total_height = 12.50 + 12.00 + 4.00; // Height to casing + height of power switch + extra clearance
@@ -21,7 +21,7 @@ wall_thickness = 3.0;      // Minimum wall thickness
 bottom_thickness = 5.0;    // Thickness of the bottom part
 chamfer_size = 1.0;        // Size of chamfers for better printing
 big_chamfer_size = 1.5;    // Size of chamfers for better printing
-$fn = 100;                 // Smoothness of circl
+$fn = 100;                 // Smoothness of circle
 
 module base_foot() {
   // Main body - cylinder with chamfered top edge
