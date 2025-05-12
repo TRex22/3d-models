@@ -34,6 +34,13 @@ m4_hole_height = 100.00;
 m4_head_diameter = 7.55;
 m4_head_depth = 3.0; // 2.5??, 3.0
 
+m5_hole_diameter = 4.82; // 4.87
+m5_loose_hole_diameter = 5.00;
+m5_hole_offset = m5_hole_diameter / 2.0;
+m5_hole_height = 100.00;
+m5_head_diameter = 9.30; // 9.23
+m5_head_depth = 5.00;
+
 // Knurled Heat Inserts
 // TODO: Short and Long Versions
 // M3 Type 1 (angled twin knurling, long and two rows of knurling)
