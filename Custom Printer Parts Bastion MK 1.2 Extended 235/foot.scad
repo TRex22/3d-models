@@ -1,14 +1,14 @@
 // Foot Design for Bastion Printer
 
 include <../shared_helper.scad>;
-revision = 1.2;
+revision = 1.3;
 
 foot_outer_diameter = 38.50;
 foot_total_height = 12.50 + 12.00 + 4.00; // Height to casing + height of power switch + extra clearance
 
 // Screw hole dimensions
-screw_diameter = m5_loose_hole_diameter;
-screw_head_diameter = m5_head_diameter; // M5 socket head diameter
+screw_diameter = m5_loose_hole_diameter + 1.0;
+screw_head_diameter = m5_head_diameter + 1.0; // M5 socket head diameter
 screw_head_height = m5_head_depth;   // M5 socket head height
 countersink_angle = 90;    // Countersink angle in degrees
 
