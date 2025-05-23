@@ -13,8 +13,8 @@ outer_sleeve_diameter = 12.0;
 sleeve_length = 25.5; //30.0;  // Adjust as needed // +1.5
 
 // Tolerances
-inner_tolerance = (2 * hole_tight_tolerance) + hole_loose_tolerance;    // Tight perfect fit for the 8mm rod
 // inner_tolerance = hole_tight_tolerance + hole_loose_tolerance;    // Tight fit for the 8mm rod
+inner_tolerance = (2 * hole_tight_tolerance) + hole_loose_tolerance;    // Tight perfect fit for the 8mm rod
 outer_tolerance = hole_tight_tolerance;  // Slightly looser fit for the 12mm mounting holes
 
 // Gap parameters for installation
