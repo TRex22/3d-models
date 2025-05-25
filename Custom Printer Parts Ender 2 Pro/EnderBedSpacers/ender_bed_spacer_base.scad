@@ -1,7 +1,7 @@
 include <../../shared_helper.scad>
 
-revision = 1.2;
-inner_diameter = m4_loose_hole_diameter;
+revision = 1.3;
+inner_diameter = m4_loose_hole_diameter + 0.5;
 outer_diameter = 9.00;
 
 height = 1.0; //set in each file
