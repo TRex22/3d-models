@@ -5,12 +5,12 @@
 
 include <../../../shared_helper.scad>;
 
-revision = 1.7;
+revision = 1.0;
 
 // Rod dimensions
 inner_rod_diameter = 8.0;
 outer_sleeve_diameter = 12.0;
-sleeve_length = 25.5; //30.0;  // Adjust as needed // +1.5
+sleeve_length = 25.5 + 65.00; //30.0;  // Adjust as needed // +1.5
 
 // Tolerances
 // inner_tolerance = (2 * hole_tight_tolerance) + hole_loose_tolerance;    // Tight perfect fit for the 8mm rod
@@ -28,7 +28,7 @@ rotate([0, 180, 0]) {
 
     // Inner hole for 8mm rod
     rotate([0, 0, 180]) {
-      translate([0, 0, -sleeve_length + 12.5 - 0.5 -1.0])
+      translate([0, 0, -sleeve_length + 20 + 12 + 0.4 + 12.5 - 0.5 -1.0])
       cylinder(d=inner_rod_diameter + inner_tolerance, h=sleeve_length);
     }
 
