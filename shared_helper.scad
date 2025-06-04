@@ -16,6 +16,8 @@ m2_nut_outer_height = 4.40;
 m2_nut_outer_depth = 2.00;
 // M2_Counter_Sink_Depth
 
+m2_5_hole_diameter = 2.40;
+
 m3_hole_diameter = 2.9; // 2.8
 m3_hole_offset = m3_hole_diameter / 2.0;
 m3_hole_height = 100.00;
