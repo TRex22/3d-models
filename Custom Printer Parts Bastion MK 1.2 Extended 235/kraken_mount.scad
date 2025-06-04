@@ -140,14 +140,15 @@ module l_bracket_assembly() {
     pcb_mount_plate();
 
     // Vertical frame mounting plate at back edge (same side as Pi mount)
-    translate([-(frame_mount_length - pcb_mount_width) / 2, pcb_mount_height, pcb_mount_depth]) {
+    translate([-(frame_mount_length - pcb_mount_width) / 2, pcb_mount_height, -frame_mount_width + pcb_mount_depth]) {
       frame_mount_plate();
     }
 
-    // // Strengthening material for 90-degree joint - solid internal support
-    // translate([0, pcb_mount_height - 15, pcb_mount_depth]) {
-    //   cube([pcb_mount_width, 15, 15]);
-    // }
+    // Strengthening material for 90-degree joint - solid internal support
+    strength_height = pi_standoff_height - 1.0;
+    translate([0, pcb_mount_height - (strength_height + 1.0), -strength_height]) {
+      cube([pcb_mount_width, strength_height + 1.0, strength_height]);
+    }
   }
 }
 
