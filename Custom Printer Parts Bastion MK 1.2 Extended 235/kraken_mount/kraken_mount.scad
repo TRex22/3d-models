@@ -1,6 +1,6 @@
 // Kraken PCB 90-degree mount for custom 3D printer frame
-include <../shared_helper.scad>;
-revision = 1.1;
+include <../../shared_helper.scad>;
+revision = 1.2;
 
 // PCB Dimensions - Kraken is 200x113mm
 pcb_mount_width = 200.00;

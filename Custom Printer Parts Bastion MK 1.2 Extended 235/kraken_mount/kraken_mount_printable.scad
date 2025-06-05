@@ -1,5 +1,6 @@
 // Printable version of Kraken PCB mount - split into two halves for smaller print beds
 include <kraken_mount.scad>
+revision = 1.1;
 
 // Split parameters
 split_position = pcb_mount_width / 2;  // Split at middle
