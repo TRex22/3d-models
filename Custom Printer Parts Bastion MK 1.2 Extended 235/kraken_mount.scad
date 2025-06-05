@@ -31,10 +31,7 @@ standoff_height = 7.00;
 pi_standoff_height = 7.00;
 hole_diameter = m3_hole_diameter + hole_tight_tolerance;
 pi_hole_diameter = m2_5_hole_diameter + hole_tight_tolerance;
-
-module pi_mount() {
-
-}
+pi_standoff_diameter = 6.0;
 
 // Main PCB mounting plate (horizontal) with material-saving cutouts
 module pcb_mount_plate() {
@@ -56,10 +53,8 @@ module pcb_mount_plate() {
       }
 
       // Pi mounting section (underneath, back side - lengthways and flipped)
-      pi_standoff_diameter = 6.0;
-
       // Pi back plate to connect standoffs (rotated 90° and flipped 180°)
-      translate([(pcb_mount_width - pi_mount_width) / 2, (pcb_mount_height - pi_mount_height) / 2, -pi_standoff_height]) {
+      translate([(pcb_mount_width - pi_mount_width) / 2, (pcb_mount_height - pi_mount_height) / 2, (pi_standoff_height - 8.0)]) {
         cube([pi_mount_width, pi_mount_height, pcb_mount_depth]);
       }
 
@@ -70,7 +65,7 @@ module pcb_mount_plate() {
             translate([
               pi_offset_from_edge_x + i * pi_hole_distance_width,  // 85mm lengthways
               pi_offset_from_edge_y + j * pi_hole_distance_height, // 56mm across
-              -pi_standoff_height
+              (-pi_standoff_height - 0.1)
             ]) {
               cylinder(d = pi_standoff_diameter, h = pi_standoff_height);
             }
@@ -97,7 +92,7 @@ module pcb_mount_plate() {
     }
 
     // Pi mounting holes (back side, lengthways and flipped)
-    translate([(pcb_mount_width - pi_mount_width) / 2, (pcb_mount_height - pi_mount_height) / 2, -pi_standoff_height - 0.1]) {
+    translate([(pcb_mount_width - pi_mount_width) / 2, (pcb_mount_height - pi_mount_height) / 2, (pi_standoff_height - 0.1 - 10)]) {
       for (i = [0, 1]) {
         for (j = [0, 1]) {
           translate([
@@ -105,7 +100,7 @@ module pcb_mount_plate() {
             pi_offset_from_edge_y + j * pi_hole_distance_height,
             0
           ]) {
-            cylinder(d = pi_hole_diameter, h = pi_standoff_height + pcb_mount_depth + 0.2);
+            cylinder(d = pi_hole_diameter, h = 100.00);
           }
         }
       }
@@ -120,13 +115,15 @@ module frame_mount_plate() {
 
     // Frame mounting holes - 4 holes, 114mm apart lengthwise, 15.1mm apart height-wise
     for (i = [0, 1]) {
-      for (j = [0, 1]) {
+      for (j = [0]) {
         translate([
           (frame_mount_length - frame_mount_hole_spacing_length) / 2 + i * frame_mount_hole_spacing_length,
           -0.1,
           (frame_mount_width - frame_mount_hole_spacing_width) / 2 + j * frame_mount_hole_spacing_width
         ]) {
-          cylinder(d = hole_diameter, h = frame_mount_depth + 0.2);
+          translate([0, 5, 0])
+          rotate([90, 0, 0])
+          cylinder(d = hole_diameter, h = frame_mount_depth + 100.00);
         }
       }
     }
