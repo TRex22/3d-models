@@ -52,20 +52,16 @@ module pcb_mount_plate() {
         }
       }
 
-      // Pi mounting section (underneath, back side - lengthways and flipped)
-      // Pi back plate to connect standoffs (rotated 90° and flipped 180°)
-      translate([(pcb_mount_width - pi_mount_width) / 2, (pcb_mount_height - pi_mount_height) / 2, (pi_standoff_height - 8.0)]) {
-        cube([pi_mount_width, pi_mount_height, pcb_mount_depth]);
-      }
+      // Pi mounting area is now part of the main PCB plate (no separate cube needed)
 
-      // Pi standoffs - lengthways (85mm along X) and flipped 180° from Kraken
-      translate([(pcb_mount_width - pi_mount_width) / 2, (pcb_mount_height - pi_mount_height) / 2, 0]) {
+      // Pi standoffs - lengthways (85mm along X) and flipped 180° from Kraken - on bottom surface
+      translate([(pcb_mount_width - pi_mount_width) / 2, (pcb_mount_height - pi_mount_height) / 2, -pi_standoff_height]) {
         for (i = [0, 1]) {
           for (j = [0, 1]) {
             translate([
               pi_offset_from_edge_x + i * pi_hole_distance_width,  // 85mm lengthways
               pi_offset_from_edge_y + j * pi_hole_distance_height, // 56mm across
-              (-pi_standoff_height - 0.1)
+              0
             ]) {
               cylinder(d = pi_standoff_diameter, h = pi_standoff_height);
             }
@@ -74,11 +70,28 @@ module pcb_mount_plate() {
       }
     }
 
-    // Material-saving cutouts in the middle areas
+    // Material-saving cutouts in the middle areas - avoid Pi mounting plate area
     cutout_margin = 20;
-    translate([cutout_margin, cutout_margin, -0.1]) {
-      cube([pcb_mount_width - 2 * cutout_margin, pcb_mount_height - 2 * cutout_margin, pcb_mount_depth + 0.2]);
+    pi_area_start_x = (pcb_mount_width - pi_mount_width) / 2;
+    pi_area_end_x = pi_area_start_x + pi_mount_width;
+    pi_area_start_y = (pcb_mount_height - pi_mount_height) / 2;
+    pi_area_end_y = pi_area_start_y + pi_mount_height;
+
+    // Front cutout (before Pi area)
+    if (pi_area_start_x > cutout_margin) {
+      translate([cutout_margin, cutout_margin, -0.1]) {
+        cube([pi_area_start_x - cutout_margin, pcb_mount_height - 2 * cutout_margin, pcb_mount_depth + 0.2]);
+      }
     }
+
+    // Back cutout (after Pi area)
+    if (pi_area_end_x < pcb_mount_width - cutout_margin) {
+      translate([pi_area_end_x, cutout_margin, -0.1]) {
+        cube([pcb_mount_width - cutout_margin - pi_area_end_x, pcb_mount_height - 2 * cutout_margin, pcb_mount_depth + 0.2]);
+      }
+    }
+
+    // No cutouts in Pi area - keep Pi plate connected to main PCB plate
 
     // PCB mounting holes (front side)
     translate([(pcb_mount_width - pcb_hole_distance_width) / 2, (pcb_mount_height - pcb_hole_distance_height) / 2, -0.1]) {
@@ -91,8 +104,8 @@ module pcb_mount_plate() {
       }
     }
 
-    // Pi mounting holes (back side, lengthways and flipped)
-    translate([(pcb_mount_width - pi_mount_width) / 2, (pcb_mount_height - pi_mount_height) / 2, (pi_standoff_height - 0.1 - 10)]) {
+    // Pi mounting holes (back side, lengthways and flipped) - through Pi plate and standoffs
+    translate([(pcb_mount_width - pi_mount_width) / 2, (pcb_mount_height - pi_mount_height) / 2, -pi_standoff_height - 0.1]) {
       for (i = [0, 1]) {
         for (j = [0, 1]) {
           translate([
@@ -100,7 +113,7 @@ module pcb_mount_plate() {
             pi_offset_from_edge_y + j * pi_hole_distance_height,
             0
           ]) {
-            cylinder(d = pi_hole_diameter, h = 100.00);
+            cylinder(d = pi_hole_diameter, h = pcb_mount_depth + pi_standoff_height + 0.2);
           }
         }
       }
@@ -130,6 +143,60 @@ module frame_mount_plate() {
   }
 }
 
+// Thin rectangular connections around Pi mounting plate - connecting to main PCB plate
+module pi_plate_connections() {
+  connection_width = 3;
+
+  pi_area_start_x = (pcb_mount_width - pi_mount_width) / 2;
+  pi_area_end_x = pi_area_start_x + pi_mount_width;
+  pi_area_start_y = (pcb_mount_height - pi_mount_height) / 2;
+  pi_area_end_y = pi_area_start_y + pi_mount_height;
+
+  // Left side connection
+  translate([pi_area_start_x - connection_width, pi_area_start_y, 0]) {
+    cube([connection_width, pi_mount_height, pcb_mount_depth]);
+  }
+
+  // Right side connection
+  translate([pi_area_end_x, pi_area_start_y, 0]) {
+    cube([connection_width, pi_mount_height, pcb_mount_depth]);
+  }
+
+  // Front side connection
+  translate([pi_area_start_x - connection_width, pi_area_start_y - connection_width, 0]) {
+    cube([pi_mount_width + 2 * connection_width, connection_width, pcb_mount_depth]);
+  }
+
+  // Back side connection
+  translate([pi_area_start_x - connection_width, pi_area_end_y, 0]) {
+    cube([pi_mount_width + 2 * connection_width, connection_width, pcb_mount_depth]);
+  }
+}
+
+// Chamfered strengthening cube module
+module chamfered_strengthening_cube() {
+  strength_height = pi_standoff_height - 1.0;
+  chamfer_size = 3;
+
+  difference() {
+    cube([pcb_mount_width, strength_height + 1.0, strength_height]);
+
+    // 45-degree chamfer on front edge
+    translate([-0.1, strength_height + 1.0, -0.1]) {
+      rotate([45, 0, 0]) {
+        cube([pcb_mount_width + 0.2, chamfer_size * sqrt(2), chamfer_size * sqrt(2)]);
+      }
+    }
+
+    // 45-degree chamfer on top edge
+    translate([-0.1, -0.1, strength_height]) {
+      rotate([0, 45, 0]) {
+        cube([chamfer_size * sqrt(2), strength_height + 1.2, chamfer_size * sqrt(2)]);
+      }
+    }
+  }
+}
+
 // Complete L-bracket assembly
 module l_bracket_assembly() {
   union() {
@@ -141,11 +208,14 @@ module l_bracket_assembly() {
       frame_mount_plate();
     }
 
-    // Strengthening material for 90-degree joint - solid internal support
+    // Strengthening material for 90-degree joint with 45-degree chamfers
     strength_height = pi_standoff_height - 1.0;
     translate([0, pcb_mount_height - (strength_height + 1.0), -strength_height]) {
-      cube([pcb_mount_width, strength_height + 1.0, strength_height]);
+      chamfered_strengthening_cube();
     }
+
+    // Thin rectangular connections around Pi mounting plate
+    pi_plate_connections();
   }
 }
 
