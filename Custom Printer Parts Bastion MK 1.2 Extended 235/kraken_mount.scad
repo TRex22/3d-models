@@ -1,6 +1,6 @@
 // Kraken PCB 90-degree mount for custom 3D printer frame
 include <../shared_helper.scad>;
-revision = 1.0;
+revision = 1.1;
 
 // PCB Dimensions - Kraken is 200x113mm
 pcb_mount_width = 200.00;
@@ -28,10 +28,14 @@ frame_mount_hole_spacing_width = 15.10;
 
 // Stand-offs
 standoff_height = 7.00;
+standoff_diameter = 8.0;
 pi_standoff_height = 7.00;
+pi_standoff_diameter = 6.0;
 hole_diameter = m3_hole_diameter + hole_tight_tolerance;
 pi_hole_diameter = m2_5_hole_diameter + hole_tight_tolerance;
-pi_standoff_diameter = 6.0;
+
+add_pi_standoffs = true;
+add_kraken_standoffs = true;
 
 // Main PCB mounting plate (horizontal) with material-saving cutouts
 module pcb_mount_plate() {
@@ -41,12 +45,12 @@ module pcb_mount_plate() {
       cube([pcb_mount_width, pcb_mount_height, pcb_mount_depth]);
 
       // PCB standoffs at corners (front side)
-      standoff_diameter = 8.0;
       translate([(pcb_mount_width - pcb_hole_distance_width) / 2, (pcb_mount_height - pcb_hole_distance_height) / 2, 0]) {
         for (i = [0, 1]) {
           for (j = [0, 1]) {
             translate([i * pcb_hole_distance_width, j * pcb_hole_distance_height, pcb_mount_depth]) {
-              cylinder(d = standoff_diameter, h = standoff_height);
+              if(add_kraken_standoffs)
+                cylinder(d = standoff_diameter, h = standoff_height);
             }
           }
         }
@@ -63,7 +67,8 @@ module pcb_mount_plate() {
               pi_offset_from_edge_y + j * pi_hole_distance_height, // 56mm across
               0
             ]) {
-              cylinder(d = pi_standoff_diameter, h = pi_standoff_height);
+              if (add_pi_standoffs)
+                cylinder(d = pi_standoff_diameter, h = pi_standoff_height);
             }
           }
         }
@@ -210,8 +215,9 @@ module l_bracket_assembly() {
 
     // Strengthening material for 90-degree joint with 45-degree chamfers
     strength_height = pi_standoff_height - 1.0;
-    translate([0, pcb_mount_height - (strength_height + 1.0), -strength_height]) {
-      chamfered_strengthening_cube();
+    translate([(pcb_mount_width - frame_mount_length) / 2.0, pcb_mount_height - (strength_height + 1.0), -strength_height]) {
+      // chamfered_strengthening_cube();
+      cube([frame_mount_length, strength_height + 1.0, strength_height]);
     }
 
     // Thin rectangular connections around Pi mounting plate
