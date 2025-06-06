@@ -1,6 +1,6 @@
 // Kraken PCB 90-degree mount for custom 3D printer frame
 include <../../shared_helper.scad>;
-revision = 1.3;
+revision = 1.4;
 
 // PCB Dimensions - Kraken is 200x113mm
 pcb_mount_width = 200.00;
@@ -8,8 +8,8 @@ pcb_mount_height = 113.00;
 pcb_mount_depth = 3.30;
 
 // PCB hole spacing (corners)
-pcb_hole_distance_width = 190.00;
-pcb_hole_distance_height = 102.00 + (1.17 / 2.0);
+pcb_hole_distance_width = 190.00 + 1.50;
+pcb_hole_distance_height = 102.00 + 1.17;
 
 // Raspberry Pi 4 B+ dimensions
 pi_mount_width = 85.00;
@@ -23,16 +23,17 @@ pi_offset_from_edge_y = 3.50;
 frame_mount_length = 144.00;
 frame_mount_width = 25.00;
 frame_mount_depth = 3.30;
-frame_mount_hole_spacing_length = 114.00;
+frame_mount_hole_spacing_length = 114.00 + 4.5;
 frame_mount_hole_spacing_width = 15.10;
 
 // Stand-offs
 standoff_height = 7.00;
 standoff_diameter = 8.0;
 pi_standoff_height = 7.00;
-pi_standoff_diameter = 6.0;
+pi_standoff_diameter = 5.0;
+
 hole_diameter = m3_hole_diameter + hole_tight_tolerance;
-pi_hole_diameter = m2_hole_diameter + hole_tight_tolerance;
+pi_hole_diameter = m2_5_hole_diameter - (hole_loose_tolerance + 0.1);
 
 cutout_margin = 10.00;
 
