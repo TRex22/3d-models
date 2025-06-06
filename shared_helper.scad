@@ -19,6 +19,7 @@ m2_nut_outer_depth = 2.00;
 m2_5_hole_diameter = 2.40;
 
 m3_hole_diameter = 2.9; // 2.8
+m3_loose_diameter = 3.40;
 m3_hole_offset = m3_hole_diameter / 2.0;
 m3_hole_height = 100.00;
 m3_head_diameter = 6.20;
@@ -255,4 +256,27 @@ module D2F_Switch_Mount_Holes() {
       cylinder(d=m2_hole_diameter + hole_tight_tolerance + (d2f_extra_tolerance_for_switch_holes * 3), h=d2f_switch_hole_hight);
     }
   }
+}
+
+module generate_sleeve(outer_sleeve_diameter, outer_tolerance, sleeve_length, inner_rod_diameter, inner_tolerance, m3_hole_diameter, gap_width) {
+  // Create the sleeve
+rotate([0, 180, 0]) {
+  difference() {
+    // Outer cylinder
+    cylinder(d=outer_sleeve_diameter - outer_tolerance, h=sleeve_length, center=true);
+
+    // Inner hole for 8mm rod
+    rotate([0, 0, 180]) {
+      translate([0, 0, -sleeve_length + 12.5 - 0.5 -1.0])
+      cylinder(d=inner_rod_diameter + inner_tolerance, h=sleeve_length);
+    }
+
+    // Small hole to push rod out
+    cylinder(d=m3_hole_diameter - 0.1, h=sleeve_length + 1.0, center=true);
+
+    // Gap to allow squeezing for installation
+    translate([0, 0, -sleeve_length/2 - 0.5])
+    cube([gap_width, outer_sleeve_diameter + 1, sleeve_length + 1], center=true);
+  }
+}
 }

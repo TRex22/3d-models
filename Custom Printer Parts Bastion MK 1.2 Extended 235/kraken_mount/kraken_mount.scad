@@ -1,6 +1,6 @@
 // Kraken PCB 90-degree mount for custom 3D printer frame
 include <../../shared_helper.scad>;
-revision = 1.4;
+revision = 1.5;
 
 // PCB Dimensions - Kraken is 200x113mm
 pcb_mount_width = 200.00;
@@ -25,6 +25,10 @@ frame_mount_width = 25.00;
 frame_mount_depth = 3.30;
 frame_mount_hole_spacing_length = 114.00 + 4.5;
 frame_mount_hole_spacing_width = 15.10;
+
+frame_central_mount_hole_spacing_length = 25.00;
+frame_central_mount_hole_spacing_distance_from_edge = 9.20;
+frame_central_mount_hole_spacing_height = (15.00 / 2.0) + 6.00; // centre of the bar mount shifted down
 
 // Stand-offs
 standoff_height = 7.00;
@@ -145,6 +149,27 @@ module frame_mount_plate() {
           rotate([90, 0, 0])
           cylinder(d = hole_diameter, h = frame_mount_depth + 100.00);
         }
+      }
+    }
+
+    // Extra frame mounting holes for central mounts
+    // Side 1
+    translate([frame_central_mount_hole_spacing_distance_from_edge, frame_central_mount_hole_spacing_length, frame_central_mount_hole_spacing_height]) {
+      rotate([90, 0, 0]) {
+        cylinder(d = hole_diameter, h = frame_mount_depth + 100.00);
+
+        translate([frame_central_mount_hole_spacing_length, 0, 0])
+        cylinder(d = hole_diameter, h = frame_mount_depth + 100.00);
+      }
+    }
+
+    // Side 2
+    translate([frame_mount_length - frame_central_mount_hole_spacing_distance_from_edge, frame_central_mount_hole_spacing_length, frame_central_mount_hole_spacing_height]) {
+      rotate([90, 0, 0]) {
+        cylinder(d = hole_diameter, h = frame_mount_depth + 100.00);
+
+        translate([-frame_central_mount_hole_spacing_length, 0, 0])
+        cylinder(d = hole_diameter, h = frame_mount_depth + 100.00);
       }
     }
   }
