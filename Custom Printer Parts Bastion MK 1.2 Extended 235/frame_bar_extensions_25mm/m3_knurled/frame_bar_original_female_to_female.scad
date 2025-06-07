@@ -1,7 +1,7 @@
-// Frame Bar Original
+// Frame Bar Original - 144.00 mm
 include <../frame_bar_extension_25mm_base.scad>;
 
-revision = 1.1;
+revision = 1.2;
 extension_length = 94.00; // Original length
 
 module frame_bar() {
