@@ -151,25 +151,19 @@ module side_holes() {
 }
 
 module top_holes() {
-  rotate([0, 0, 0]) {
-    translate([0, side_hole_length_from_edge + 2.30, (connector_height/2.0)]) {
-      cylinder(d=side_hole_diameter, h=hole_depth);
-      cylinder(d=side_hole_counter_sink_diameter, h=side_hole_counter_sink_depth); // counter-sink
-    }
+  translate([(connector_width/2.0), top_hole_length_from_edge + 2.30 - 0.251, 0]) {
+    cylinder(d=top_hole_diameter, h=hole_depth);
+    cylinder(d=top_hole_counter_sink_diameter, h=top_hole_counter_sink_depth); // counter-sink
   }
 
-  rotate([90, 0, 0]) {
-    translate([-(connector_height/2.0), top_hole_length_from_edge + 2.30, 0]) {
-      cylinder(d=top_hole_diameter, h=hole_depth);
-      cylinder(d=top_hole_counter_sink_diameter, h=top_hole_counter_sink_depth); // counter-sink
-    }
+  translate([(connector_width/2.0), top_hole_length_from_edge + (top_hole_distance_from_other_hole + 4.6) + 2.30, 0]) {
+    cylinder(d=top_hole_diameter, h=hole_depth);
+    cylinder(d=top_hole_counter_sink_diameter, h=top_hole_counter_sink_depth); // counter-sink
   }
 
-  rotate([90, 0, 0]) {
-    translate([-(connector_height/2.0), top_hole_length_from_edge + top_hole_distance_from_other_hole + 2.30 + 4.60, 0]) {
-      cylinder(d=top_hole_diameter, h=hole_depth);
-      cylinder(d=top_hole_counter_sink_diameter, h=top_hole_counter_sink_depth); // counter-sink
-    }
+  translate([(connector_width/2.0), top_hole_length_from_edge + (2 * (top_hole_distance_from_other_hole + 4.6)) + 2.30, 0]) {
+    cylinder(d=top_hole_diameter, h=hole_depth);
+    cylinder(d=top_hole_counter_sink_diameter, h=top_hole_counter_sink_depth); // counter-sink
   }
 }
 

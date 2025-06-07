@@ -1,7 +1,7 @@
 // Frame Bar Original
 include <../frame_bar_extension_25mm_base.scad>;
 
-revision = 1.0;
+revision = 1.1;
 extension_length = 94.00; // Original length
 
 module frame_bar() {

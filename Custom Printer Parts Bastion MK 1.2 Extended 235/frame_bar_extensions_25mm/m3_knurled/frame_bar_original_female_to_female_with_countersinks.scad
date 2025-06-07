@@ -1,7 +1,7 @@
 // Frame Bar Original
 include <frame_bar_original_female_to_female.scad>;
 
-revision = 1.0;
+revision = 1.1;
 
 extension_length = 94.00; // Original length
 
