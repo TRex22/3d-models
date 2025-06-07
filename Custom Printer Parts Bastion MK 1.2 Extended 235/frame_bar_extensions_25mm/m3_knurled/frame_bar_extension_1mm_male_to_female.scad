@@ -2,9 +2,9 @@
 // This extension piece connects two frame bars with a configurable middle section
 include <../frame_bar_extension_25mm_base.scad>;
 
-revision = 1.1;
+revision = 1.0;
 
-extension_length = (25.0 / 2.0);  // Length of the extension middle section (adjustable) ±12.5
+extension_length = 1.0;  // Length of the extension middle section (adjustable) ±12.5
 
 module frame_bar_extension() {
   union() {

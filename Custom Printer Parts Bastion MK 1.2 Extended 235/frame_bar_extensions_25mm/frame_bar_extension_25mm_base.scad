@@ -28,6 +28,24 @@ hole_top_margin = 3.7 + (2.3);            // Distance from top edge to first hol
 hole_spacing = 13.4;                      // Distance between hole centers
 hole_front_margin = 10.2 - (2.3) + 4.675; // Distance from front edge to hole centers
 
+// Other Side-Holes
+side_hole_diameter = 4.60;
+side_hole_counter_sink_diameter = 0.00; // can change this to 6.00
+side_hole_counter_sink_depth = m4_head_depth; // can change this to 6.00
+side_hole_length_from_edge = 57.20;
+side_hole_length_from_bottom = 12.70;
+side_hole_distance_from_other_hole = 20.40;
+
+// Other Top Holes
+top_hole_diameter = 4.60;
+top_hole_counter_sink_diameter = 0.00; // can change this to 6.00
+top_hole_counter_sink_depth = m4_head_depth; // can change this to 6.00
+top_hole_length_from_edge = 19.70 + mount_depth;
+top_hole_length_from_bottom = 7.70; // Top-Face
+top_hole_distance_from_other_hole = 20.40;
+
+hole_depth = 100.00;
+
 // Tolerance for better fit
 fit_tolerance = 0.2;                      // Tolerance for male connector to fit into female
 
@@ -108,6 +126,50 @@ module male_mount() {
 
     // Holes - keep original positions to maintain alignment
     mounting_holes();
+  }
+}
+
+// Shifting has some error. Extra shift is to make up for that error
+module side_holes() {
+  rotate([0, 90, 0]) {
+    translate([-(connector_height/2.0), side_hole_length_from_edge + 2.30, 0]) {
+      cylinder(d=side_hole_diameter, h=hole_depth);
+
+      translate([0, 0, connector_width - side_hole_counter_sink_depth]) // Shift to "back"
+      cylinder(d=side_hole_counter_sink_diameter, h=side_hole_counter_sink_depth); // counter-sink
+    }
+  }
+
+  rotate([0, 90, 0]) {
+    translate([-(connector_height/2.0), side_hole_length_from_edge + side_hole_distance_from_other_hole + 2.30 + 4.60, 0]) {
+      cylinder(d=side_hole_diameter, h=hole_depth);
+
+      translate([0, 0, connector_width - side_hole_counter_sink_depth]) // Shift to "back"
+      cylinder(d=side_hole_counter_sink_diameter, h=side_hole_counter_sink_depth); // counter-sink
+    }
+  }
+}
+
+module top_holes() {
+  rotate([0, 0, 0]) {
+    translate([0, side_hole_length_from_edge + 2.30, (connector_height/2.0)]) {
+      cylinder(d=side_hole_diameter, h=hole_depth);
+      cylinder(d=side_hole_counter_sink_diameter, h=side_hole_counter_sink_depth); // counter-sink
+    }
+  }
+
+  rotate([90, 0, 0]) {
+    translate([-(connector_height/2.0), top_hole_length_from_edge + 2.30, 0]) {
+      cylinder(d=top_hole_diameter, h=hole_depth);
+      cylinder(d=top_hole_counter_sink_diameter, h=top_hole_counter_sink_depth); // counter-sink
+    }
+  }
+
+  rotate([90, 0, 0]) {
+    translate([-(connector_height/2.0), top_hole_length_from_edge + top_hole_distance_from_other_hole + 2.30 + 4.60, 0]) {
+      cylinder(d=top_hole_diameter, h=hole_depth);
+      cylinder(d=top_hole_counter_sink_diameter, h=top_hole_counter_sink_depth); // counter-sink
+    }
   }
 }
 
