@@ -2,7 +2,7 @@
 // This extension piece connects two frame bars with a configurable middle section
 include <../../shared_helper.scad>;
 
-revision = 1.2;
+revision = 1.4;
 
 // TODO: Add in M4 Alternative
 // TODO: Add in NUT Alternatives for M4 and M3
@@ -22,6 +22,32 @@ knurled_insert_depth = m3_type1_knurled_insert_depth;
 connector_width = 20.0;                   // Width of the frame bar connector
 connector_height = 30.0;                  // Height of the frame bar connector
 mount_depth = 25.0;                       // Depth of the connector interfaces
+
+// Motor Mount Dimensions (Should not change)
+motor_mount_height = 44.567;
+motor_mount_width = 33.859;
+motor_mount_length = 42.00;
+
+motor_mount_triangle_length = 14.576;
+motor_mount_triangle_height = 14.577;
+motor_mount_triangle_hypotenuse = 20.614;
+
+motor_mount_countersink_diameter = 7.00;
+motor_mount_countersink_diameter_depth = 24.859; // + 7.83 + 3.915; // 9.198;
+motor_mount_diameter = 3.20;
+motor_mount_position_from_top = 3.90;
+motor_mount_position_from_mount_side = 3.90;
+motor_mount_position_between_bottom_holes = 27.80;
+
+motor_mount_motor_diameter = 24.00;
+motor_mount_motor_depth = 25.224;
+
+motor_mount_central_holes_depth = 8.635;
+
+motor_mount_top_cutout_length = 11.00;
+motor_mount_top_cutout_width = 19.00; // depth is 100%
+motor_mount_top_cutout_distance_from_edge = 8.635;
+motor_mount_top_cutout_distance_from_cube_base = 11.50; //40.233;
 
 // Hole specifications
 hole_top_margin = 3.7 + (2.3);            // Distance from top edge to first hole center
@@ -164,6 +190,109 @@ module top_holes() {
   translate([(connector_width/2.0), top_hole_length_from_edge + (2 * (top_hole_distance_from_other_hole + 4.6)) + 2.30, 0]) {
     cylinder(d=top_hole_diameter, h=hole_depth);
     cylinder(d=top_hole_counter_sink_diameter, h=top_hole_counter_sink_depth); // counter-sink
+  }
+}
+
+module motor_mount_top_hole() {
+  translate([motor_mount_top_cutout_distance_from_edge, motor_mount_top_cutout_distance_from_cube_base, -40.00]) {
+    cube([motor_mount_top_cutout_length, motor_mount_top_cutout_width, 100.00]);
+  }
+}
+
+module motor_mount_side_hole() {
+  rotate([0, 90, 0]) {
+    translate([-(motor_mount_width / 2.0) - (6.646), (motor_mount_height / 2.0) - 1.284, motor_mount_motor_depth - (3.9 + 0.077)]) {
+      cylinder(d=motor_mount_motor_diameter, h=motor_mount_motor_depth, center=true);
+    }
+  }
+}
+
+module motor_mount_mounting_holes() {
+  rotate([0, 90, 0]) {
+    translate([-motor_mount_position_from_top - 4.176, (motor_mount_position_from_mount_side + 1.6), 0]) {
+      cylinder(d=motor_mount_diameter, h=100.00, center=true);
+
+      translate([0, 0, 4.599 + 7.83])
+      cylinder(d=motor_mount_countersink_diameter, h=motor_mount_countersink_diameter_depth, center=true);
+    }
+  }
+
+  rotate([0, 90, 0]) {
+    translate([-motor_mount_position_from_top - 4.176, motor_mount_length - (motor_mount_position_from_mount_side + 1.6), 0]) {
+      cylinder(d=motor_mount_diameter, h=100.00, center=true);
+
+      translate([0, 0, 4.599 + 7.83])
+      cylinder(d=motor_mount_countersink_diameter, h=motor_mount_countersink_diameter_depth, center=true);
+    }
+  }
+
+  rotate([0, 90, 0]) {
+    translate([-(motor_mount_position_from_top + 4.176 + 3.2 + motor_mount_position_between_bottom_holes), (motor_mount_position_from_mount_side + 1.6), 0]) {
+      cylinder(d=motor_mount_diameter, h=100.00, center=true);
+
+      translate([0, 0, 4.599 + 7.83])
+      cylinder(d=motor_mount_countersink_diameter, h=motor_mount_countersink_diameter_depth, center=true);
+    }
+  }
+
+  rotate([0, 90, 0]) {
+    translate([-(motor_mount_position_from_top + 4.176 + 3.2 + motor_mount_position_between_bottom_holes), motor_mount_length - (motor_mount_position_from_mount_side + 1.6), 0]) {
+      cylinder(d=motor_mount_diameter, h=100.00, center=true);
+
+      translate([0, 0, 4.599 + 7.83])
+      cylinder(d=motor_mount_countersink_diameter, h=motor_mount_countersink_diameter_depth, center=true);
+    }
+  }
+}
+
+module motor_mount_holes() {
+  union() {
+    motor_mount_top_hole();
+    motor_mount_side_hole();
+    motor_mount_mounting_holes();
+  }
+}
+
+module motor_mount_triangle() {
+  rotate([90, 0, 90]) {
+    difference(){
+      //creating a cube
+      cube([motor_mount_triangle_height, motor_mount_triangle_length, connector_width]);
+
+      //rotating the cube
+      translate([0, 0, 0]){
+        rotate([0, 0, 45]){
+          cube([30, 30, motor_mount_width]);
+        }
+      }
+    }
+  }
+}
+
+module motor_mount_bottom() {
+  difference() {
+    union() {
+      cube([connector_width, extension_length, connector_height]);
+
+      // Must be in the middle
+      translate([0, (extension_length / 2.0) - (motor_mount_length / 2.0), 0]) {
+        cube([motor_mount_width, motor_mount_length, motor_mount_height]);
+      }
+
+      // Triangle Sides
+      translate([0, (extension_length / 2.0) - (motor_mount_length / 2.0) - motor_mount_triangle_length, connector_height]) {
+        motor_mount_triangle();
+      }
+
+      translate([connector_width, (extension_length / 2.0) + motor_mount_length - 6.423, connector_height]) {
+        rotate([0, 0, 180])
+        motor_mount_triangle();
+      }
+    }
+
+    translate([0, (extension_length / 2.0) - (motor_mount_length / 2.0), 0]) {
+      motor_mount_holes();
+    }
   }
 }
 
