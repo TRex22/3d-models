@@ -1,7 +1,7 @@
 // Frame Bar Original
 include <frame_bar_extended_193mm_female_to_female.scad>;
 
-revision = 1.1;
+revision = 1.2;
 
 extension_length = 193.00 - (2 * 25.00);
 

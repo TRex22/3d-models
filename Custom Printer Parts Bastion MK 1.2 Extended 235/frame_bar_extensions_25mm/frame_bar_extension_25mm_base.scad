@@ -2,7 +2,7 @@
 // This extension piece connects two frame bars with a configurable middle section
 include <../../shared_helper.scad>;
 
-revision = 1.4;
+revision = 1.5;
 
 // TODO: Add in M4 Alternative
 // TODO: Add in NUT Alternatives for M4 and M3
@@ -48,6 +48,14 @@ motor_mount_top_cutout_length = 11.00;
 motor_mount_top_cutout_width = 19.00; // depth is 100%
 motor_mount_top_cutout_distance_from_edge = 8.635;
 motor_mount_top_cutout_distance_from_cube_base = 11.50; //40.233;
+
+// Idler Mount Dimensions (Should not change)
+idler_mount_width = 28.00;
+idler_mount_length = 50.00;
+idler_mount_height = 30.00;
+
+idler_mount_triangle_height = 8.00;
+idler_mount_triangle_length = 8.00;
 
 // Hole specifications
 hole_top_margin = 3.7 + (2.3);            // Distance from top edge to first hole center
@@ -161,7 +169,7 @@ module side_holes() {
     translate([-(connector_height/2.0), side_hole_length_from_edge + 2.30, 0]) {
       cylinder(d=side_hole_diameter, h=hole_depth);
 
-      translate([0, 0, connector_width - side_hole_counter_sink_depth]) // Shift to "back"
+      // translate([0, 0, connector_width - side_hole_counter_sink_depth]) // Shift to "back"
       cylinder(d=side_hole_counter_sink_diameter, h=side_hole_counter_sink_depth); // counter-sink
     }
   }
@@ -170,7 +178,7 @@ module side_holes() {
     translate([-(connector_height/2.0), side_hole_length_from_edge + side_hole_distance_from_other_hole + 2.30 + 4.60, 0]) {
       cylinder(d=side_hole_diameter, h=hole_depth);
 
-      translate([0, 0, connector_width - side_hole_counter_sink_depth]) // Shift to "back"
+      // translate([0, 0, connector_width - side_hole_counter_sink_depth]) // Shift to "back"
       cylinder(d=side_hole_counter_sink_diameter, h=side_hole_counter_sink_depth); // counter-sink
     }
   }
@@ -292,6 +300,46 @@ module motor_mount_bottom() {
 
     translate([0, (extension_length / 2.0) - (motor_mount_length / 2.0), 0]) {
       motor_mount_holes();
+    }
+  }
+}
+
+module idler_mount_triangle() {
+  rotate([0, 0, 90]) {
+    difference(){
+      //creating a cube
+      cube([idler_mount_triangle_height, idler_mount_triangle_length, idler_mount_height]);
+
+      //rotating the cube
+      translate([0, 0, 0]){
+        rotate([0, 0, 45]){
+          cube([100, 100, idler_mount_height]);
+        }
+      }
+    }
+  }
+}
+
+module idler_mount_top() {
+  difference() {
+    union() {
+      cube([connector_width, extension_length, connector_height]);
+
+      // Must be in the middle
+      translate([0, (extension_length / 2.0) - (idler_mount_length / 2.0), 0]) {
+        cube([idler_mount_width, idler_mount_length, idler_mount_height]);
+      }
+
+      // Triangle Sides
+      translate([idler_mount_width, (extension_length / 2.0) - idler_mount_width + 3.00, 0]) {
+        rotate([0, 0, 90])
+        idler_mount_triangle();
+      }
+
+      translate([idler_mount_width - idler_mount_triangle_height, (extension_length / 2.0) + idler_mount_width + (idler_mount_triangle_length / 2.0) + 1.0, 0]) {
+        rotate([0, 0, 180])
+        idler_mount_triangle();
+      }
     }
   }
 }
