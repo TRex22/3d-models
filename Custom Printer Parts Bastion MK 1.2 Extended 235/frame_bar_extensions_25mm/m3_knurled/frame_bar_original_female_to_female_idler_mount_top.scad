@@ -1,10 +1,10 @@
 // Rear top Idler Mount
 include <../frame_bar_extension_25mm_base.scad>;
 
-revision = 1.0;
+revision = 1.1;
 extension_length = 94.00; // Original length
 
-module frame_bar() {
+module mount_bar() {
   union() {
     female_mount();
 
@@ -18,13 +18,4 @@ module frame_bar() {
   }
 }
 
-// Render the frame bar
-difference() {
-  frame_bar();
-
-  // Needs to not go all the way through
-  translate([(motor_mount_central_holes_depth) - hole_depth, 0, 0]) {
-    // side_holes();
-  }
-}
-
+mount_bar();

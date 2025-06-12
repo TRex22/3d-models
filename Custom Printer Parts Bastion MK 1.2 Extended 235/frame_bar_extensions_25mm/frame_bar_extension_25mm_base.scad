@@ -9,6 +9,7 @@ revision = 1.5;
 
 // Adjustable values
 extension_length = 25.0;                  // Length of the extension middle section (adjustable)
+extension_shift = 0.0;
 
 hole_diameter = m3_hole_diameter;         // Using M3 holes from shared_helper
 
@@ -56,6 +57,27 @@ idler_mount_height = 30.00;
 
 idler_mount_triangle_height = 8.00;
 idler_mount_triangle_length = 8.00;
+
+idler_top_side_hole_diamenter = 4.60;
+idler_half_length = 44.00;
+idler_top_side_hole_distance_from_edge = 7.70;
+idler_top_side_hole_distance_from_connector = 19.70 + mount_depth;
+
+idler_top_centre_hole_diameter = 3.50;
+idler_top_centre_hole_countersink_diameter = 6.00;
+idler_top_centre_hole_countersink_depth = 3.00 + 1.50 + 0.75 + (0.375 * 2);
+
+idler_holder_width = 20.00;
+idler_holder_length = 22.999;
+idler_holder_depth = 21.00;
+
+idler_bottom_holder_width = 4.70;
+idler_bottom_holder_length = 2.50;
+idler_bottom_holder_depth = 25.748;
+
+idler_top_holder_width = 11.00;
+idler_top_holder_length = 2.00;
+idler_top_holder_depth = idler_holder_depth;
 
 // Hole specifications
 hole_top_margin = 3.7 + (2.3);            // Distance from top edge to first hole center
@@ -320,6 +342,66 @@ module idler_mount_triangle() {
   }
 }
 
+module idler_central_hole() {
+  idler_top_side_hole_radius = idler_top_side_hole_diamenter / 2.0;
+
+  rotate([0, 0, 0]) {
+    translate([idler_top_side_hole_distance_from_edge + 2.30 + 2.864 + 1.25, idler_top_side_hole_distance_from_connector + idler_top_side_hole_radius, 0]) {
+      cylinder(d=idler_top_centre_hole_diameter, h=100.00, center=true);
+
+      translate([0, 0, idler_mount_height])
+      cylinder(d=idler_top_centre_hole_countersink_diameter, h=idler_top_centre_hole_countersink_depth, center=true);
+    }
+  }
+}
+
+module idler_top_mount() {
+  idler_top_side_hole_radius = idler_top_side_hole_diamenter / 2.0;
+
+  translate([0, extension_shift, 0]) // Shift by extension
+  rotate([0, 0, 0]) {
+    translate([(idler_mount_width / 2.0) - (idler_holder_width / 2.0), (idler_holder_length / 2.0) + idler_holder_length + 1.002, 0]) {
+      cube([idler_holder_width, idler_holder_length, idler_holder_depth]);
+
+      translate([idler_holder_width, (idler_holder_length / 2.0) - (idler_top_holder_width / 2.0), 0]) {
+        cube([idler_top_holder_length, idler_top_holder_width, idler_top_holder_depth]);
+      }
+
+      translate([-idler_bottom_holder_length, (idler_holder_length / 2.0) - (idler_bottom_holder_width / 2.0), 0]) {
+        cube([idler_bottom_holder_length, idler_bottom_holder_width, idler_bottom_holder_depth]);
+      }
+    }
+  }
+}
+
+module idler_mount_holes() {
+  idler_top_side_hole_radius = idler_top_side_hole_diamenter / 2.0;
+
+  rotate([0, 0, 0]) {
+    translate([idler_top_side_hole_distance_from_edge + 2.30, idler_top_side_hole_distance_from_connector - (idler_half_length / 2.0) - 1.00, 0]) {
+      cylinder(d=idler_top_side_hole_diamenter, h=100.00, center=true);
+    }
+
+    translate([idler_top_side_hole_distance_from_edge + 2.30, idler_top_side_hole_distance_from_connector + (idler_half_length / 2.0) + idler_top_side_hole_radius + 3.00, 0]) {
+      cylinder(d=idler_top_side_hole_diamenter, h=100.00, center=true);
+    }
+  }
+}
+
+module idler_side_mount_holes() {
+  idler_top_side_hole_radius = idler_top_side_hole_diamenter / 2.0;
+
+  rotate([0, 90, 0]) {
+    translate([-(idler_mount_height / 2.0), idler_top_side_hole_distance_from_connector - (idler_half_length / 2.0) - 1.00, 0]) {
+      cylinder(d=idler_top_side_hole_diamenter, h=100.00, center=true);
+    }
+
+    translate([-(idler_mount_height / 2.0), idler_top_side_hole_distance_from_connector + (idler_half_length / 2.0) + idler_top_side_hole_radius + 3.00, 0]) {
+      cylinder(d=idler_top_side_hole_diamenter, h=100.00, center=true);
+    }
+  }
+}
+
 module idler_mount_top() {
   difference() {
     union() {
@@ -340,6 +422,13 @@ module idler_mount_top() {
         rotate([0, 0, 180])
         idler_mount_triangle();
       }
+    }
+
+    union() {
+      idler_mount_holes();
+      idler_central_hole();
+      idler_side_mount_holes();
+      idler_top_mount();
     }
   }
 }
