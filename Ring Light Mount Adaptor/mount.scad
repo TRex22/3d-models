@@ -17,7 +17,7 @@ nut_flat_to_flat = 7.82;   // Distance between parallel sides of hexagon
 nut_height = 5.9;          // Height of the nut
 
 // ===== TOLERANCE =====
-tolerance = 0.2;           // Extra clearance for nut (adjust for fit)
+tolerance = 0.1;           // Extra clearance for nut (adjust for fit)
 
 // ===== CALCULATED VALUES =====
 // For a hexagon, the circumradius (corner-to-corner / 2) is flat_to_flat / (2 * cos(30))
