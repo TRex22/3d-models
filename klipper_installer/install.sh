@@ -1,10 +1,11 @@
 #!/bin/bash
-sudo apt update && sudo apt upgrade -y && sudo apt install -y git build-essential
 
 # cmdline.txt
 sudo nano /boot/firmware/cmdline.txt
 # config.txt
 sudo nano /boot/firmware/config.txt
+
+sudo apt update && sudo apt upgrade -y && sudo apt install -y git build-essential
 
 cd ~/ && git clone https://github.com/dw-0/kiauh.git
 cd ~/kiauh && ./kiauh.sh
