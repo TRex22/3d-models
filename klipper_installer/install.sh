@@ -1,15 +1,13 @@
 #!/bin/bash
-sudo apt update
-sudo apt upgrade -y
-sudo apt install -y git build-essential
+sudo apt update && sudo apt upgrade -y && sudo apt install -y git build-essential
 
 # cmdline.txt
+sudo nano /boot/firmware/cmdline.txt
 # config.txt
+sudo nano /boot/firmware/config.txt
 
 cd ~/ && git clone https://github.com/dw-0/kiauh.git
 cd ~/kiauh && ./kiauh.sh
-
-sudo apt clean;sudo apt autoclean;sudo apt autoremove
 
 # Install Pi MCU
 # make menuconfig
@@ -23,3 +21,6 @@ make flash
 sudo service klipper start
 
 sudo usermod -a -G tty pi
+
+# Clean-up
+sudo apt clean;sudo apt autoclean;sudo apt autoremove
